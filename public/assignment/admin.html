@@ -56,14 +56,13 @@
                 <li><a href="home.html">Home</a></li>
                 <li><a href="profile.html">Profile</a></li>
                 <li class="active"><a href="#">Admin<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Forms</a></li>
+                <li><a href="forms.html">Forms</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Admin</h1>
             <h2 class="sub-header">Users</h2>
             <div class="table-responsive">
-                <div class="col-md-11">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -78,13 +77,11 @@
                             </span></a>&nbsp;Role</th>
                         <th>Action</th>
                     </tr>
-                    </thead>
-                    <tbody>
                     <tr>
-                        <td><input type="text" placeholder="Username"/></td>
-                        <td><input type="password" placeholder="Password"/></td>
-                        <td><input type="text" placeholder="Role1,Role2.."/></td>
-                        <td>
+                        <td><label class="sr-only" for="usernameTable">username</label><input type="text" id="usernameTable" placeholder="Username" class="form-control table-input"/></td>
+                        <td><input type="password" placeholder="Password" class="form-control table-input"/></td>
+                        <td><input type="text" placeholder="Role1,Role2.." class="form-control table-input"/></td>
+                        <td class="table-content-nowrap">
                             <a href="#">
                                 <span class="glyphicon glyphicon-plus action-glyphicon"></span>
                             </a>
@@ -94,11 +91,14 @@
                             </a>
                         </td>
                     </tr>
+                    </thead>
+                    <tbody>
+
                     <tr>
                         <td>alice</td>
                         <td></td>
                         <td>student</td>
-                        <td>
+                        <td class="table-content-nowrap">
                             <a href="#">
                             <span class="glyphicon glyphicon-remove action-glyphicon"></span>
                             </a>
@@ -112,7 +112,7 @@
                         <td>bob</td>
                         <td></td>
                         <td>faculty | admin</td>
-                        <td>
+                        <td class="table-content-nowrap">
                             <a href="#">
                             <span class="glyphicon glyphicon-remove action-glyphicon"></span>
                             </a>
@@ -126,7 +126,7 @@
                         <td>charlie</td>
                         <td></td>
                         <td></td>
-                        <td>
+                        <td class="table-content-nowrap">
                             <a href="#">
                             <span class="glyphicon glyphicon-remove action-glyphicon"></span>
                             </a>
@@ -138,8 +138,6 @@
                     </tr>
                     </tbody>
                 </table>
-                </div>
-                <div class="col-md-1"></div>
             </div>
         </div>
     </div>
