@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap core CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="js/myscript.js"></script>
+    <title>JS Experiment</title>
+</head>
+<body>
+    <div class="container main text-center">
+        <div class="row">
+            <div class="col-md-3 col-sm-3 text-left">
+                <label for="message">Message:</label>
+            </div>
+            <div class="col-md-4 col-sm-3">
+                <input type="text" id="message" value="Default" class="form-control"/>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <button onclick="alertMessage()" class="btn btn-default btn-block">Alert Input</button>
+            </div>
+            <div class="col-md-2 col-sm-2">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-3 text-left">
+                <label for="n">N=</label>
+            </div>
+            <div class="col-md-4 col-sm-3">
+                <input type="text" id="n" value="1" class="form-control"/>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <button onclick="fibonacci()" class="btn btn-default btn-block">Nth Fibonacci Number</button>
+            </div>
+            <div class="col-md-2 col-sm-2 text-left">
+                <span id="fibonacciValue"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-3 text-left">
+                <label>List Adding</label>
+            </div>
+            <div class="col-md-4 col-sm-3">
+                <ul id="mylist">
+                    <li id="list-1">This is added by default</li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <button onclick="addLi()" class="btn btn-default btn-block">Add List Item</button>
+            </div>
+            <div class="col-md-2 col-sm-2 text-left">
+                <span id="numberOfListItems"></span>
+            </div>
+        </div>
+
+    </div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>
