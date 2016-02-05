@@ -7,30 +7,40 @@
     <title>Spotify Search Track</title>
 
     <link href="css/dashboard.css"/>
+    <link href="css/spotify_style.css"/>
+
 </head>
 <body>
     <div class="container">
         <h1>Spotify Search Track</h1>
-        <input type="text" id="trackname" class="form-control" placeholder="Song Name">
-        <button id="search" class="btn btn-default btn-block">Search</button>
-        <table id="search_results" class="table-responsive">
-            <thead>
-                <tr>
-                    <th>
-                        Song Name
-                    </th>
-                    <th>
-                        Artist
-                    </th>
-                    <th>
-                        Album
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="col-md-6">
+            <input type="text" id="trackname" class="form-control" placeholder="Song Name">
+            <button id="search" class="btn btn-default btn-block">Search</button>
+            <table id="search_results" class="table-responsive">
+                <thead>
+                    <tr>
+                        <th>
+                            Song Name
+                        </th>
+                        <th>
+                            Artist
+                        </th>
+                        <th>
+                            Album
+                        </th>
+                        <th>
+                            Play
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+        <div id="player" class="col-md-6">
+
+        </div>
     </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
