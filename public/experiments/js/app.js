@@ -38,15 +38,15 @@
             var $tr = $("<tr>");
             var $td = $("<td>");
             $td.append(songname);
-            $td.addClass("col-md-3");
+            //$td.addClass("col-md-3");
             $tr.append($td);
             $td = $("<td>");
             $td.append(artistnames);
-            $td.addClass("col-md-3");
+            //$td.addClass("col-md-3");
             $tr.append($td);
             $td = $("<td>");
             $td.append(album);
-            $td.addClass("col-md-3");
+            //$td.addClass("col-md-3");
             $tr.append($td);
             $td = $("<td>");
             /*var $div = $("<div>")
@@ -63,9 +63,9 @@
             $button.append("Play");
             $button.addClass("btn");
             $button.addClass("btn-block");
-            $button.addClass("btn-default");
+            $button.addClass("btn-success");
             $td.append($button);
-            $td.addClass("col-md-3");
+            //$td.addClass("col-md-3");
             $tr.append($td);
             $tbody.append($tr);
         }
@@ -74,7 +74,6 @@
         $player.empty();
         var playuri = $(this).attr("id");
         var $div = $("<div>")
-        $div.addClass("embed-container");
         var $iframe = $("<iframe>");
         $iframe.attr("src",playuri);
         $iframe.attr("frameborder",0);
