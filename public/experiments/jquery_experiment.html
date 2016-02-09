@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jquery Experiment</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/cupertino/jquery-ui.css"/>
+</head>
+<body>
+    <div>
+        <input type="text" id="date"/>
+    </div>
+    <div>
+        <button id="Pop">Pop-up dialog</button>
+    </div>
+    <div>
+        <div class="container-fluid" id="sort">
+            <div class="form-group row">
+                <div class="col-md-6 col-sm-6 col-xs-9">
+                    <label for="fname" class="control-label"><p class="text-left label-field">First Name:</p>
+                    </label>
+                    <input type="text" class="form-control" id="fname" placeholder="First Name">
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-3 text-center">
+                    <br/>
+                    <a href="#"><span class="glyphicon glyphicon-pencil action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-plus action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-remove action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-align-justify action-glyphicon"></span></a>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6 col-sm-6 col-xs-9">
+                    <label for="lname" class="control-label"><p class="text-left label-field">Last Name:</p></label>
+                    <input type="text" class="form-control" id="lname" placeholder="Last Name">
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-3 text-center">
+                    <br/>
+                    <a href="#"><span class="glyphicon glyphicon-pencil action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-plus action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-remove action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-align-justify action-glyphicon"></span></a>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6 col-sm-6 col-xs-9">
+                    <label for="dob" class="control-label"><p class="text-left label-field">Date of Birth:</p>
+                    </label>
+                    <input type="date" class="form-control" id="dob" placeholder="Date Of Birth">
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-3 text-center">
+                    <br/>
+                    <a href="#"><span class="glyphicon glyphicon-pencil action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-plus action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-remove action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-align-justify action-glyphicon"></span></a>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6 col-sm-6 col-xs-9">
+                    <label for="gender" class="control-label"><p class="text-left label-field">Gender:</p></label>
+                    <select class="form-control" id="gender">
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-3 text-center">
+                    <br/>
+                    <a href="#"><span class="glyphicon glyphicon-pencil action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-plus action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-remove action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-align-justify action-glyphicon"></span></a>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6 col-sm-6 col-xs-9">
+                    <label class="control-label"><p class="text-left label-field">Roles:</p></label>
+                    <br/>
+                    <input type="checkbox" name="licenseAgreement" id="admin" checked="checked">
+                    <label class="control-label" for="admin"><h5 class="label-field">Admin</h5></label><br/>
+                    <input type="checkbox" name="licenseAgreement" id="student">
+                    <label class="control-label" for="student"><h5 class="label-field">Student</h5></label><br/>
+                    <input type="checkbox" name="licenseAgreement" id="user" checked="checked">
+                    <label class="control-label" for="admin"><h5 class="label-field">User</h5></label><br/></div>
+                <div class="col-md-3 col-xs-3 text-center">
+                    <br/>
+                    <a href="#"><span class="glyphicon glyphicon-pencil action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-plus action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-remove action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-align-justify action-glyphicon"></span></a>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6 col-sm-6 col-xs-9">
+                    <label class="control-label"><p class="text-left label-field">License Agreement:</p></label>
+                    <br/>
+                    <input type="radio" name="licenseRadio" id="yes" checked="checked">
+                    <label class="control-label" for="yes"><h5 class="label-field">Yes</h5></label><br/>
+                    <input type="radio" name="licenseRadio" id="no">
+                    <label class="control-label" for="no"><h5 class="label-field">No</h5></label><br/>
+                </div>
+                <div class="col-md-3 col-xs-3 text-center">
+                    <br/>
+                    <a href="#"><span class="glyphicon glyphicon-pencil action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-plus action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-remove action-glyphicon"></span></a>
+                    <a href="#"><span class="glyphicon glyphicon-align-justify action-glyphicon"></span></a>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            <hr/>
+            <div class="form-group row">
+                <div class="col-md-6 col-xs-9">
+                    <label for="fname" class="control-label"><p class="text-left label-field">Add New Field:</p>
+                    </label>
+                    <select class="form-control" type="text" name="addfield">
+                        <option value="SLT">Single Line Text</option>
+                        <option value="DATE">Date</option>
+                        <option value="DROPDOWN">Dropdown</option>
+                        <option value="CHECKBOXES">Checkboxes</option>
+                        <option value="RADIOBUTTONS">Radio Buttons</option>
+                        <option value="PARAGRAPHFIELD">Paragraph Text Field</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-xs-3 text-center">
+                    <br/>
+                    <a href="#" class="action-glyphicon">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </div>
+    <div id="popupdialog" title="Main Dialog">
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="js/jqueryexp.js"></script>
+</body>
+</html>
