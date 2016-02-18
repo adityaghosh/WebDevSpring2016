@@ -2,10 +2,12 @@
 <html lang="en" ng-app="MovieDBApp">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Angular Experiment</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
     <script src="js/app.js"></script>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -19,6 +21,9 @@
                     <th>
                         Title
                     </th>
+                    <th>
+                        Action
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +34,7 @@
                     <td>
                         <input type="text" ng-model="movie.title" class="form-control"/>
                     </td>
-                    <td>
+                    <td class="nowrap">
                         <button  class="btn btn-success" ng-click="addMovie(movie)">Add</button>
                         <button  class="btn btn-default" ng-click="updateMovie(movie)">Update</button>
                     </td>
@@ -41,7 +46,7 @@
                     <td>
                         {{m.title}}
                     </td>
-                    <td>
+                    <td class="nowrap">
                         <button class="btn btn-danger" ng-click="removeMovie(m)">Remove</button>
                         <button class="btn btn-info" ng-click="selectMovie(m)">Select</button>
                     </td>
