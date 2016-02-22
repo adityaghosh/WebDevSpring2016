@@ -10,11 +10,16 @@
             .when("/home",
                 {templateUrl:"views/home/home.view.html"})
             .when("/register",
-                {templateUrl:"views/users/register.view.html"})
+                {templateUrl:"views/users/register.view.html",
+                controller:"RegisterController"})
             .when("/login",
                 {templateUrl:"views/users/login.view.html"})
             .when("/profile",
-                {templateUrl:"views/users/profile.view.html"})
+                {templateUrl:"views/users/profile.view.html",
+                controller: "ProfileController"})
+            .when("/profile/:userid",
+                {templateUrl:"views/users/profile.view.html",
+                controller: "ProfileController"})
             .when("/admin",
                 {templateUrl:"views/admin/admin.view.html"})
             .when("/forms",
