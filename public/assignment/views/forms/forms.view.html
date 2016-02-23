@@ -1,5 +1,5 @@
 
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="FormController">
             <h1 class="page-header">Forms</h1>
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#/forms">Forms</a></li>
@@ -13,52 +13,28 @@
                         <th>Action</th>
                     </tr>
                     <tr>
-                        <td><input class="form-control table-input" type="text" name="formName" placeholder="Form Name">
+                        <td><input ng-model="formName" class="form-control table-input" type="text" name="formName" placeholder="Form Name">
                         </td>
                         <td class="table-content-nowrap">
-                            <a href="#">
+                            <a ng-click="addForm()">
                                 <span class="glyphicon glyphicon-plus action-glyphicon"></span>
                             </a>
                             &nbsp;
-                            <a href="#">
+                            <a ng-click="updateForm()">
                                 <span class="glyphicon glyphicon-ok action-glyphicon"></span>
                             </a>
                         </td>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Registration Form</td>
+                    <tr ng-repeat="form in forms">
+                        <td>{{form.title}}</td>
                         <td class="table-content-nowrap">
-                            <a href="#">
+                            <a ng-click="deleteForm($index)">
                                 <span class="glyphicon glyphicon-remove action-glyphicon"></span>
                             </a>
                             &nbsp;
-                            <a href="#">
-                                <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Contact List</td>
-                        <td class="table-content-nowrap">
-                            <a href="#">
-                                <span class="glyphicon glyphicon-remove action-glyphicon"></span>
-                            </a>
-                            &nbsp;
-                            <a href="#">
-                                <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>To Do List</td>
-                        <td class="table-content-nowrap">
-                            <a href="#">
-                                <span class="glyphicon glyphicon-remove action-glyphicon"></span>
-                            </a>
-                            &nbsp;
-                            <a href="#">
+                            <a ng-click="selectForm($index)">
                                 <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
                             </a>
                         </td>

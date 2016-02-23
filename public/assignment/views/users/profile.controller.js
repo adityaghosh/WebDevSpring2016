@@ -9,7 +9,6 @@
 
         function update(user) {
             UserService.updateUser($routeParams.userid, user, function(response) {
-                console.log($rootScope.user);
             });
         }
     }

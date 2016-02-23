@@ -33,7 +33,7 @@
             var found = null;
             for (var i=0; i < users.length; i++) {
                 if (users[i].username == username && users[i].password == password) {
-                    found = "user found";
+                    found = users[i];
                     break;
                 }
             }
@@ -60,12 +60,14 @@
             for (var i=0; i < users.length; i++) {
                 if (users[i].username == userId) {
                     users.splice(i,1);
+                    break;
                 }
             }
             callback(users);
         }
 
         function updateUser(userId, user, callback) {
+            var updatedUser = null;
             for (var i=0; i < users.length; i++) {
                 if (users[i].username == userId) {
                     users[i].password = user.password;
@@ -73,9 +75,11 @@
                     users[i].lastname = user.lastName;
                     users[i].roles = user.roles;
                     users[i].email = user.email;
+                    updatedUser = user[i];
+                    break;
                 }
             }
-            callback(users);
+            callback(updatedUser);
         }
     }
 })();
