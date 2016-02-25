@@ -3,7 +3,7 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService () {
+    function UserService() {
         var users =
             [
                 {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",

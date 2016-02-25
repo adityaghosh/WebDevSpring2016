@@ -3,10 +3,8 @@
         .module("FormBuilderApp")
         .controller("MainController",mainController);
 
-    function mainController ($scope, $location) {
+    function mainController($scope, $location) {
         // Adding location to the scope.
         $scope.$location = $location;
-
-        console.log($scope.$location);
     }
 })();

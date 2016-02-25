@@ -19,7 +19,7 @@
 
         return api;
 
-        function createFormForUser(userId, form, callback){
+        function createFormForUser(userId, form, callback) {
             var newForm = {
                 "_id": (new Date).getTime(),
                 "title": form.title,
@@ -29,18 +29,17 @@
             callback(newForm);
         }
 
-        function findAllFormsForUser(userId, callback){
+        function findAllFormsForUser(userId, callback) {
             var userForms = [];
             for (var i = 0; i<forms.length ; i++) {
                 if (forms[i].userId == userId){
                     userForms.push(forms[i]);
                 }
             }
-            console.log(userForms);
             callback(userForms);
         }
 
-        function deleteFormById(formId, callback){
+        function deleteFormById(formId, callback) {
             for (var i=0; i<forms.length; i++){
                 if(forms[i]._id == formId){
                     forms.splice(i,1);

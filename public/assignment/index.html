@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="img/favicon.ico">
@@ -18,9 +17,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-route.min.js"></script>
 
-    <!-- Angular Scripts-->
+    <!-- Application Scripts-->
     <script src="app.js"></script>
     <script src="config.js"></script>
+
+    <!-- Controller Scripts-->
     <script src="views/main/main.controller.js"></script>
     <script src="views/header/header.controller.js"></script>
     <script src="views/sidebar/sidebar.controller.js"></script>
@@ -29,7 +30,7 @@
     <script src="views/users/login.controller.js"></script>
     <script src="views/forms/forms.controller.js"></script>
 
-    <!-- Angular Services-->
+    <!-- Services-->
     <script src="services/user.service.client.js"></script>
     <script src="services/forms.service.client.js"></script>
 
@@ -51,10 +52,8 @@
 <div class="container-fluid">
     <div class="row">
         <div  ng-include="'views/sidebar/sidebar.view.html'">
-            <!-- class="col-sm-3 col-md-2 sidebar"-->
         </div>
         <div ng-view>
-            <!--class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"-->
         </div>
     </div>
 </div>

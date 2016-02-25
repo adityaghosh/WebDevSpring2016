@@ -1,45 +1,44 @@
-
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="FormController">
-            <h1 class="page-header">Forms</h1>
-            <ul class="nav nav-tabs">
-                <li class="active"><a href="#/forms">Forms</a></li>
-                <li><a href="#/fields">Fields</a></li>
-            </ul>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Form Name</th>
-                        <th>Action</th>
-                    </tr>
-                    <tr>
-                        <td><input ng-model="formName" class="form-control table-input" type="text" name="formName" placeholder="Form Name">
-                        </td>
-                        <td class="table-content-nowrap">
-                            <a ng-click="addForm()">
-                                <span class="glyphicon glyphicon-plus action-glyphicon"></span>
-                            </a>
-                            &nbsp;
-                            <a ng-click="updateForm()">
-                                <span class="glyphicon glyphicon-ok action-glyphicon"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="form in forms">
-                        <td>{{form.title}}</td>
-                        <td class="table-content-nowrap">
-                            <a ng-click="deleteForm($index)">
-                                <span class="glyphicon glyphicon-remove action-glyphicon"></span>
-                            </a>
-                            &nbsp;
-                            <a ng-click="selectForm($index)">
-                                <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="FormController">
+    <h1 class="page-header">Forms</h1>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#/forms">Forms</a></li>
+        <li><a href="#/fields">Fields</a></li>
+    </ul>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Form Name</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td><input ng-model="formName" class="form-control table-input" type="text" name="formName" placeholder="Form Name">
+                </td>
+                <td class="table-content-nowrap">
+                    <a ng-click="addForm()">
+                        <span class="glyphicon glyphicon-plus action-glyphicon"></span>
+                    </a>
+                    &nbsp;
+                    <a ng-click="updateForm()">
+                        <span class="glyphicon glyphicon-ok action-glyphicon"></span>
+                    </a>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="form in forms">
+                <td>{{form.title}}</td>
+                <td class="table-content-nowrap">
+                    <a ng-click="deleteForm($index)">
+                        <span class="glyphicon glyphicon-remove action-glyphicon"></span>
+                    </a>
+                    &nbsp;
+                    <a ng-click="selectForm($index)">
+                        <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
