@@ -21,6 +21,7 @@
 
         var api = {
             findUserByCredentials: findUserByCredentials,
+            findUserByUserName: findUserByUserName,
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
@@ -33,6 +34,17 @@
             var found = null;
             for (var i=0; i < users.length; i++) {
                 if (users[i].username == username && users[i].password == password) {
+                    found = users[i];
+                    break;
+                }
+            }
+            callback(found);
+        }
+
+        function findUserByUserName(username, callback) {
+            var found = null;
+            for (var i=0; i < users.length; i++) {
+                if (users[i].username == username) {
                     found = users[i];
                     break;
                 }
@@ -73,9 +85,8 @@
                     users[i].password = user.password;
                     users[i].firstname = user.firstName;
                     users[i].lastname = user.lastName;
-                    users[i].roles = user.roles;
                     users[i].email = user.email;
-                    updatedUser = user[i];
+                    updatedUser = users[i];
                     break;
                 }
             }
