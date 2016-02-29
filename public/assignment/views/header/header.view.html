@@ -14,6 +14,8 @@
             <li ng-if="!(loggedIn)" ng-class="{'active':$location.url()== '/register'}"><a href="#/register">Register</a></li>
             <li ng-if="!(loggedIn)" ng-class="{'active':$location.url()== '/login'}"><a href="#/login">Login</a></li>
             <li ng-if="loggedIn" ng-class="{'active':$location.url()== '/profile/{{user.username}}'}"><a href="#/profile/{{user.username}}">{{user.username}}</a></li>
+            <li ng-if="loggedIn && user.roles.indexOf('admin')>=0" class="visible-xs" ng-class="{'active':$location.url()== '/admin'}"><a href="#/admin">Admin</a></li>
+            <li ng-if="loggedIn" class="visible-xs" ng-class="{'active':$location.url()== '/forms'}"><a href="#/forms">Forms</a></li>
             <li ng-if="loggedIn"><a href="#" ng-click="logout()">Logout</a></li>
         </ul>
     </div>

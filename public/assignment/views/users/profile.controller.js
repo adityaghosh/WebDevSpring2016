@@ -16,6 +16,7 @@
         if($scope.user) {
             $location.url('/profile/'+$scope.user.username);
         }
+
         function update(user) {
             UserService.updateUser($routeParams.userid, user, function(response) {
                 $rootScope.user = response;
