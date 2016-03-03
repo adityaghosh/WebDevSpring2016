@@ -1,4 +1,24 @@
 .myrow{
     margin: 10px;
-    padding-top: 20px;
+    padding-top: 10px;
 }
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+.footer {
+    padding-top: 10px;
+    background-color: black;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px; !important;
+}
+

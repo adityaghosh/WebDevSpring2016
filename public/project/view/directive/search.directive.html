@@ -1,0 +1,13 @@
+<div class="container" ng-controller="SearchDirectiveController">
+    <div class="row myrow">
+        <div class="form-group">
+            <label class="control-label sr-only">Search</label>
+            <div class="input-group">
+                <input type="search" class="form-control" placeholder="Search for a Playlist.." ng-model="playlistName">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" id="search-button" ng-click="searchClick(playlistName)">Search</button>
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>
