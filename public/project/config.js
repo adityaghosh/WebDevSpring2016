@@ -10,11 +10,17 @@
             .when("/home",
                 {templateUrl:"view/home/home.view.html"})
             .when("/login",
-                {templateUrl:"view/user/login.view.html"})
+                {templateUrl:"view/user/login.view.html",
+                controller: "LoginController"})
             .when("/search",
-                {templateUrl:"view/search/search.view.html"})
-            .when("/search/:playlistname",
-                {templateUrl:"view/search/search.view.html"})
+                {templateUrl:"view/search/search.view.html",
+                controller: "SearchController"})
+            .when("/search/:playlistName",
+                {templateUrl:"view/search/search.view.html",
+                controller: "SearchController"})
+            .when("/profile/:username",
+                {templateUrl:"view/user/profile.view.html",
+                controller:"ProfileController"})
             .otherwise({
                 redirectTo: "view/home/home.view.html"
             });

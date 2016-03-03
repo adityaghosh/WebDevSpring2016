@@ -9,14 +9,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-route.min.js"></script>
 
-    <!-- Application Scripts-->
+    <!-- Application Scripts -->
     <script src="app.js"></script>
     <script src="config.js"></script>
 
-
+    <!-- Application Controllers -->
     <script src="view/main/main.controller.js"></script>
+    <script src="view/header/header.controller.js"></script>
     <script src="view/directive/searchcontrol.directive.js"></script>
+    <script src="view/user/login.controller.js"></script>
+    <script src="view/user/profile.controller.js"></script>
+    <script src="view/search/search.controller.js"></script>
 
+    <!-- Client Services -->
+    <script src="services/user.service.client.js"></script>
+    <script src="services/playlist.service.client.js"></script>
 
     <!-- Theme related stylesheets and scripts -->
     <link href="https://bootswatch.com/assets/css/custom.min.css" rel="stylesheet">
@@ -31,7 +38,7 @@
 
     <nav class="navbar navbar-inverse navbar-fixed-top" ng-include="'view/header/header.view.html'">
     </nav>
-
+    <div class="myrow"></div>
     <div ng-view>
     </div>
 

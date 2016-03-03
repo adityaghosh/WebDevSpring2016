@@ -4,8 +4,12 @@
         .controller("SearchDirectiveController",SearchDirectiveController)
         .directive("searchControl", SearchControl);
 
-    function SearchDirectiveController ($scope, $location) {
+    function SearchDirectiveController ($scope, $routeParams, $location) {
         $scope.searchClick = searchClick;
+
+        if ($routeParams.playlistName) {
+            $scope.playlistName = $routeParams.playlistName;
+        }
 
         function searchClick(playlistName) {
             if (playlistName) {
@@ -13,7 +17,6 @@
                 $location.url(path);
             }
         }
-
     }
 
     function SearchControl(){

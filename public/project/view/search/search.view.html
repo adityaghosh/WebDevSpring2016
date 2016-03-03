@@ -1,15 +1,27 @@
 <div class="container">
     <search-control></search-control>
+    <div class="col-md-12" ng-controller="SearchController">
+    <ul class="pager">
+        <li class="previous disabled"><a href="#">&larr; Prev</a></li>
+        <li class="next"><a href="#">Next &rarr;</a></li>
+    </ul>
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>
+                        Playlist Name
+                    </th>
+                    <th>
+                        Created By
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
 
-    <!--<div class="row myrow">
-        <div class="form-group">
-            <label class="control-label sr-only">Search</label>
-            <div class="input-group">
-                <input type="search" class="form-control" placeholder="Search for a Playlist..">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Search</button>
-                    </span>
-            </div>
-        </div>
-    </div>-->
+            </tbody>
+        </table>
+    </div>
 </div>

@@ -1,19 +1,17 @@
-<div class="container">
+<div class="container" ng-controller="LoginController">
 <form class="form-horizontal">
     <fieldset>
-        <div class="row myrow">
-        </div>
-        <h5>Login</h5>
+        <legend>Login</legend>
         <div class="form-group">
-            <label for="inputEmail" class="col-lg-2 control-label">Username</label>
+            <label for="inputUsername" class="col-lg-2 control-label">Username</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputEmail" placeholder="Username">
+                <input type="text" class="form-control" id="inputUsername" placeholder="Username" ng-model="user.username">
             </div>
         </div>
         <div class="form-group">
             <label for="inputPassword" class="col-lg-2 control-label">Password</label>
             <div class="col-lg-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="user.password">
                 <div class="checkbox">
                     <label>
                         <input type="checkbox"> Remember Me
@@ -24,7 +22,7 @@
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
                 <button type="reset" class="btn btn-success">Login with&nbsp;<i class="fa fa-spotify"></i> </button>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary" ng-click="login(user)">Login</button>
             </div>
         </div>
     </fieldset>
