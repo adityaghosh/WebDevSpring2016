@@ -1,0 +1,42 @@
+<div class="container" ng-controller="PlaylistController">
+    <div class="col-md-12">
+        <ul class="pager">
+            <li class="previous disabled"><a href="#">&larr; Prev</a></li>
+            <li class="next"><a href="#">Next &rarr;</a></li>
+        </ul>
+        <table class="table table-responsive table-striped">
+            <thead>
+            <tr>
+                <th>
+                    Playlist Name
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tr>
+                <td class="valign">
+                    <input type="text" class="form-control" ng-model="playlistName" placeholder="Playlist Name">
+                </td>
+                <td class="nowrap">
+                    <button class="fa fa-2x fa-plus-square btn btn-success" ng-click="addPlaylist(playlistName)"></button>
+                    &nbsp;
+                    <button class="fa fa-2x fa-check-square btn btn-success" ng-click="updatePlaylist()"></button>
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="playlist in playlists">
+                    <td class="valign">
+                        {{playlist.playlistName}}
+                    </td>
+                    <td class="nowrap">
+                        <button class="fa fa-2x fa-trash-o btn btn-success" ng-click="deletePlaylist($index)"></button>
+                        &nbsp;
+                        <button class="fa fa-2x fa-pencil-square-o btn btn-success" ng-click="selectPlaylist($index)"></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

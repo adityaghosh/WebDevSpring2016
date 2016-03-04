@@ -5,7 +5,7 @@
         <li class="previous disabled"><a href="#">&larr; Prev</a></li>
         <li class="next"><a href="#">Next &rarr;</a></li>
     </ul>
-        <table class="table table-responsive">
+        <table class="table table-responsive table-striped">
             <thead>
                 <tr>
                     <th>
@@ -20,7 +20,16 @@
                 </tr>
             </thead>
             <tbody>
-
+                <!--<tr ng-repeat="playlist in playlists.items">
+                    <td>{{playlist.name}}</td>
+                    <td><a href="{{playlist.owner.external_urls.spotify}}" target="_blank"> {{playlist.owner.id}}</a></td>
+                    <td><button class="fa fa-play-circle btn btn-success"></button></td>
+                </tr>-->
+                <tr ng-repeat="playlist in playlists">
+                    <td class="valign">{{playlist.playlistName}}</td>
+                    <td class="valign">{{playlist.createdBy}}</td>
+                    <td><button class="fa fa-2x fa-play-circle btn btn-success"></button></td>
+                </tr>
             </tbody>
         </table>
     </div>

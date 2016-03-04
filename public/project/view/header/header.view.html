@@ -12,8 +12,8 @@
         <ul class="nav navbar-nav">
             <li ng-if="!(loggedIn)" ng-class="{'active':$location.url()== '/'}"><a href="#">Home</a></li>
             <li ng-if="!(loggedIn)" ng-class="{'active':$location.url()== '/login'}"><a href="#/login">Login/Register</a></li>
-            <li ng-if="loggedIn" ng-class="{'active':$location.url().indexOf('/profile') > 0}"><a href="#/profile/{{user.username}}">Profile</a></li>
-            <li ng-if="loggedIn" ng-class="{'active':$location.url().indexOf('/playlist') > 0}"><a href="#/playlist/{{user.username}}">My Playlists</a></li>
+            <li ng-if="loggedIn" ng-class="{'active':$location.url().indexOf('/profile') >= 0}"><a href="#/profile/{{user.username}}">Profile</a></li>
+            <li ng-if="loggedIn" ng-class="{'active':$location.url().indexOf('/playlist') >= 0}"><a href="#/playlist/{{user.username}}">My Playlists</a></li>
             <li ng-if="loggedIn"><a ng-click="logout()">Logout</a></li>
         </ul>
     </div>

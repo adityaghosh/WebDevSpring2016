@@ -12,6 +12,9 @@
             .when("/login",
                 {templateUrl:"view/user/login.view.html",
                 controller: "LoginController"})
+            .when("/playlist/:username",
+                {templateUrl:"view/playlist/myplaylist.view.html",
+                controller: "PlaylistController"})
             .when("/search",
                 {templateUrl:"view/search/search.view.html",
                 controller: "SearchController"})
@@ -22,7 +25,7 @@
                 {templateUrl:"view/user/profile.view.html",
                 controller:"ProfileController"})
             .otherwise({
-                redirectTo: "view/home/home.view.html"
+                redirectTo: "/"
             });
     }
 })();
