@@ -27,3 +27,6 @@ body {
 .nowrap {
     white-space: nowrap;
 }
+.artists {
+    display: inline;
+}

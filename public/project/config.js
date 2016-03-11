@@ -21,6 +21,9 @@
             .when("/search/:playlistName",
                 {templateUrl:"view/search/search.view.html",
                 controller: "SearchController"})
+            .when("/editplaylist/:playlistName",
+                {templateUrl:"view/playlist/editplaylist.view.html",
+                    controller: "EditPlaylistController"})
             .when("/profile/:username",
                 {templateUrl:"view/user/profile.view.html",
                 controller:"ProfileController"})

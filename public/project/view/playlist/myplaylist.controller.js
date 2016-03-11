@@ -3,11 +3,12 @@
         .module("MusicSocial")
         .controller("PlaylistController", PlaylistController);
 
-    function PlaylistController($scope, $rootScope, PlaylistService) {
+    function PlaylistController($scope, $rootScope, $location, PlaylistService) {
         $scope.addPlaylist = addPlaylist;
         $scope.updatePlaylist = updatePlaylist;
         $scope.deletePlaylist = deletePlaylist;
         $scope.selectPlaylist = selectPlaylist;
+        $scope.editPlaylist = editPlaylist;
 
         var selectedPlaylist = null;
 
@@ -44,5 +45,9 @@
             selectedPlaylist = $scope.playlists[index];
         }
 
+        function editPlaylist(playlist) {
+            $rootScope.currentPlaylist = playlist;
+            $location.url("/editplaylist/"+playlist.playlistName);
+        }
     }
 })();
