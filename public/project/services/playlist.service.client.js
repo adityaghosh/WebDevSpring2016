@@ -88,7 +88,8 @@
             var newPlaylist = {
                 "id":(new Date).getTime(),
                 "playlistName": playlist.playlistName,
-                "createdBy": userid
+                "createdBy": userid,
+                "songs":[]
             };
             playlists.push(newPlaylist);
             callback(newPlaylist);

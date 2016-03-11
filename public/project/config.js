@@ -12,6 +12,9 @@
             .when("/login",
                 {templateUrl:"view/user/login.view.html",
                 controller: "LoginController"})
+            .when("/register",
+                {templateUrl:"view/user/register.view.html",
+                    controller: "RegisterController"})
             .when("/playlist/:username",
                 {templateUrl:"view/playlist/myplaylist.view.html",
                 controller: "PlaylistController"})
