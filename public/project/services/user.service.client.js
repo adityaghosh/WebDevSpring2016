@@ -70,7 +70,7 @@
 
         function deleteUserById(userId, callback) {
             for (var i=0; i < users.length; i++) {
-                if (users[i].username == userId) {
+                if (users[i]._id == userId) {
                     users.splice(i,1);
                     break;
                 }
@@ -80,18 +80,19 @@
 
         function updateUser(userId, user, callback) {
             var updatedUser = null;
-            console.log(user);
             for (var i=0; i < users.length; i++) {
                 if (users[i].username == userId) {
                     users[i].password = user.password;
                     users[i].firstName = user.firstName;
                     users[i].lastName = user.lastName;
                     users[i].email = user.email;
+                    if (user.roles){
+                        users[i].roles = user.roles;
+                    }
                     updatedUser = users[i];
                     break;
                 }
             }
-            console.log(updatedUser);
             callback(updatedUser);
         }
     }

@@ -30,16 +30,12 @@
 
         function findPlaylistByName(playlistName, callback){
             var result = [];
-            playlistName = playlistName.toUpperCase();
+            var regex = new RegExp(playlistName,"i");
             for (var i=0 ; i < playlists.length; i++) {
-                var words = playlistName.split(" ");
-                for (var j=0; j<words.length; j++){
-                    //console.log(words[j]);
-                    if (playlists[i].playlistName.toUpperCase().indexOf(words[j]) > 0) {
-                        result.push(playlists[i]);
-                    }
+                var match = playlists[i].playlistName.search(regex);
+                if (match >= 0){
+                    result.push(playlists[i]);
                 }
-
             }
             callback(result);
             //var searchQuery = $searchuri.replace("PLAYLISTNAME", playlistName.replace(' ','%20'));

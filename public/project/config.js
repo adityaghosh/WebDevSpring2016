@@ -15,6 +15,9 @@
             .when("/register",
                 {templateUrl:"view/user/register.view.html",
                     controller: "RegisterController"})
+            .when("/admin",
+                {templateUrl:"view/admin/admin.view.html",
+                    controller:"AdminController"})
             .when("/playlist/:username",
                 {templateUrl:"view/playlist/myplaylist.view.html",
                 controller: "PlaylistController"})
