@@ -9,7 +9,8 @@
 
         function login(user) {
             if(user) {
-                UserService.findUserByCredentials(user.username, user.password, function(response) {
+                /*UserService
+                    .findUserByCredentials(user.username, user.password, function(response) {
                     if (response != null) {
                         $rootScope.loggedIn = true;
                         $rootScope.user = response;
@@ -18,7 +19,18 @@
                     else {
                         $scope.wrongpassword = true;
                     }
-                });
+                });*/
+                UserService
+                    .findUserByCredentials(user.username, user.password)
+                    .then(function (response) {
+                        if (response.data) {
+                            UserService.setCurrentUser(response);
+                            $location.path("profile/"+user.username);
+                        }
+                        else {
+                            $scope.wrongpassword = true;
+                        }
+                    });
             }
         }
     }
