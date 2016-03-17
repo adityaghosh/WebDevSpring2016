@@ -38,7 +38,7 @@ module.exports = function (){
     }
 
     function findUserById(id){
-        for (u in users) {
+        for (var u in users) {
             if(users[u]._id == id) {
                 return users[u]
             }
