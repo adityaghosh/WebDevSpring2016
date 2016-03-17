@@ -14,8 +14,8 @@ module.exports = function (app, model) {
             };
             res.json( model.findUserByCredentials(credentials));
         }
-        else if (req.username) {
-            res.json(model.findUserByUserName(req.username));
+        else if (req.query.username) {
+            res.json(model.findUserByUserName(req.query.username));
         }
         else {
             res.json(model.findAllUsers());
@@ -72,7 +72,7 @@ module.exports = function (app, model) {
     }
     function deleteUserById (req, res) {
         var id = req.params.id;
-        var deleted =model.deleteUserById(id);
+        var deleted = model.deleteUserById(id);
         if (deleted) {
             res.send(200);
         }
@@ -84,6 +84,7 @@ module.exports = function (app, model) {
     function updateUser (req, res) {
         var id = req.params.id;
         var user = req.body;
+        console.log(user);
         user = model.updateUser(id,user);
         if (user) {
             res.json(user);

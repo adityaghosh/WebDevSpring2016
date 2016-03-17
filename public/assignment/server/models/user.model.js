@@ -1,5 +1,6 @@
 
 var users = require("./user.mock.json");
+var uuid = require('node-uuid');
 module.exports = function (){
 
     var api = {
@@ -13,6 +14,7 @@ module.exports = function (){
     };
 
     return api;
+
 
     function findUserByCredentials(credentials) {
         console.log(users);
@@ -52,7 +54,7 @@ module.exports = function (){
 
     function createUser(user) {
         var newUser = {
-            "_id":(new Date).getTime(),
+            "_id":uuid.v1(),
             "firstName": user.firstName,
             "lastName": user.lastName,
             "username":user.username,
@@ -66,7 +68,7 @@ module.exports = function (){
 
     function deleteUserById(userId) {
         for (var i=0; i < users.length; i++) {
-            if (users[i].username == userId) {
+            if (users[i]._id == userId) {
                 users.splice(i,1);
                 return true;
             }
@@ -77,7 +79,7 @@ module.exports = function (){
     function updateUser(userId, user) {
         var updatedUser = null;
         for (var i=0; i < users.length; i++) {
-            if (users[i].username == userId) {
+            if (users[i]._id == userId) {
                 users[i].password = user.password;
                 users[i].firstName = user.firstName;
                 users[i].lastName = user.lastName;
