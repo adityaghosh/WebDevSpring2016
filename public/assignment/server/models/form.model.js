@@ -6,10 +6,13 @@ module.exports = function (app) {
         findFormById: findFormById,
         deleteFormById: deleteFormById,
         updateFormById: updateFormById,
-        createFormForUser: createFormForUser
-        /*findAllFormsForUser: findAllFormsForUser,
-        deleteFormById: deleteFormById,
-        updateFormById: updateFormById*/
+        createFormForUser: createFormForUser,
+        // For Fields
+        getFieldsForForm: getFieldsForForm,
+        getFieldByIdForForm: getFieldByIdForForm,
+        deleteFieldByIdForForm: deleteFieldByIdForForm,
+        createNewFieldForForm: createNewFieldForForm,
+        updateFieldForForm: updateFieldForForm
     };
 
     return api;
@@ -67,5 +70,84 @@ module.exports = function (app) {
             }
         }
         return updatedForm;
+    }
+
+    //Field Functions
+    function getFieldsForForm (formId) {
+        var form = findFormById(formId);
+        if (form) {
+            return form.fields;
+        }
+        else {
+            return null;
+        }
+    }
+
+    function getFieldByIdForForm (formId, fieldId) {
+        var form = findFormById(formId);
+        if (form) {
+            for (var f in form.fields) {
+                if (form.fields[f]._id == fieldId) {
+                    return form.fields[f];
+                }
+            }
+            return null;
+        }
+        else {
+            return null;
+        }
+    }
+
+    function deleteFieldByIdForForm (formId, fieldId) {
+        var form = findFormById(formId);
+        if (form) {
+            for (var f in form.fields) {
+                if (form.fields[f]._id == fieldId) {
+                    form.fields.splice(f,1);
+                    return true;
+                }
+            }
+            return false;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function createNewFieldForForm (formId, field) {
+        var form = findFormById(formId);
+        if (form) {
+            var newField = {
+                "_id": uuid.v1(),
+                "title": field.title,
+                "label": field.label,
+                "type": field.type,
+                "placeholder": field.placeholder
+            };
+            form.fields.push(newField);
+            return newField;
+        }
+        else {
+            return null;
+        }
+    }
+
+    function updateFieldForForm (formId, fieldId, newForm) {
+        var form = findFormById(formId);
+        if (form) {
+            for (var f in form.fields) {
+                if (form.fields[f]._id == fieldId) {
+                    form.fields[f].title = newForm.title;
+                    form.fields[f].placeholder = newForm.placeholder;
+                    form.fields[f].type = newForm.type;
+                    form.fields[f].label = newForm.label;
+                    return form.fields[f];
+                }
+            }
+            return null;
+        }
+        else {
+            return null;
+        }
     }
 };
