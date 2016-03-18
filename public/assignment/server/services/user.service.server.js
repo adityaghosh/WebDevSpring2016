@@ -1,10 +1,10 @@
 module.exports = function (app, model) {
 
     app.get('/api/assignment/user/:id', findUserById);
-    app.get('/api/assignment/user',findUser);
+    app.get('/api/assignment/user', findUser);
     app.post('/api/assignment/user', createUser);
     app.put('/api/assignment/user/:id', updateUser);
-    app.delete('/api/assignment/user/:id',deleteUserById);
+    app.delete('/api/assignment/user/:id', deleteUserById);
 
     function findUser (req, res) {
         if (req.query.username && req.query.password) {
@@ -67,7 +67,8 @@ module.exports = function (app, model) {
 
     function createUser (req, res) {
         var user = req.body;
-        model.createUser(user);
+        var newUser = model.createUser(user);
+        res.json(newUser);
         res.send(200);
     }
     function deleteUserById (req, res) {
@@ -84,7 +85,6 @@ module.exports = function (app, model) {
     function updateUser (req, res) {
         var id = req.params.id;
         var user = req.body;
-        console.log(user);
         user = model.updateUser(id,user);
         if (user) {
             res.json(user);

@@ -38,7 +38,11 @@ module.exports = function (app, formModel) {
         var form = req.body;
         var newForm = formModel.createFormForUser(userid, form);
         if (newForm) {
+            res.json(newForm);
             res.send(200);
+        }
+        else {
+            res.json({message:"Cannot create"});
         }
     }
 

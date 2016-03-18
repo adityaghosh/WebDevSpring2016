@@ -3,7 +3,7 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController);
 
-    function LoginController ($rootScope, $scope, $location, UserService) {
+    function LoginController ($scope, $location, UserService) {
         $scope.wrongpassword = false;
         $scope.login = login;
 
@@ -22,14 +22,15 @@
                 });*/
                 UserService
                     .findUserByCredentials(user.username, user.password)
-                    .then(function (response) {
-                        if (response.data) {
-                            UserService.setCurrentUser(response);
-                            $location.path("profile/"+user.username);
-                        }
-                        else {
-                            $scope.wrongpassword = true;
-                        }
+                    .then(
+                        function (response) {
+                            if (response.data) {
+                                UserService.setCurrentUser(response.data);
+                                $location.path("profile/"+user.username);
+                            }
+                            else {
+                                $scope.wrongpassword = true;
+                            }
                     });
             }
         }

@@ -17,7 +17,6 @@ module.exports = function (){
 
 
     function findUserByCredentials(credentials) {
-        console.log(users);
         var found = null;
         for (var i=0; i < users.length; i++) {
             if (users[i].username == credentials.username && users[i].password == credentials.password) {
@@ -84,6 +83,9 @@ module.exports = function (){
                 users[i].firstName = user.firstName;
                 users[i].lastName = user.lastName;
                 users[i].email = user.email;
+                if (user.roles) {
+                    users[i].roles = user.roles;
+                }
                 updatedUser = users[i];
                 break;
             }

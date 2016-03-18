@@ -3,7 +3,7 @@
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($rootScope, $scope, $location, UserService) {
+    function RegisterController($scope, $location, UserService) {
         $scope.passwordsdonotmatch = false;
         $scope.usernameexists = false;
         $scope.register = register;
@@ -16,21 +16,29 @@
                     "lastName": "",
                     "username": user.username,
                     "password": user.password,
-                    "email": user.email
+                    "email": user.email,
+                    "roles":[]
                 };
                 var existingUser = null;
-                UserService.findUserByUserName(newUser.username, function (response) {
-                    existingUser = response;
-                });
+                UserService
+                    .findUserByUserName(newUser.username)
+                    .then(
+                        function (response) {
+                            existingUser = response.data;
+                        }
+                    );
                 if (existingUser) {
                     $scope.usernameexists = true;
                 }
                 else {
-                    UserService.createUser(newUser, function(response) {
-                        $rootScope.user = response;
-                        $rootScope.loggedIn = true;
-                        $location.path("profile/"+response.username);
-                    });
+                    UserService
+                        .createUser(newUser)
+                        .then(
+                            function(response) {
+                                UserService.setCurrentUser(response.data);
+                                $location.path("profile/"+response.data._id);
+                            }
+                        );
                 }
             }
             else {

@@ -1,9 +1,9 @@
 (function (){
     angular
         .module("FormBuilderApp")
-        .factory("FormService",FormService);
+        .factory("FormService", FormService);
 
-    function FormService() {
+    function FormService($http) {
 
         var api = {
             createFormForUser: createFormForUser,
@@ -26,7 +26,7 @@
             return $http.delete('/api/assignment/form/'+formId);
         }
 
-        function updateFormById(formId, newForm, callback) {
+        function updateFormById(formId, newForm) {
             return $http.put('/api/assignment/form/'+formId, newForm);
         }
     }
