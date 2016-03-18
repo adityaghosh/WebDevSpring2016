@@ -4,20 +4,6 @@
         .factory("UserService", UserService);
 
     function UserService($http, $rootScope) {
-        var users =
-            [
-                {	"_id":123, "firstName":"Alice",            "lastName":"Wonderland",
-                    "username":"alice",  "password":"alice",   "roles": ["student"]		},
-                {	"_id":234, "firstName":"Bob",              "lastName":"Hope",
-                    "username":"bob",    "password":"bob",     "roles": ["admin"]		},
-                {	"_id":345, "firstName":"Charlie",          "lastName":"Brown",
-                    "username":"charlie","password":"charlie", "roles": ["faculty"]		},
-                {	"_id":456, "firstName":"Dan",              "lastName":"Craig",
-                    "username":"dan",    "password":"dan",     "roles": ["faculty", "admin"]},
-                {	"_id":567, "firstName":"Edward",           "lastName":"Norton",
-                    "username":"ed",     "password":"ed",      "roles": ["student"]		}
-            ];
-
 
         var api = {
             findUserByCredentials: findUserByCredentials,
@@ -31,73 +17,34 @@
 
         return api;
 
-        function findUserByCredentials(credentials /*,username, password, callback*/) {
-
-            return $http.get('/api/assignment/user'+'?username='+credentials.username+'&password='+credentials.password);
-            /*var found = null;
-            for (var i=0; i < users.length; i++) {
-                if (users[i].username == username && users[i].password == password) {
-                    found = users[i];
-                    break;
-                }
-            }
-            callback(found);*/
+        function findUserByCredentials(username, password) {
+            return $http.get('/api/assignment/user'+'?username='+username+'&password='+password);
         }
+
+        function findUserByUserName(username) {
+            return $http.get('/api/assignment/user?username='+username);
+        }
+
+        function findAllUsers() {
+            return $http.get('/api/assignment/user');
+        }
+
+        function createUser(user) {
+            return $http.post('/api/assignment/user', user);
+        }
+
+        function deleteUserById(userId) {
+            return $http.delete('/api/assignment/user/'+userId);
+        }
+
+        function updateUser(userId, user) {
+            return $http.put('/api/assignment/user/'+userId, user);
+        }
+
+        // Helper function to set the rootScope user to the current user.
         function setCurrentUser(user) {
             $rootScope.user = user;
             $rootScope.loggedIn = true;
-        }
-
-        function findUserByUserName(username, callback) {
-            var found = null;
-            for (var i=0; i < users.length; i++) {
-                if (users[i].username == username) {
-                    found = users[i];
-                    break;
-                }
-            }
-            callback(found);
-        }
-
-        function findAllUsers(callback) {
-            callback(users);
-        }
-
-        function createUser(user, callback) {
-            var newUser = {	"_id":(new Date).getTime(),
-                "firstName": user.firstName,
-                "lastName": user.lastName,
-                "username":user.username,
-                "password": user.password,
-                "email": user.email,
-                "roles": user.roles};
-            users.push(newUser);
-            callback(newUser);
-        }
-
-        function deleteUserById(userId, callback) {
-            for (var i=0; i < users.length; i++) {
-                if (users[i].username == userId) {
-                    users.splice(i,1);
-                    break;
-                }
-            }
-            callback(users);
-        }
-
-        function updateUser(userId, user, callback) {
-            var updatedUser = null;
-            for (var i=0; i < users.length; i++) {
-                if (users[i].username == userId) {
-                    users[i].password = user.password;
-                    users[i].firstName = user.firstName;
-                    users[i].lastName = user.lastName;
-                    users[i].email = user.email;
-                    updatedUser = users[i];
-                    break;
-                }
-            }
-            callback(updatedUser);
         }
     }
 })();
