@@ -126,16 +126,12 @@ module.exports = function (app) {
         }
     }
 
-    function updateFieldForForm (formId, fieldId, newForm) {
+    function updateFieldForForm (formId, fieldId, newField) {
         var form = findFormById(formId);
         if (form) {
             for (var f in form.fields) {
                 if (form.fields[f]._id == fieldId) {
-                    /*form.fields[f].title = newForm.title;
-                    form.fields[f].placeholder = newForm.placeholder;
-                    form.fields[f].type = newForm.type;
-                    form.fields[f].label = newForm.label;*/
-                    form.fields[f] = newForm;
+                    form.fields[f] = newField;
                     return form.fields[f];
                 }
             }

@@ -16,12 +16,11 @@
                     <label for="label">Label</label>
                     <input type="text" name="label" id="label" class="form-control" ng-model="modalLabel">
                     <br/>
-                    <label ng-if='modalTitle== "Single Line Field" || modalTitle =="Multiple Line Field"' for="placeholder">Placeholder</label>
-                    <input ng-if='modalTitle == "Single Line Field" || modalTitle =="Multiple Line Field"' id="placeholder" type="text" class="form-control" ng-model="modalPlaceholder">
+                    <label ng-if='selectedField.placeholder' for="placeholder">Placeholder</label>
+                    <input ng-if='selectedField.placeholder' id="placeholder" type="text" class="form-control" ng-model="$parent.modalPlaceholder">
                     <br/>
-                    <label ng-if='modalOptions' for="options">Options</label>
-                    <textarea ng-if="modalOptions" id="options" class="form-control" ng-model="$parent.modalOptions" rows="5" ng-model-options="">
-                    </textarea>
+                    <label ng-if='selectedField.options' for="options">Options</label>
+                    <textarea ng-if="selectedField.options" rows="5" id="options" class="form-control" ng-model="$parent.modalOptions"></textarea>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" ng-click="modalClose()">Close</button>
@@ -48,8 +47,7 @@
                     </div>
                     <div ng-switch-when="TEXTAREA">
                         <p class="text-left label-field">{{field.label}}</p>
-                        <textarea  class="form-control" placeholder="{{field.placeholder}}">
-                        </textarea>
+                        <textarea  class="form-control" placeholder="{{field.placeholder}}"></textarea>
                     </div>
                     <div ng-switch-when="OPTIONS">
                         <p class="text-left label-field">{{field.label}}</p>

@@ -65,7 +65,9 @@
          */
         function editField (field) {
             $scope.selectedField = field;
-            $scope.modalPlaceholder = field.placeholder;
+            if (field.placeholder){
+                $scope.modalPlaceholder = field.placeholder;
+            }
             $scope.modalLabel = field.label;
             switch (field.type){
                 case "TEXT":
@@ -124,10 +126,9 @@
                 $scope.selectedField.options = newOptions;
             }
             FieldService
-                .updateField($scope.formId,$scope.selectedField._id, $scope.selectedField)
+                .updateField($scope.formId, $scope.selectedField._id, $scope.selectedField)
                 .then(
                     function (response) {
-                        $scope.selectedField = response.data;
                         getFields();
                         modalClose();
                     }
