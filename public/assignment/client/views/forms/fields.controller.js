@@ -7,6 +7,9 @@
         $scope.addField = addField;
         $scope.removeField = removeField;
         $scope.editField = editField;
+        $scope.updateField = updateField;
+        $scope.modalClose = modalClose;
+
         $scope.formId = $routeParams.formId;
         $scope.fieldTypes = [
             "Single Line Text Field",
@@ -17,16 +20,6 @@
             "Radio Buttons Field"
         ];
 
-        var sortableEle = null;
-        function getFields() {
-            FieldService
-                .getFieldsForForm($scope.formId)
-                .then(
-                    function (response) {
-                        $scope.fields = response.data;
-                    }
-                );
-        }
         // update the fields model on dragging
         $scope.dragStart = function(e, ui) {
             ui.item.data('start', ui.item.index());
@@ -36,23 +29,112 @@
                 end = ui.item.index();
             $scope.fields.splice(end, 0,
                 $scope.fields.splice(start, 1)[0]);
+            FieldService
+                .updateAllFields($scope.formId, $scope.fields)
+                .then(
+                    function (response) {
 
+                    }
+                );
         };
+        var sortableEle = null;
+        init();
 
-        // Initialize the sortable element
+        // Initialize the sortable element and the existing fields for the form
         function init() {
             sortableEle = $('#sortable').sortable({
                 start: $scope.dragStart,
                 update: $scope.dragEnd
             });
+            getFields();
         }
 
-        init();
-
+        function getFields() {
+            FieldService
+                .getFieldsForForm($scope.formId)
+                .then(
+                    function (response) {
+                        $scope.fields = response.data;
+                    }
+                );
+        }
+        /* Functions for modals
+            EditField  - initializes the model for the modal and shows it.
+            modalClose - destroys the model for the modal and hides it.
+            updateField - updates the model and then calls modalClose.
+         */
         function editField (field) {
-            console.log("edit");
+            $scope.selectedField = field;
+            $scope.modalPlaceholder = field.placeholder;
+            $scope.modalLabel = field.label;
+            switch (field.type){
+                case "TEXT":
+                    $scope.modalTitle = "Single Line Field";
+                    break;
+                case "TEXTAREA":
+                    $scope.modalTitle = "Multiple lines Field";
+                    break;
+                case "DATE":
+                    $scope.modalTitle = "Date Field";
+                    break;
+                case "OPTIONS":
+                    $scope.modalTitle = "Dropdown Field";
+                    break;
+                case "EMAIL":
+                    $scope.modalTitle = "Email Field";
+                    break;
+                case "CHECKBOXES":
+                    $scope.modalTitle = "Checkbox Field";
+                    break;
+                case "RADIOS":
+                    $scope.modalTitle = "Radio Button Field";
+                    break;
+            }
+            $scope.modalOptions = "";
+            for (x in field.options) {
+                $scope.modalOptions = $scope.modalOptions + field.options[x].label + ":" + field.options[x].value + "\n";
+            }
+            $("#mymodal").modal('show');
         }
 
+        function modalClose() {
+            $scope.modalPlaceholder = null;
+            $scope.modalLabel = null;
+            $scope.modalOptions = null;
+            $scope.selectedField = null;
+            $("#mymodal").modal('hide');
+        }
+
+        function updateField() {
+            var newOptions = [];
+            var options = $scope.modalOptions.split("\n");
+            for (option in options) {
+                if (options[option].length >1){
+                    newOptions.push({
+                        label:options[option].split(":")[0],
+                        value:options[option].split(":")[1]
+                    });
+                }
+            }
+            $scope.selectedField.label = $scope.modalLabel;
+            if ($scope.selectedField.placeholder){
+                $scope.selectedField.placeholder = $scope.modalPlaceholder;
+            }
+            if ($scope.selectedField.options) {
+                $scope.selectedField.options = newOptions;
+            }
+            FieldService
+                .updateField($scope.formId,$scope.selectedField._id, $scope.selectedField)
+                .then(
+                    function (response) {
+                        $scope.selectedField = response.data;
+                        getFields();
+                        modalClose();
+                    }
+                );
+        }
+
+        // Creates a new field according to the type selected.
         function addField(fieldType) {
             var newField = null;
             switch (fieldType) {
@@ -101,6 +183,7 @@
 
         }
 
+        // Removes the selected field.
         function removeField (field) {
             FieldService
                 .deleteFieldFromForm($scope.formId, field._id)
@@ -110,7 +193,5 @@
                     }
                 );
         }
-
-        getFields();
     }
 })();

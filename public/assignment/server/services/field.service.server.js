@@ -4,6 +4,7 @@ module.exports = function (app, formModel) {
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldByIdForForm);
     app.post("/api/assignment/form/:formId/field", createNewFieldForForm);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFieldForForm);
+    app.put("/api/assignment/form/:formId/field", updateAllFieldsForForm);
 
     function getFieldsForForm (req, res) {
         var formid = req.params.formId;
@@ -64,5 +65,12 @@ module.exports = function (app, formModel) {
         else {
             res.json({message:"Form not found"})
         }
+    }
+
+    function updateAllFieldsForForm(req, res) {
+        var formid = req.params.formId;
+        var newfields = req.body;
+        var fields = formModel.updateAllFieldsForForm(formid, newfields);
+        res.json(fields);
     }
 };

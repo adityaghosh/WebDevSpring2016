@@ -4,23 +4,32 @@
         <li><a href="#/forms">Forms</a></li>
         <li class="active"><a>Fields</a></li>
     </ul>
-
-    <!--<div ng-if="selectedField" id="dialog-form" title="{{selectedField.type}}">
-        <form>
-            <fieldset>
-                <label for="label">Label</label>
-                <input type="text" name="label" id="label" class="text ui-widget-content ui-corner-all" value="{{selectedField.label}}">
-                <label for="placeholder" ng-if="field.type == 'TEXT' || field.type =='TEXTAREA'">Placeholder</label>
-                <input ng-if="selectedField.type == 'TEXT' || field.type =='TEXTAREA'" type="text" name="placeholder" id="placeholder" class="text ui-widget-content ui-corner-all" value="{{selectedField.placeholder}}">
-                <label ng-if="selectedField.options" for="options">Options</label>
-                            <textarea ng-if="selectedField.options" id="options" class="text ui-widget-content ui-corner-all" rows="5">
-                                {{selectedField.options}}
-                            </textarea>
-
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-            </fieldset>
-        </form>
-    </div>-->
+    <div class="modal fade" id="mymodal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="modalClose()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">{{modalTitle}}</h4>
+                </div>
+                <div class="modal-body">
+                    <br/>
+                    <label for="label">Label</label>
+                    <input type="text" name="label" id="label" class="form-control" ng-model="modalLabel">
+                    <br/>
+                    <label ng-if='modalTitle== "Single Line Field" || modalTitle =="Multiple Line Field"' for="placeholder">Placeholder</label>
+                    <input ng-if='modalTitle == "Single Line Field" || modalTitle =="Multiple Line Field"' id="placeholder" type="text" class="form-control" ng-model="modalPlaceholder">
+                    <br/>
+                    <label ng-if='modalOptions' for="options">Options</label>
+                    <textarea ng-if="modalOptions" id="options" class="form-control" ng-model="$parent.modalOptions" rows="5" ng-model-options="">
+                    </textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="modalClose()">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="updateField()">Update Field</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <div class="container-fluid">
         <div id="sortable">
             <div class="form-group row" ng-repeat="field in fields">
@@ -75,7 +84,7 @@
                     <a ng-click="editField(field)"><span class="glyphicon glyphicon-pencil action-glyphicon"></span></a>
                     <a href="#"><span class="glyphicon glyphicon-plus action-glyphicon"></span></a>
                     <a ng-click="removeField(field)"><span class="glyphicon glyphicon-remove action-glyphicon"></span></a>
-                    <a href="#"><span class="glyphicon glyphicon-align-justify action-glyphicon"></span></a>
+                    <a class="move"><span class="glyphicon glyphicon-align-justify action-glyphicon"></span></a>
                 </div>
                 <div class="col-md-3"></div>
             </div>
