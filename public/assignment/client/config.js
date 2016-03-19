@@ -23,10 +23,11 @@
                 controller: "ProfileController"})
             .when("/admin",
                 {templateUrl: "views/admin/admin.view.html"})
+            .when("/forms/:formId/fields",
+                {templateUrl: "views/forms/fields.view.html",
+                controller: "FieldController"})
             .when("/forms",
                 {templateUrl: "views/forms/forms.view.html",
-                controller: "FormController"})
-            .when("/fields",
-                {templateUrl: "views/forms/fields.view.html"});
+                controller: "FormController"});
     }
 })();

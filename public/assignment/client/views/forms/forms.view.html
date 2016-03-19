@@ -2,7 +2,7 @@
     <h1 class="page-header">Forms</h1>
     <ul class="nav nav-tabs">
         <li class="active"><a href="#/forms">Forms</a></li>
-        <li><a href="#/fields">Fields</a></li>
+        <li><a>Fields</a></li>
     </ul>
     <div class="table-responsive">
         <table class="table table-striped">
@@ -27,7 +27,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="form in forms">
-                <td>{{form.title}}</td>
+                <td><a href="#/forms/{{form._id}}/fields">{{form.title}}</a></td>
                 <td class="table-content-nowrap">
                     <a ng-click="deleteForm($index)">
                         <span class="glyphicon glyphicon-remove action-glyphicon"></span>

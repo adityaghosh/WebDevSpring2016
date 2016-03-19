@@ -3,7 +3,7 @@
         .module("FormBuilderApp")
         .factory("FieldService",FieldService);
 
-    function FieldService() {
+    function FieldService($http) {
 
         var api = {
             createFieldForForm: createFieldForForm,

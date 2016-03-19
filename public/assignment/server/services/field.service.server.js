@@ -45,6 +45,7 @@ module.exports = function (app, formModel) {
         var field = req.body;
         var newfield = formModel.createNewFieldForForm(formid,field);
         if (newfield) {
+            res.json(newfield);
             res.send(200);
         }
         else {

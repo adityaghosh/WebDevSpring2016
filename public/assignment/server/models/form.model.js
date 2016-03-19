@@ -116,15 +116,9 @@ module.exports = function (app) {
     function createNewFieldForForm (formId, field) {
         var form = findFormById(formId);
         if (form) {
-            var newField = {
-                "_id": uuid.v1(),
-                "title": field.title,
-                "label": field.label,
-                "type": field.type,
-                "placeholder": field.placeholder
-            };
-            form.fields.push(newField);
-            return newField;
+            field["_id"] = uuid.v1();
+            form.fields.push(field);
+            return field;
         }
         else {
             return null;
@@ -136,10 +130,11 @@ module.exports = function (app) {
         if (form) {
             for (var f in form.fields) {
                 if (form.fields[f]._id == fieldId) {
-                    form.fields[f].title = newForm.title;
+                    /*form.fields[f].title = newForm.title;
                     form.fields[f].placeholder = newForm.placeholder;
                     form.fields[f].type = newForm.type;
-                    form.fields[f].label = newForm.label;
+                    form.fields[f].label = newForm.label;*/
+                    form.fields[f] = newForm;
                     return form.fields[f];
                 }
             }
