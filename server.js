@@ -19,5 +19,17 @@ app.get('/hello', function(req, res){
 
 // Passing app to app.js of assignment.
 require("./public/assignment/server/app.js")(app);
+require("./public/experiments/chatApp/server/app")(app);
 
-app.listen(port, ipaddress);
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+io.on('connection', function(socket){
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
+    });
+});
+
+//Replacing app.listen with http.listen for chat application.
+http.listen(port,ipaddress);
+//app.listen(port, ipaddress);
