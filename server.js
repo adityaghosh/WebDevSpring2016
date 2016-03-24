@@ -17,6 +17,11 @@ app.get('/hello', function(req, res){
     res.send('hello world');
 });
 
+//Redirecting from project to project/client
+app.get('/project', function(req, res) {
+   res.redirect("./client/");
+});
+
 // Passing app to app.js of assignment.
 require("./public/assignment/server/app.js")(app);
 require("./public/experiments/chatApp/server/app")(app);
