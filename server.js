@@ -24,7 +24,11 @@ app.get('/project', function(req, res) {
 
 // Passing app to app.js of assignment.
 require("./public/assignment/server/app.js")(app);
+
 require("./public/experiments/chatApp/server/app")(app);
+
+// Passing app to app.js of project.
+require("./public/project/server/app.js")(app);
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
