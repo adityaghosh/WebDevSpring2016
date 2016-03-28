@@ -1,0 +1,6 @@
+[
+  {"_id":101, "playlistName":"Super Blues", "createdBy":123, "songs":[{"_id":1, "spotify_id":"3AJwUDP919kvQ9QcozQPxg", "name":"Yellow"}]},
+  {"_id":102, "playlistName":"Jazz it all", "createdBy":234, "songs":[{"_id":3, "spotify_id":"3AJwUDP919kvQ9QcozQPxg", "name":"Yellow"}]},
+  {"_id":103, "playlistName":"Rocky Mondays", "createdBy":123, "songs":[{"_id":4, "spotify_id":"3AJwUDP919kvQ9QcozQPxg", "name":"Yellow"}]},
+  {"_id":104, "playlistName":"Greatest Hits", "createdBy":123, "songs":[{"_id":2, "spotify_id":"3AJwUDP919kvQ9QcozQPxg", "name":"Yellow"}]}
+]
