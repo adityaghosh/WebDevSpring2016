@@ -10,12 +10,20 @@
         $scope.updateUser = updateUser;
         $scope.selectUser = selectUser;
 
+        updateUserList();
 
         var selectedUser = null;
 
-        UserService.findAllUsers(function (response) {
-            $scope.users = response;
-        });
+        function  updateUserList () {
+            UserService.findAllUsers()
+                .then(
+                    function (response) {
+                        if (response.data != "null") {
+                            $scope.users = response.data;
+                        }
+                    }
+                );
+        }
 
         function addUser(user){
             var newUser = {
@@ -29,12 +37,15 @@
             if (user.isAdmin){
                 newUser.roles.push('admin');
             }
-            UserService.createUser(newUser, function (response) {
-                $scope.u = null;
-            });
-            UserService.findAllUsers(function (response) {
-                $scope.users = response;
-            });
+            UserService.createUser(newUser)
+                .then(
+                    function (response) {
+                        if (response.data != "null") {
+                            $scope.u = null;
+                        }
+                    }
+                );
+            updateUserList();
         }
 
         function updateUser() {
@@ -44,16 +55,28 @@
                 if ($scope.u.isAdmin && selectedUser.roles.indexOf('admin')< 0) {
                     selectedUser.roles.push('admin');
                 }
-                UserService.updateUser(selectedUser._id, selectedUser, function (response) {
-                    $scope.u = null;
-                });
+                UserService.updateUser(selectedUser._id, selectedUser)
+                    .then(
+                        function (response) {
+                            if (response.data != "null") {
+                                $scope.u = null;
+                            }
+                        }
+                    );
+                updateUserList();
             }
         }
+
         function removeUser(index) {
-            UserService.deleteUserById($scope.users[index]._id, function (response) {
-                $scope.users = response;
-            });
+            UserService.deleteUserById($scope.users[index]._id)
+                .then(
+                    function (response) {
+                        updateUserList();
+                    }
+                );
+
         }
+
         function selectUser(index) {
             var u = {
                 'username' : $scope.users[index].username,
