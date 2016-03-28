@@ -85,7 +85,6 @@
                 SongService.findSongsByIdsInSpotify(sp_ids)
                     .then(
                         function (response) {
-                            console.log(response);
                             if (response.data != "null") {
                                 response.data.tracks.items = response.data.tracks;
                                 $scope.songs = response.data.tracks;
