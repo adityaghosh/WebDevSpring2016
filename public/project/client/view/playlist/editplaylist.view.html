@@ -37,15 +37,15 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="song in songs.items">
-                                    <td class="valign">
+                                    <td class="col-md-4 valign">
                                         {{song.name}}
                                     </td>
-                                    <td class="valign">
+                                    <td class="col-md-6 valign">
                                             <span class="artists" ng-repeat="artist in song.artists">
                                                 <a href="{{artist.external_urls.spotify}}" target="_blank">{{artist.name}}</a>
                                             </span>
                                     </td>
-                                    <td class="nowrap">
+                                    <td class="col-md-2 nowrap">
                                         <a class="fa fa-2x fa-plus-square btn btn-success" ng-show="addTab" ng-click="addSong(song)"></a>
                                         <a class="fa fa-2x fa-trash-o  btn btn-success" ng-show="removeTab" ng-click="removeSong($index)"></a>
                                     </td>

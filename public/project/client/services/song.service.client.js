@@ -3,7 +3,7 @@
         .module("MusicSocial")
         .factory("SongService", SongService);
 
-    function SongService($http, PlaylistService) {
+    function SongService($http) {
 
         var $searchuri = "https://api.spotify.com/v1/search?q=SONGNAME&type=track";
         var $getsongsuri = "https://api.spotify.com/v1/tracks/?ids=";
@@ -15,16 +15,14 @@
 
         return api;
 
-        function findSongInSpotify(songname, callback) {
+        function findSongInSpotify(songname) {
             var searchQuery = $searchuri.replace("SONGNAME", songname.replace(' ','%20'));
-            $http.get(searchQuery)
-                .success(callback);
+            return $http.get(searchQuery)
         }
 
-        function findSongsByIdsInSpotify(spotifyids, callback) {
+        function findSongsByIdsInSpotify(spotifyids) {
             var query = $getsongsuri + spotifyids.toString();
-            $http.get(query)
-                .success(callback);
+            return $http.get(query);
         }
     }
 })();

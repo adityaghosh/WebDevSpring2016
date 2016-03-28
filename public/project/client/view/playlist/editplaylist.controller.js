@@ -31,9 +31,14 @@
 
         function searchSong(songname) {
             if ($scope.addTab) {
-                SongService.findSongInSpotify(songname, function(response) {
-                    $scope.songs = response.tracks;
-                });
+                SongService.findSongInSpotify(songname)
+                    .then(
+                        function(response) {
+                            if (response.data != "null") {
+                                $scope.songs = response.data.tracks;
+                            }
+                        }
+                    );
             }
             else {
              //autocomplete code here.
@@ -76,10 +81,15 @@
             for(var i=0; i< s.length; i++){
                 sp_ids.push(s[i].spotify_id);
             }
-            SongService.findSongsByIdsInSpotify(sp_ids, function (response) {
-                response.tracks.items = response.tracks;
-                $scope.songs = response.tracks;
-            });
+            SongService.findSongsByIdsInSpotify(sp_ids)
+                .then(
+                    function (response) {
+                        if (response.data != "null") {
+                            response.data.tracks.items = response.data.tracks;
+                            $scope.songs = response.data.tracks;
+                        }
+                    }
+                );
         }
     }
 
