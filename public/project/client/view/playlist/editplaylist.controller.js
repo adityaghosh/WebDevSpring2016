@@ -41,20 +41,30 @@
         }
 
         function addSong(song) {
-            var s = {"_id": (new Date).getTime(), "spotify_id": song.id, "name":song.name};
-            PlaylistService.addSongToPlaylist($scope.playlist, s, function (response) {
-                $scope.playlist = response;
-                $rootScope.currentPlaylist = response;
-            });
+            var s = {"spotify_id": song.id, "name":song.name};
+            PlaylistService.addSongToPlaylist($scope.playlist._id, s)
+                .then(
+                    function (response) {
+                        if (response.data != "null") {
+                            $scope.playlist = response.data;
+                            PlaylistService.setCurrentlyPlaying(response.data);
+                        }
+                    }
+                );
         }
 
         function removeSong($index) {
             var song = $scope.playlist.songs[$index];
-            PlaylistService.removeSongFromPlaylist($scope.playlist, song, function (response) {
-                $scope.playlist = response;
-                $rootScope.currentPlaylist = response;
-            });
-            fillSongsInPlaylist();
+            PlaylistService.removeSongFromPlaylist($scope.playlist._id, song._id)
+                .then(
+                    function (response) {
+                        if (response.data != "null") {
+                            $scope.playlist = response.data;
+                            PlaylistService.setCurrentlyPlaying(response.data);
+                            fillSongsInPlaylist();
+                        }
+                    }
+                );
         }
 
         /*
