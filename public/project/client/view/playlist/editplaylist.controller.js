@@ -81,15 +81,18 @@
             for(var i=0; i< s.length; i++){
                 sp_ids.push(s[i].spotify_id);
             }
-            SongService.findSongsByIdsInSpotify(sp_ids)
-                .then(
-                    function (response) {
-                        if (response.data != "null") {
-                            response.data.tracks.items = response.data.tracks;
-                            $scope.songs = response.data.tracks;
+            if (sp_ids.length > 0) {
+                SongService.findSongsByIdsInSpotify(sp_ids)
+                    .then(
+                        function (response) {
+                            console.log(response);
+                            if (response.data != "null") {
+                                response.data.tracks.items = response.data.tracks;
+                                $scope.songs = response.data.tracks;
+                            }
                         }
-                    }
-                );
+                    );
+            }
         }
     }
 
