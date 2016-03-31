@@ -16,30 +16,34 @@
                     "lastName": "",
                     "username": user.username,
                     "password": user.password,
-                    "email": user.email,
+                    "emails": user.emails,
                     "roles":[]
                 };
-                var existingUser = null;
                 UserService
                     .findUserByUserName(newUser.username)
                     .then(
                         function (response) {
-                            existingUser = response.data;
+                            if (response.data != "null") {
+                                $scope.usernameexists = true;
+                            }
+                            else {
+                                UserService
+                                    .createUser(newUser)
+                                    .then(
+                                        function(response) {
+                                            if (response.data != "null") {
+                                                UserService.setCurrentUser(response.data);
+                                                $location.path("profile/"+response.data._id);
+                                            }
+                                            else {
+                                                $scope.user = null;
+                                                alert("Something went wrong! Please try again.");
+                                            }
+                                        }
+                                    );
+                            }
                         }
                     );
-                if (existingUser) {
-                    $scope.usernameexists = true;
-                }
-                else {
-                    UserService
-                        .createUser(newUser)
-                        .then(
-                            function(response) {
-                                UserService.setCurrentUser(response.data);
-                                $location.path("profile/"+response.data._id);
-                            }
-                        );
-                }
             }
             else {
                 $scope.passwordsdonotmatch = true;

@@ -11,7 +11,7 @@
             "lastName": $rootScope.user.lastName,
             "username": $rootScope.user.username,
             "password": $rootScope.user.password,
-            "email": $rootScope.user.email,
+            "emails": $rootScope.user.emails,
             "roles": $rootScope.user.roles
         };
 
@@ -24,9 +24,20 @@
                 .updateUser($routeParams.userid, user)
                 .then(
                     function(response) {
-                        console.log(response.data);
-                        UserService.setCurrentUser(response.data);
-                        $scope.user = response.data;
+                        if (response.status == 200) {
+                            UserService.findUserByUserId($routeParams.userid)
+                                .then(
+                                    function (response) {
+                                        if (response.data != "null") {
+                                            UserService.setCurrentUser(response.data);
+                                            $scope.user = response.data;
+                                        }
+                                    }
+                                );
+                        }
+                        else {
+                            alert("Something went wrong! Please try again.");
+                        }
                     }
                 );
         }
