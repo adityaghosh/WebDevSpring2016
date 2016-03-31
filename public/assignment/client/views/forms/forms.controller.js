@@ -21,18 +21,23 @@
             );
 
         function addForm(){
-            var newForm = {
-                "title": $scope.formName,
-                "fields":[]
-            };
-            FormService
-                .createFormForUser(user._id, newForm)
-                .then(
-                    function (response) {
-                        $scope.forms.push(response.data);
-                        $scope.formName = "";
-                    }
-                );
+            if ($scope.formName) {
+                var newForm = {
+                    "title": $scope.formName,
+                    "fields":[]
+                };
+                FormService
+                    .createFormForUser(user._id, newForm)
+                    .then(
+                        function (response) {
+                            $scope.forms.push(response.data);
+                            $scope.formName = "";
+                        }
+                    );
+            }
+            else {
+                alert("Form name cannot be empty.");
+            }
 
         }
 
