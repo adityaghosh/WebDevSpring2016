@@ -14,7 +14,7 @@
                         .findUserByCredentials(user.username, user.password)
                         .then(
                             function (response) {
-                                if (response.data != null) {
+                                if (response.data != "null") {
                                     UserService.setCurrentUser(response.data);
                                     $location.path("profile/"+user.username);
                                 }
