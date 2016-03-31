@@ -3,6 +3,18 @@ var express = require('express');
 var app             = express();
 var bodyParser      = require('body-parser');
 var multer          = require('multer');
+// Adding Mongoose library.
+var mongoose        = require('mongoose');
+
+var connectionString = 'mongodb://127.0.0.1:27017/webdev2016';
+
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+    connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+        process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+        process.env.OPENSHIFT_APP_NAME;
+}
+
+var db = mongoose.connect(connectionString);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +35,7 @@ app.get('/project', function(req, res) {
 });
 
 // Passing app to app.js of assignment.
-require("./public/assignment/server/app.js")(app);
+require("./public/assignment/server/app.js")(app, db,mongoose);
 
 require("./public/experiments/chatApp/server/app")(app);
 
