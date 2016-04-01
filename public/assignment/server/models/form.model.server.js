@@ -102,6 +102,7 @@ module.exports = function (db, mongoose) {
 
     function updateFormById(formId, newForm) {
 
+        delete newForm._id;
         var deferred = q.defer();
         newForm.updated = Date.now();
         FormModel.update(
