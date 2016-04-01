@@ -6,11 +6,7 @@ module.exports = function (app, formModel) {
     app.put('/api/assignment/form/:formId', updateFormById);
 
     function findAllFormsForUser(req, res) {
-        /*
-        var userid = req.params.userId;
-        var forms = formModel.findAllFormsForUser(userid);
-        res.json(forms);
-        */
+
         var userid = req.params.userId;
         formModel.findAllFormsForUser(userid)
             .then(
@@ -25,16 +21,7 @@ module.exports = function (app, formModel) {
     }
 
     function findFormById(req, res) {
-        /*
-        var formid = req.params.formId;
-        var form = formModel.findFormById(formid);
-        if (form) {
-            res.json(form)
-        }
-        else {
-            res.json({message:"Form not found."})
-        }
-        */
+
         var formid = req.params.formId;
         formModel.findFormById(formid)
             .then(
@@ -49,17 +36,7 @@ module.exports = function (app, formModel) {
     }
 
     function deleteFormById(req, res) {
-        /*
-        var formid = req.params.formId;
 
-        var deleted = formModel.deleteFormById(formid);
-        if (deleted) {
-           res.send(200)
-        }
-        else {
-            res.json({message:"Form not found."});
-        }
-        */
         var formid = req.params.formId;
         formModel.deleteFormById(formid)
             .then(
@@ -73,18 +50,7 @@ module.exports = function (app, formModel) {
     }
 
     function createFormForUser(req, res) {
-        /*
-        var userid = req.params.userId;
-        var form = req.body;
-        var newForm = formModel.createFormForUser(userid, form);
-        if (newForm) {
-            res.json(newForm);
-            res.send(200);
-        }
-        else {
-            res.json({message:"Cannot create"});
-        }
-        */
+
         var userid = req.params.userId;
         var form = req.body;
         formModel.createFormForUser(userid, form)
@@ -99,17 +65,7 @@ module.exports = function (app, formModel) {
     }
 
     function updateFormById(req, res) {
-        /*
-        var formid = req.params.formId;
-        var form = req.body;
-        var newForm = formModel.updateFormById(formid, form);
-        if (newForm) {
-            res.json(newForm);
-        }
-        else {
-            res.json("Form not found");
-        }
-        */
+
         var formid = req.params.formId;
         var form = req.body;
         formModel.updateFormById(formid, form)

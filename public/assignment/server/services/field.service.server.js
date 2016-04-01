@@ -1,4 +1,4 @@
-module.exports = function (app, formModel) {
+module.exports = function (app, formModel, fieldModel) {
     app.get("/api/assignment/form/:formId/field", getFieldsForForm);
     app.get("/api/assignment/form/:formId/field/:fieldId", getFieldByIdForForm);
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFieldByIdForForm);
@@ -7,70 +7,90 @@ module.exports = function (app, formModel) {
     app.put("/api/assignment/form/:formId/field", updateAllFieldsForForm);
 
     function getFieldsForForm (req, res) {
+
         var formid = req.params.formId;
-        var fields = formModel.getFieldsForForm(formid);
-        if (fields) {
-            res.json(fields);
-        }
-        else {
-            res.json({message:"Not found"});
-        }
+        fieldModel.getFieldsForForm(formid)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function getFieldByIdForForm (req, res) {
         var formid = req.params.formId;
         var fieldid = req.params.fieldId;
-        var field = formModel.getFieldByIdForForm(formid, fieldid);
-        if (field) {
-            res.json(field);
-        }
-        else {
-            res.json({message:"Not found"});
-        }
+
+        fieldModel.getFieldByIdForForm(formid, fieldid)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function deleteFieldByIdForForm (req, res) {
         var formid = req.params.formId;
         var fieldid = req.params.fieldId;
-        var deleted = formModel.deleteFieldByIdForForm(formid, fieldid);
-        if (deleted) {
-            res.send(200);
-        }
-        else {
-            res.json({message:"Field not found"});
-        }
+
+        fieldModel.deleteFieldByIdForForm(formid, fieldid)
+            .then(
+                function (doc) {
+                    res.status(200).send(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function createNewFieldForForm (req, res) {
         var formid = req.params.formId;
         var field = req.body;
-        var newfield = formModel.createNewFieldForForm(formid,field);
-        if (newfield) {
-            res.json(newfield);
-            res.send(200);
-        }
-        else {
-            res.json({message:"Form not found"});
-        }
+        fieldModel.createNewFieldForForm(formid, field)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function updateFieldForForm (req, res) {
         var formid = req.params.formId;
         var fieldid = req.params.fieldId;
         var newfield = req.body;
-        var updatedField = formModel.updateFieldForForm(formid, fieldid, newfield);
-        if (updatedField) {
-            res.json(updatedField);
-        }
-        else {
-            res.json({message:"Form not found"})
-        }
+
+        fieldModel.updateFieldForForm(formid, fieldid, newfield)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err)
+                }
+            );
     }
 
     function updateAllFieldsForForm(req, res) {
         var formid = req.params.formId;
         var newfields = req.body;
-        var fields = formModel.updateAllFieldsForForm(formid, newfields);
-        res.json(fields);
+        formModel.updateAllFieldsForForm(formid, newfields)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err)
+                }
+            );
     }
 };
