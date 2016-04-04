@@ -11,6 +11,7 @@
         function logout () {
             $scope.loggedIn = false;
             $rootScope.user = null;
+            $rootScope.currentPlaylist = null;
             $location.url('/');
         }
     }

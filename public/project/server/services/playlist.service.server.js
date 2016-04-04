@@ -6,6 +6,7 @@ module.exports = function (app, model) {
     app.get('/api/project/user/:userid/playlist', findPlaylistByUserID);
     app.get('/api/project/playlist/:playlistid/song', findSongsInPlaylist);
     app.post('/api/project/playlist/:playlistid/song', addSongToPlaylist);
+    app.post('/api/project/playlist/getPlayer', getPlayer);
     app.post('/api/project/user/:userid/playlist', createPlaylist);
     app.put('/api/project/user/:userid/playlist/:playlistid', updatePlaylist);
     app.delete('/api/project/user/:userid/playlist/:playlistid', deletePlaylist);
@@ -106,6 +107,18 @@ module.exports = function (app, model) {
         var songid = req.params.songid;
         var newPlaylist = model.removeSongFromPlaylist(playlistid, songid);
         res.json(newPlaylist);
+    }
+
+    function getPlayer(req, res) {
+        var playlist = req.body;
+        var songs = playlist.songs;
+        var spotify_ids = [];
+        for (var i in songs) {
+            spotify_ids.push(songs[i].spotify_id);
+        }
+        spotify_ids = spotify_ids.join(",");
+        var src = "https://embed.spotify.com/?uri=spotify:trackset:"+playlist.playlistName.replace(" ","")+":"+spotify_ids;
+        res.json(src);
     }
 
 };

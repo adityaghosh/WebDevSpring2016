@@ -16,7 +16,8 @@
             createPlaylist: createPlaylist,
             deletePlaylist: deletePlaylist,
             updatePlaylist: updatePlaylist,
-            setCurrentlyPlaying: setCurrentlyPlaying
+            setCurrentlyPlaying: setCurrentlyPlaying,
+            createPlayerWidget: createPlayerWidget
         };
 
         return api;
@@ -63,6 +64,10 @@
 
         function setCurrentlyPlaying (playlist) {
             $rootScope.currentPlaylist = playlist;
+        }
+
+        function createPlayerWidget(playlist) {
+            return $http.post("/api/project/playlist/getPlayer", playlist);
         }
     }
 })();
