@@ -47,9 +47,24 @@ require("./public/project/server/app.js")(app);
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-io.on('connection', function(socket){
+/*io.sockets.on('connection', function(socket){
     socket.on('chat message', function(msg){
         io.emit('chat message', msg);
+    });
+    socket.on('create', function(room) {
+        socket.join(room);
+    });
+});*/
+
+io.sockets.on('connection', function(socket){
+    socket.on('chat message', function(id, msg){
+        io.in(id).emit('chat message'+id, msg);
+    });
+    socket.on('create', function(room) {
+        socket.join(room);
+    });
+    socket.on('disconnect', function(){
+
     });
 });
 

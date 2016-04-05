@@ -1,0 +1,17 @@
+[
+  {
+    "_id":101,
+    "roomname": "Room1",
+    "count" : 0
+  },
+  {
+    "_id":102,
+    "roomname": "Room2",
+    "count" : 0
+  },
+  {
+    "_id":103,
+    "roomname": "Room3",
+    "count" : 0
+  }
+]

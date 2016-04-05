@@ -1,10 +1,33 @@
 <!doctype html>
-<html>
+<html ng-app="ChatApp">
 <head>
     <title>Socket.IO chat</title>
-    <link href="index.css" rel="stylesheet">
 
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-route.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+
+    <script src="views/chatrooms/chatrooms.controller.js"></script>
+    <script src="services/chatroom.service.client.js"></script>
+
+
+    <!-- Including Font Awesome for glyphicons http://fontawesome.io/ -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="./index.css" rel="stylesheet">
 </head>
+
+<body>
+    <div ng-view>
+
+    </div>
+</body>
+<!--
 <body>
 <ul id="messages"></ul>
 <form action="">
@@ -14,4 +37,5 @@
 <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="index.js"></script>
 </body>
+-->
 </html>

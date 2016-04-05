@@ -1,0 +1,42 @@
+<table class="table table-responsive table-striped" ng-controller="ChatRoomController">
+    <thead>
+    <tr>
+        <th>
+            Roomname
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+    <tr>
+        <td class="valign">
+            <input type="text" placeholder="Roomname" class="form-control table-input" ng-model="r.roomname"/>
+        </td>
+        <td class="nowrap">
+            <a class="fa fa-2x fa-plus-square btn btn-success" ng-click="addRoom(u)"></a>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr ng-repeat="r in rooms">
+        <td class="valign">{{r.roomname}}</td>
+        <td class="nowrap">
+            <a class="fa fa-2x fa-plus-square btn btn-success" ng-click="joinRoom($index)"></a>
+        </td>
+    </tr>
+    </tbody>
+    <tr>
+        <td colspan="2">
+            <div ng-show="currentRoom">
+                <h3>Room Name: {{currentRoom.roomname}}</h3>
+                <form action="">
+                <ul id="messages">
+                    <li ng-repeat="msg in allmessages track by $index">{{msg}}</li>
+                </ul>
+                <input id="m" autocomplete="off" ng-model="chatmessage"/><button ng-click="chatSend(chatmessage)">Send</button>
+                </form>
+            </div>
+        </td>
+    </tr>
+</table>
