@@ -44,17 +44,9 @@ require("./public/experiments/chatApp/server/app")(app);
 // Passing app to app.js of project.
 require("./public/project/server/app.js")(app);
 
-var http = require('http').Server(app);
+var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-/*io.sockets.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-        io.emit('chat message', msg);
-    });
-    socket.on('create', function(room) {
-        socket.join(room);
-    });
-});*/
 
 io.sockets.on('connection', function(socket){
     socket.on('chat message', function(id, msg){

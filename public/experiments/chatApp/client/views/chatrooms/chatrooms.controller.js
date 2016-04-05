@@ -58,7 +58,6 @@
                 );
         }
         function chatSend(message) {
-            console.log(message);
             socket.emit("chat message",$rootScope.currentRoom._id.toString(),message);
             $scope.chatmessage = "";
         }
