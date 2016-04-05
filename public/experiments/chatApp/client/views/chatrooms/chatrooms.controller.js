@@ -3,13 +3,22 @@
         .module("ChatApp")
         .controller("ChatRoomController", ChatRoomController);
 
-    function ChatRoomController($rootScope, $scope, $interval, ChatService) {
+    function ChatRoomController($rootScope, $scope, $interval, ChatService, $location) {
 
         $scope.joinRoom = joinRoom;
         $scope.addRoom = addRoom;
         $scope.chatSend = chatSend;
         $scope.allmessages = [];
-        var socket = io();
+        var socket = null;
+        //local
+        if ($location.absUrl().indexOf("127.0.0.1") >= 0) {
+            socket = io();
+        }
+        //Openshift
+        else {
+            socket = io('http://webdev2016-ghoshaditya.rhcloud.com:8000');
+        }
+
         var selectedRoom = null;
         init();
 
