@@ -26,7 +26,6 @@ app.use(multer());
 app.use(express.static(__dirname+'/public'));
 
 
-
 app.get('/hello', function(req, res){
     res.send('hello world');
 });
@@ -40,6 +39,8 @@ app.get('/project', function(req, res) {
 require("./public/assignment/server/app.js")(app, db,mongoose);
 
 require("./public/experiments/chatApp/server/app")(app);
+
+require("./public/experiments/soundcloud/server/app")(app);
 
 // Passing app to app.js of project.
 require("./public/project/server/app.js")(app);
