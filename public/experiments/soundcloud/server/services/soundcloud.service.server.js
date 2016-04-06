@@ -12,6 +12,7 @@ module.exports = function (app) {
 
     app.get("/api/soundcloud/tracks", getTracks);
     app.get("/api/soundcloud/clientid", getClientId);
+    app.get("/api/soundcloud/playlists", getPlaylists);
 
     var page_size = 10;
 
@@ -29,6 +30,22 @@ module.exports = function (app) {
                 }
             );
     }
+
+    function getPlaylists(req, res) {
+        var query = req.query.playlistname;
+        SC.get('/playlists',{q:query, limit: page_size},
+            function (err, playlists) {
+                if (err) {
+                    res.status(400).send();
+                }
+                else {
+                    //console.log(tracks);
+                    res.json(playlists);
+                }
+            }
+        );
+    }
+
     function getClientId(req, res) {
         res.json(clientID);
     }

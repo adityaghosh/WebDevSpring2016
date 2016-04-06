@@ -1,18 +1,18 @@
-<div ng-controller="SearchController">
+<div ng-controller="PlaylistSearchController">
     <input type="text" ng-model="searchText" placeholder="Search for a track" class = "form-control">
     <button type="submit" ng-click="search(searchText)" class = "btn btn-block">Search</button>
     <table class = "table table-responsive" ng-if="tracks">
         <thead>
-            <th>
-                Name
-            </th>
+        <th>
+            Name
+        </th>
         </thead>
         <tbody>
-            <tr ng-repeat="t in tracks track by $index">
-                <td>
-                    <a ng-click="play(t)">{{t.title}}</a>
-                </td>
-            </tr>
+        <tr ng-repeat="t in tracks track by $index">
+            <td>
+                <a ng-click="play(t)">{{t.title}}</a>
+            </td>
+        </tr>
         </tbody>
     </table>
     <div ng-bind-html="player"></div>

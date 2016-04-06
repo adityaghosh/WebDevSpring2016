@@ -1,28 +1,28 @@
 (function () {
     angular
         .module("mySoundCloud")
-        .controller("PlaylistSearchController", PlaylistSearchController);
+        .controller("SearchController", SearchController);
 
-    function PlaylistSearchController($scope, SoundCloudService, $sce) {
+    function SearchController($scope, SoundCloudService, $sce) {
         $scope.tracks = [];
         $scope.search = search;
         $scope.play = play;
 
         function search(query) {
-            SoundCloudService.getPlaylists(query)
+            SoundCloudService.getTracks(query)
                 .then(
                     function (response) {
                         if (response.data != "null") {
                             $scope.tracks = response.data;
                         }
                         else {
-                            $scope.playlists = [];
+                            $scope.tracks = [];
                         }
                     }
                 );
         }
 
-        function play(playlist) {
+        function play(track) {
             SoundCloudService.getClientID()
                 .then(
                     function (response) {
@@ -30,7 +30,8 @@
                             SC.initialize({
                                 client_id: response.data
                             });
-                            SC.oEmbed(playlist.uri,
+                            var track_url = track.permalink_url;
+                            SC.oEmbed(track.uri,
                                 {
                                     auto_play: true,
                                     show_comments: false,

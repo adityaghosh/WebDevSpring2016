@@ -15,6 +15,8 @@
     <script src="config.js"></script>
 
     <!-- Controller Scripts -->
+    <script src="views/song/search.controller.js"></script>
+    <script src="views/header/header.controller.js"></script>
     <script src="views/playlist/search.controller.js"></script>
 
     <!-- Service -->
@@ -26,8 +28,12 @@
 
 
 </head>
-<body class="container">
+<body>
+<div class="container">
+    <nav class="navbar navbar-inverse" ng-include="'views/header/header.html'">
+    </nav>
     <div ng-view></div>
+</div>
 
 </body>
 </html>
