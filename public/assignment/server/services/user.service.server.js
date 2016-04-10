@@ -25,7 +25,7 @@ module.exports = function (app, model) {
     //Added for Security
     app.post('/api/assignment/login', passport.authenticate('local'), login);
     app.post('/api/assignment/register', register);
-    app.post('/api/assignment/logout ', logout);
+    app.post('/api/assignment/logout', logout);
     app.get('/api/assignment/loggedin', loggedIn);
 
     passport.use(new LocalStrategy(localStrategy));
@@ -39,8 +39,10 @@ module.exports = function (app, model) {
             .then(
                 function(user)
                 {
-                    if (!user) { return done(null, false); }
-                    return done(null, user);
+                    if (user) {
+                        return done(null, user);
+                    }
+                    done(null, false);
                 },
                 function(err) {
                     if (err) { return done(err); }

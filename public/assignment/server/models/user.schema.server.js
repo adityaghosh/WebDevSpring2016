@@ -7,6 +7,7 @@ module.exports = function (mongoose) {
         firstName: String,
         lastName: String,
         emails: [String],
+        roles: {type:[String], default: ["student"]},
         phones: [String]
     }, {collection: "formmaker.user"});
 
