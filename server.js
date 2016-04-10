@@ -5,6 +5,10 @@ var bodyParser      = require('body-parser');
 var multer          = require('multer');
 // Adding Mongoose library.
 var mongoose        = require('mongoose');
+// Adding session
+var passport      = require('passport');
+var cookieParser  = require('cookie-parser');
+var session       = require('express-session');
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev2016';
 
@@ -18,11 +22,20 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     connectionString = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
 }
 
+var secret = process.env.SECRET;
+
 var db = mongoose.connect(connectionString);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
+
+app.use(session({
+    secret: secret,
+    resave: true,
+    saveUninitialized: true
+}));
+
 app.use(express.static(__dirname+'/public'));
 
 
