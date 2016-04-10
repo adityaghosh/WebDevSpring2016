@@ -35,6 +35,7 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+app.use(cookieParser());
 
 app.use(express.static(__dirname+'/public'));
 
