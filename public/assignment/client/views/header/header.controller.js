@@ -3,13 +3,22 @@
         .module("FormBuilderApp")
         .controller("HeaderController", HeaderController);
 
-    function HeaderController($rootScope, $scope) {
+    function HeaderController($rootScope, $scope, UserService) {
         $scope = $rootScope;
         $scope.logout = logout;
 
         function logout() {
-            $scope.loggedIn = false;
-            $rootScope.user = null;
+            UserService
+                .logout()
+                .then(
+                    function (response) {
+                        $rootScope.currentUser = null;
+                    },
+                    function (err) {
+                        $rootScope.errorMessage = err;
+                    }
+                );
+
         }
     }
 

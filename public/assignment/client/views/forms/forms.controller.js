@@ -11,7 +11,7 @@
 
         var selectedForm = null;
 
-        var user = $rootScope.user;
+        var user = $rootScope.currentUser;
         FormService
             .findAllFormsForUser(user._id)
             .then(

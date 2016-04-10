@@ -12,12 +12,9 @@
         function register(user) {
             if (user.password == user.vpassword) {
                 var newUser = {
-                    "firstName": "",
-                    "lastName": "",
                     "username": user.username,
                     "password": user.password,
-                    "emails": user.emails,
-                    "roles":[]
+                    "emails": user.emails
                 };
                 UserService
                     .findUserByUserName(newUser.username)
@@ -28,7 +25,7 @@
                             }
                             else {
                                 UserService
-                                    .createUser(newUser)
+                                    .register(newUser)
                                     .then(
                                         function(response) {
                                             if (response.data != "null") {

@@ -6,17 +6,17 @@
     function ProfileController($rootScope, $scope, $location, $routeParams, UserService) {
         $scope.update = update;
         $scope.user = {
-            "_id": $rootScope.user._id,
-            "firstName": $rootScope.user.firstName,
-            "lastName": $rootScope.user.lastName,
-            "username": $rootScope.user.username,
-            "password": $rootScope.user.password,
-            "emails": $rootScope.user.emails,
-            "roles": $rootScope.user.roles
+            "_id": $rootScope.currentUser._id,
+            "firstName": $rootScope.currentUser.firstName,
+            "lastName": $rootScope.currentUser.lastName,
+            "username": $rootScope.currentUser.username,
+            "password": $rootScope.currentUser.password,
+            "emails": $rootScope.currentUser.emails,
+            "roles": $rootScope.currentUser.roles
         };
 
-        if($rootScope.user) {
-            $location.url('/profile/'+$rootScope.user._id);
+        if($rootScope.currentUser) {
+            $location.url('/profile/'+$rootScope.currentUser._id);
         }
 
         function update(user) {

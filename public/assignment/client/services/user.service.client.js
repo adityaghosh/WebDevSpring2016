@@ -13,10 +13,25 @@
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
-            setCurrentUser: setCurrentUser
+            setCurrentUser: setCurrentUser,
+            login: login,
+            register: register,
+            logout: logout
         };
 
         return api;
+
+        function login (user){
+            return $http.post('/api/assignment/login', user);
+        }
+
+        function logout () {
+            return $http.post('/api/assignment/logout')
+        }
+
+        function register (user) {
+            return $http.post('/api/assignment/register', user);
+        }
 
         function findUserByCredentials(username, password) {
             return $http.get('/api/assignment/user'+'?username='+username+'&password='+password);
@@ -48,7 +63,7 @@
 
         // Helper function to set the rootScope user to the current user.
         function setCurrentUser(user) {
-            $rootScope.user = user;
+            $rootScope.currentUser = user;
             $rootScope.loggedIn = true;
         }
     }

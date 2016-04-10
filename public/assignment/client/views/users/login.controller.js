@@ -11,6 +11,18 @@
             if (user){
                 if(user.username && user.password) {
                     UserService
+                        .login(user)
+                        .then(
+                            function (response) {
+                                if (response.data != "null") {
+                                    UserService.setCurrentUser(response.data);
+                                    $location.path("profile/"+user.username);
+                                }
+                                else {
+                                    $scope.wrongpassword = true;
+                                }
+                        });
+                    /*UserService
                         .findUserByCredentials(user.username, user.password)
                         .then(
                             function (response) {
@@ -21,7 +33,7 @@
                                 else {
                                     $scope.wrongpassword = true;
                                 }
-                            });
+                            });*/
                 }
             }
         }

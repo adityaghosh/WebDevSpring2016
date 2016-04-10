@@ -3,9 +3,9 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li ng-class="{'active':$location.url()== '/home' || $location.url()== '/'}"><a href="#/home">Home<span class="sr-only">(current)</span></a></li>
-                <li ng-if="loggedIn" ng-class="{'active':$location.url().search('/profile') >= 0}"><a href="#/profile">Profile</a></li>
-                <li ng-if="loggedIn && user.roles.indexOf('admin')>=0" ng-class="{'active':$location.url()== '/admin'}"><a href="#/admin">Admin</a></li>
-                <li ng-if="loggedIn" ng-class="{'active':$location.url().indexOf('/forms') >= 0}"><a href="#/forms">Forms</a></li>
+                <li ng-if="currentUser" ng-class="{'active':$location.url().search('/profile') >= 0}"><a href="#/profile">Profile</a></li>
+                <li ng-if="currentUser && currentUser.roles.indexOf('admin')>=0" ng-class="{'active':$location.url()== '/admin'}"><a href="#/admin">Admin</a></li>
+                <li ng-if="currentUser" ng-class="{'active':$location.url().indexOf('/forms') >= 0}"><a href="#/forms">Forms</a></li>
             </ul>
         </div>
     </div>
