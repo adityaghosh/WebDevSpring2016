@@ -1,4 +1,4 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="AdminController">
     <h1 class="page-header">Admin</h1>
     <h2 class="sub-header">Users</h2>
     <div class="table-responsive">
@@ -14,19 +14,31 @@
                     </span></a>&nbsp;Password
                 </th>
                 <th>
-                    <a href="#"> <span class="glyphicon glyphicon-chevron-down sort-glyphicon">
-                    </span></a>&nbsp;Role
+                    <a href="#"><span class="glyphicon glyphicon-chevron-down sort-glyphicon">
+                    </span></a>&nbsp;First Name
                 </th>
-                <th>Action</th>
+                <th>
+                    <a href="#"><span class="glyphicon glyphicon-chevron-down sort-glyphicon">
+                    </span></a>&nbsp;Last Name
+                </th>
+                <th>
+                    Roles
+                </th>
+                <th>
+                    Actions
+                </th>
             </tr>
             <tr>
-                <td><label class="sr-only" for="usernameTable">username</label><input type="text"
-                                                                                      id="usernameTable"
-                                                                                      placeholder="Username"
-                                                                                      class="form-control table-input"/>
+                <td><label class="sr-only" for="usernameTable">username</label>
+                    <input type="text"
+                              id="usernameTable"
+                              placeholder="Username"
+                              class="form-control table-input"/>
                 </td>
                 <td><input type="password" placeholder="Password" class="form-control table-input"/></td>
-                <td><input type="text" placeholder="Role1,Role2.." class="form-control table-input"/></td>
+                <td><input type="text" placeholder="First Name" class="form-control table-input"/></td>
+                <td><input type="text" placeholder="Last Name" class="form-control table-input"/></td>
+                <td><input type="text" placeholder="Role1,Role2" class="form-control table-input"/></td>
                 <td class="table-content-nowrap">
                     <a href="#">
                         <span class="glyphicon glyphicon-plus action-glyphicon"></span>
@@ -39,45 +51,18 @@
             </tr>
             </thead>
             <tbody>
-
-            <tr>
-                <td>alice</td>
-                <td></td>
-                <td>student</td>
+            <tr ng-repeat="u in users">
+                <td>{{u.username}}</td>
+                <td><span class="sr-only">{{u.password}}</span></td>
+                <td>{{u.firstName}}</td>
+                <td>{{u.lastName}}</td>
+                <td><span ng-repeat="r in u.roles">{{r}}&nbsp;</span></td>
                 <td class="table-content-nowrap">
-                    <a href="#">
+                    <a >
                         <span class="glyphicon glyphicon-remove action-glyphicon"></span>
                     </a>
                     &nbsp;
-                    <a href="#">
-                        <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>bob</td>
-                <td></td>
-                <td>faculty | admin</td>
-                <td class="table-content-nowrap">
-                    <a href="#">
-                        <span class="glyphicon glyphicon-remove action-glyphicon"></span>
-                    </a>
-                    &nbsp;
-                    <a href="#">
-                        <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>charlie</td>
-                <td></td>
-                <td></td>
-                <td class="table-content-nowrap">
-                    <a href="#">
-                        <span class="glyphicon glyphicon-remove action-glyphicon"></span>
-                    </a>
-                    &nbsp;
-                    <a href="#">
+                    <a >
                         <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
                     </a>
                 </td>
