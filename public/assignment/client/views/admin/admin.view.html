@@ -5,19 +5,19 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>
+                <th class="table-content-nowrap">
                     <a href="#"> <span class="glyphicon glyphicon-chevron-down sort-glyphicon">
                     </span></a>&nbsp;Username
                 </th>
-                <th>
+                <th class="table-content-nowrap">
                     <a href="#"><span class="glyphicon glyphicon-chevron-down sort-glyphicon">
                     </span></a>&nbsp;Password
                 </th>
-                <th>
+                <th class="table-content-nowrap">
                     <a href="#"><span class="glyphicon glyphicon-chevron-down sort-glyphicon">
                     </span></a>&nbsp;First Name
                 </th>
-                <th>
+                <th class="table-content-nowrap">
                     <a href="#"><span class="glyphicon glyphicon-chevron-down sort-glyphicon">
                     </span></a>&nbsp;Last Name
                 </th>
@@ -31,20 +31,22 @@
             <tr>
                 <td><label class="sr-only" for="usernameTable">username</label>
                     <input type="text"
-                              id="usernameTable"
-                              placeholder="Username"
-                              class="form-control table-input"/>
+                           id="usernameTable"
+                           placeholder="Username"
+                           class="form-control table-input"
+                           ng-model="user.username"
+                    />
                 </td>
-                <td><input type="password" placeholder="Password" class="form-control table-input"/></td>
-                <td><input type="text" placeholder="First Name" class="form-control table-input"/></td>
-                <td><input type="text" placeholder="Last Name" class="form-control table-input"/></td>
-                <td><input type="text" placeholder="Role1,Role2" class="form-control table-input"/></td>
+                <td><input type="password" placeholder="Password" class="form-control table-input" ng-model="user.password"/></td>
+                <td><input type="text" placeholder="First Name" class="form-control table-input" ng-model="user.firstName"/></td>
+                <td><input type="text" placeholder="Last Name" class="form-control table-input" ng-model="user.lastName"/></td>
+                <td><input type="text" placeholder="Role1,Role2" class="form-control table-input" ng-model="user.roles"/></td>
                 <td class="table-content-nowrap">
-                    <a href="#">
+                    <a ng-click="addUser(user)">
                         <span class="glyphicon glyphicon-plus action-glyphicon"></span>
                     </a>
                     &nbsp;
-                    <a href="#">
+                    <a ng-click="updateUser(user)">
                         <span class="glyphicon glyphicon-ok action-glyphicon"></span>
                     </a>
                 </td>
@@ -58,11 +60,11 @@
                 <td>{{u.lastName}}</td>
                 <td><span ng-repeat="r in u.roles">{{r}}&nbsp;</span></td>
                 <td class="table-content-nowrap">
-                    <a >
+                    <a ng-click="removeUser($index)">
                         <span class="glyphicon glyphicon-remove action-glyphicon"></span>
                     </a>
                     &nbsp;
-                    <a >
+                    <a ng-click="selectUser($index)">
                         <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
                     </a>
                 </td>

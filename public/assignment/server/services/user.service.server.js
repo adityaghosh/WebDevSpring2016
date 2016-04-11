@@ -194,12 +194,6 @@ module.exports = function (app, model) {
     function createUser (req, res) {
 
         var user = req.body;
-        if (typeof user.emails === 'string') {
-            user.emails = user.emails.split(",");
-            for (var i in user.emails) {
-                user.emails[i] = user.emails[i].trim();
-            }
-        }
 
         model.createUser(user)
             .then(

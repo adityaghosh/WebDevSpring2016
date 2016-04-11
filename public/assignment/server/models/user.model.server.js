@@ -94,6 +94,26 @@ module.exports = function (db, mongoose){
 
     function createUser(user) {
 
+        // Massaging the incoming data to reflect Schema.
+        // Emails
+        if (user.emails){
+            if (typeof user.emails === 'string') {
+                user.emails = user.emails.split(",");
+                for (var i in user.emails) {
+                    user.emails[i] = user.emails[i].trim();
+                }
+            }
+        }
+        // Roles
+        if (user.roles){
+            if (typeof user.roles === 'string') {
+                user.roles = user.roles.split(",");
+                for (var i in user.roles) {
+                    user.roles[i] = user.roles[i].trim();
+                }
+            }
+        }
+
         var deferred = q.defer();
         UserModel.create(
             user,
