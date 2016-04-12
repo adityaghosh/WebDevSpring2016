@@ -62,11 +62,11 @@
                 <td>{{u.lastName}}</td>
                 <td><span ng-repeat="r in u.roles">{{r}}&nbsp;</span></td>
                 <td class="table-content-nowrap">
-                    <a ng-click="removeUser($index)">
+                    <a ng-click="removeUser(u)">
                         <span class="glyphicon glyphicon-remove action-glyphicon"></span>
                     </a>
                     &nbsp;
-                    <a ng-click="selectUser($index)">
+                    <a ng-click="selectUser(u)">
                         <span class="glyphicon glyphicon-cog action-glyphicon"></span>
                     </a>
                 </td>

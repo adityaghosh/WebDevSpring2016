@@ -87,6 +87,10 @@ module.exports = function (db, mongoose){
 
         var deferred = q.defer();
         UserModel.find(
+            {
+                $query:{},
+                $orderby: {username:1}
+            },
             function (err, doc) {
                 if (err) {
                     deferred.reject(err);

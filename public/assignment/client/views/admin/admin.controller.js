@@ -10,11 +10,6 @@
         $scope.selectUser = selectUser;
         $scope.removeUser = removeUser;
 
-        $scope.sort = {
-            column: "username",
-            descending: ""
-        };
-
         $scope.selectedClsDescending = function(column) {
             return column == $scope.sort.column && $scope.sort.descending == "-";
         };
@@ -40,8 +35,6 @@
 
         var selectedUser = null;
 
-        fillUserList();
-
         function fillUserList() {
             UserService
                 .findAllUsers()
@@ -55,7 +48,15 @@
                         $rootScope.errorMessage = err;
                     }
                 );
+
+            $scope.sort = {
+                column: "username",
+                descending: ""
+            };
         }
+
+        fillUserList();
+
 
         function addUser (user) {
             if (user) {
@@ -108,8 +109,9 @@
         }
 
 
-        function removeUser(index) {
-            UserService.deleteUserById($scope.users[index]._id)
+        function removeUser(user) {
+            var i = $scope.users.indexOf(user);
+            UserService.deleteUserById($scope.users[i])
                 .then(
                     function (response) {
                         $scope.user = null;
@@ -118,9 +120,10 @@
                 );
         }
 
-        function selectUser(index) {
-            $scope.user = angular.copy($scope.users[index]);
-            selectedUser = $scope.users[index];
+        function selectUser(user) {
+            var i = $scope.users.indexOf(user);
+            $scope.user = angular.copy($scope.users[i]);
+            selectedUser = $scope.users[i];
         }
 
     }
