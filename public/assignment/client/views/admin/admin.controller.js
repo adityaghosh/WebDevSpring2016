@@ -3,12 +3,40 @@
         .module("FormBuilderApp")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, UserService) {
+    function AdminController($scope, $rootScope, UserService) {
         $scope.users = null;
         $scope.addUser = addUser;
         $scope.updateUser = updateUser;
         $scope.selectUser = selectUser;
         $scope.removeUser = removeUser;
+
+        $scope.sort = {
+            column: "username",
+            descending: ""
+        };
+
+        $scope.selectedClsDescending = function(column) {
+            return column == $scope.sort.column && $scope.sort.descending == "-";
+        };
+
+        $scope.selectedClsAscending = function(column) {
+            return column == $scope.sort.column && $scope.sort.descending == "";
+        };
+
+        $scope.changeSorting = function(column) {
+            var sort = $scope.sort;
+            if (sort.column == column) {
+                if (sort.descending == "") {
+                    sort.descending = "-";
+                }
+                else {
+                    sort.descending = "";
+                }
+            } else {
+                sort.column = column;
+                sort.descending = "";
+            }
+        };
 
         var selectedUser = null;
 

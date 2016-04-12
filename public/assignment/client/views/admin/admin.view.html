@@ -6,20 +6,22 @@
             <thead>
             <tr>
                 <th class="table-content-nowrap">
-                    <a href="#"> <span class="glyphicon glyphicon-chevron-down sort-glyphicon">
-                    </span></a>&nbsp;Username
+                    <span class="glyphicon glyphicon-triangle-top sort-glyphicon" ng-if="selectedClsAscending('username')"></span>
+                    <span class="glyphicon glyphicon-triangle-bottom sort-glyphicon" ng-if="selectedClsDescending('username')">
+                    </span>&nbsp;<a ng-click="changeSorting('username')">Username</a>
                 </th>
                 <th class="table-content-nowrap">
-                    <a href="#"><span class="glyphicon glyphicon-chevron-down sort-glyphicon">
-                    </span></a>&nbsp;Password
+                    &nbsp;Password
                 </th>
                 <th class="table-content-nowrap">
-                    <a href="#"><span class="glyphicon glyphicon-chevron-down sort-glyphicon">
-                    </span></a>&nbsp;First Name
+                    <span class="glyphicon glyphicon-triangle-top sort-glyphicon" ng-if="selectedClsAscending('firstName')"></span>
+                    <span class="glyphicon glyphicon-triangle-bottom sort-glyphicon" ng-if="selectedClsDescending('firstName')">
+                    </span>&nbsp;<a ng-click="changeSorting('firstName')">First Name</a>
                 </th>
                 <th class="table-content-nowrap">
-                    <a href="#"><span class="glyphicon glyphicon-chevron-down sort-glyphicon">
-                    </span></a>&nbsp;Last Name
+                    <span class="glyphicon glyphicon-triangle-top sort-glyphicon" ng-if="selectedClsAscending('lastName')"></span>
+                    <span class="glyphicon glyphicon-triangle-bottom sort-glyphicon" ng-if="selectedClsDescending('lastName')">
+                    </span>&nbsp;<a ng-click="changeSorting('lastName')">Last Name</a>
                 </th>
                 <th>
                     Roles
@@ -53,7 +55,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="u in users">
+            <tr ng-repeat="u in users | orderBy: sort.descending+sort.column">
                 <td>{{u.username}}</td>
                 <td><span class="sr-only">{{u.password}}</span></td>
                 <td>{{u.firstName}}</td>
@@ -65,7 +67,7 @@
                     </a>
                     &nbsp;
                     <a ng-click="selectUser($index)">
-                        <span class="glyphicon glyphicon-pencil action-glyphicon"></span>
+                        <span class="glyphicon glyphicon-cog action-glyphicon"></span>
                     </a>
                 </td>
             </tr>

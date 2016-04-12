@@ -16,12 +16,16 @@
                             function (response) {
                                 if (response.data != "null") {
                                     UserService.setCurrentUser(response.data);
-                                    $location.path("profile/"+user.username);
+                                    $location.path("profile/" + user.username);
                                 }
                                 else {
                                     $scope.wrongpassword = true;
                                 }
-                        });
+                            },
+                            function (err) {
+                                $scope.wrongpassword = true;
+                            }
+                        );
                     /*UserService
                         .findUserByCredentials(user.username, user.password)
                         .then(

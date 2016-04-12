@@ -9,7 +9,8 @@ module.exports = function (app, model) {
     {
          if (!req.isAuthenticated())
          {
-             res.send(401);
+             res.send(403);
+             //res.status(403).send();
          }
          else
          {
@@ -180,10 +181,10 @@ module.exports = function (app, model) {
 
     function createUser (req, res) {
 
-        var user = req.body;
+        var newUser = req.body;
         if (isAdmin(req.user)){
             model
-                .findUserByUserName(user.username)
+                .findUserByUserName(newUser.username)
                 .then(
                     function(user){
                         if(user) {
@@ -197,22 +198,14 @@ module.exports = function (app, model) {
                     }
                 )
                 .then(
-                    function(user){
-                        if(user){
-                            req.login(user, function(err)
-                            {
-                                if(err) {
-                                    res.status(400).send(err);
-                                } else {
-                                    res.json(user);
-                                }
-                            });
-                        }
+                    function (user) {
+                        res.json(user);
                     },
-                    function(err){
-                        res.status(400).send(err);
+                    function (err) {
+                        res.status(400).send();
                     }
                 );
+
         }
         else {
             res.send(401);
