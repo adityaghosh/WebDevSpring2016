@@ -24,15 +24,24 @@ module.exports = function (db, mongoose){
         var deferred = q.defer();
         UserModel.findOne(
             {
-                username: credentials.username,
-                password: credentials.password
+                username: credentials.username
             },
             function (err, doc) {
                 if (err) {
                     deferred.reject(err);
                 }
                 else {
-                    deferred.resolve(doc);
+                    doc
+                        .comparePassword(
+                            credentials.password,
+                            function (e, isMatch) {
+                               if(isMatch){
+                                   deferred.resolve(doc);
+                               }
+                                else {
+                                   deferred.reject(e);
+                               }
+                         });
                 }
             }
         );
@@ -113,18 +122,18 @@ module.exports = function (db, mongoose){
             }
         }
 
+        var newUser = new UserModel(user);
+
         var deferred = q.defer();
-        UserModel.create(
-            user,
-            function(err, doc){
-                if (err) {
-                    deferred.reject(err);
-                }
-                else {
-                    deferred.resolve(doc);
-                }
+        newUser.save(function (err) {
+            if (err) {
+                deferred.reject(err);
             }
-        );
+            else {
+                deferred.resolve(newUser);
+            }
+        });
+
         return deferred.promise;
 
     }
@@ -149,25 +158,39 @@ module.exports = function (db, mongoose){
     }
 
     function updateUser(userId, user) {
+
         delete user._id;
         var deferred = q.defer();
-        UserModel.update(
-            {
-                _id: userId
-            },
-            {
-                $set: user
-            },
-            function (err, doc) {
-                if (err) {
-                    deferred.reject(err);
+        UserModel
+            .findById(
+                userId,
+                function (err, doc) {
+                    if (err) {
+                        deferred.reject(err)
+                    }
+                    else {
+                        doc.username = user.username;
+                        doc.password = user.password;
+                        doc.emails = user.emails;
+                        doc.firstName = user.firstName;
+                        doc.lastName = user.lastName;
+                        doc.roles = user.roles;
+                        doc.phones = user.phones;
+                        doc
+                            .save(
+                                function (er) {
+                                    if(er) {
+                                        deferred.reject(er);
+                                    }
+                                    else {
+                                        deferred.resolve(doc);
+                                    }
+                                }
+                            );
+                    }
                 }
-                else {
+            );
 
-                    deferred.resolve(doc);
-                }
-            }
-        );
         return deferred.promise;
     }
 

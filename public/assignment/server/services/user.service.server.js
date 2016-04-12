@@ -47,12 +47,10 @@ module.exports = function (app, model) {
                     if (user) {
                         return done(null, user);
                     }
-                    done(null, false);
+                    return done(null, false);
                 },
                 function(err) {
-                    if (err) {
                         return done(err);
-                    }
                 }
             );
     }
