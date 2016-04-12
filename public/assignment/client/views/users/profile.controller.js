@@ -16,16 +16,16 @@
         };
 
         if($rootScope.currentUser) {
-            $location.url('/profile/'+$rootScope.currentUser._id);
+            $location.url('/profile/'+$rootScope.currentUser.username);
         }
 
         function update(user) {
             UserService
-                .updateUser($routeParams.userid, user)
+                .updateUser($rootScope.currentUser._id, user)
                 .then(
                     function(response) {
                         if (response.status == 200) {
-                            UserService.findUserByUserId($routeParams.userid)
+                            UserService.findUserByUserName($routeParams.username)
                                 .then(
                                     function (response) {
                                         if (response.data != "null") {

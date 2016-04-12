@@ -31,10 +31,6 @@
 
         function addUser (user) {
             if (user) {
-                if (user._id) {
-                    alert("Cannot add the same user. Please try updating!");
-                }
-                else {
                     UserService
                         .createUser($scope.user)
                         .then(
@@ -43,12 +39,14 @@
                                     $scope.user = null;
                                     fillUserList();
                                 }
+                                else {
+                                    alert("Username already exists!");
+                                }
                             },
                             function (err) {
                                 $rootScope.errorMessage = err;
                             }
                         );
-                }
             }
             else {
                 alert("Fields cannot be blank");
@@ -59,7 +57,7 @@
             if (user) {
                 if (user._id){
                     UserService
-                        .updateUser(selectedUser._id, $scope.user)
+                        .updateUserAsAdmin(selectedUser._id, $scope.user)
                         .then(
                             function (response) {
                                 if (response.data != "null") {
@@ -86,6 +84,7 @@
             UserService.deleteUserById($scope.users[index]._id)
                 .then(
                     function (response) {
+                        $scope.user = null;
                         fillUserList();
                     }
                 );

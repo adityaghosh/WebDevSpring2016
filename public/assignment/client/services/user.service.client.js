@@ -6,13 +6,13 @@
     function UserService($http, $rootScope) {
 
         var api = {
-            findUserByCredentials: findUserByCredentials,
             findUserByUserName: findUserByUserName,
             findAllUsers: findAllUsers,
             findUserByUserId: findUserByUserId,
             createUser: createUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
+            updateUserAsAdmin: updateUserAsAdmin,
             setCurrentUser: setCurrentUser,
             login: login,
             register: register,
@@ -33,32 +33,32 @@
             return $http.post('/api/assignment/register', user);
         }
 
-        function findUserByCredentials(username, password) {
-            return $http.get('/api/assignment/user'+'?username='+username+'&password='+password);
-        }
-
-        function findUserByUserName(username) {
-            return $http.get('/api/assignment/user?username='+username);
-        }
-
         function findUserByUserId(userId) {
-            return $http.get('/api/assignment/user/'+userId);
-        }
-
-        function findAllUsers() {
-            return $http.get('/api/assignment/user');
-        }
-
-        function createUser(user) {
-            return $http.post('/api/assignment/user', user);
-        }
-
-        function deleteUserById(userId) {
-            return $http.delete('/api/assignment/user/'+userId);
+            return $http.get('/api/assignment/admin/user/'+userId);
         }
 
         function updateUser(userId, user) {
             return $http.put('/api/assignment/user/'+userId, user);
+        }
+
+        function findAllUsers() {
+            return $http.get('/api/assignment/admin/user');
+        }
+
+        function createUser(user) {
+            return $http.post('/api/assignment/admin/user', user);
+        }
+
+        function deleteUserById(userId) {
+            return $http.delete('/api/assignment/admin/user/'+userId);
+        }
+
+        function updateUserAsAdmin(userId, user) {
+            return $http.put('/api/assignment/admin/user/'+userId, user);
+        }
+
+        function findUserByUserName(username) {
+            return $http.get('/api/assignment/user?username='+username);
         }
 
         // Helper function to set the rootScope user to the current user.

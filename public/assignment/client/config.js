@@ -30,7 +30,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-            .when("/profile/:userid",
+            .when("/profile/:username",
                 {
                     templateUrl: "views/users/profile.view.html",
                     controller: "ProfileController",

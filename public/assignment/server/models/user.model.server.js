@@ -55,7 +55,6 @@ module.exports = function (db, mongoose){
                 }
         });
         return deferred.promise;
-
     }
 
     function findUserById(id){
@@ -151,7 +150,6 @@ module.exports = function (db, mongoose){
 
     function updateUser(userId, user) {
         delete user._id;
-        delete user.roles;
         var deferred = q.defer();
         UserModel.update(
             {
@@ -171,7 +169,7 @@ module.exports = function (db, mongoose){
             }
         );
         return deferred.promise;
-
     }
+
 
 };
