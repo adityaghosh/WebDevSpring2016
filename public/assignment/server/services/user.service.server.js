@@ -10,7 +10,6 @@ module.exports = function (app, model) {
          if (!req.isAuthenticated())
          {
              res.send(403);
-             //res.status(403).send();
          }
          else
          {
@@ -21,7 +20,7 @@ module.exports = function (app, model) {
     app.put('/api/assignment/user/:id', updateUser);
     app.get('/api/assignment/user', findUserByUserName);
     // Added for Security
-    app.post('/api/assignment/login', passport.authenticate('local'), login);
+    app.post('/api/assignment/login', passport.authenticate('assignment'), login);
     app.post('/api/assignment/register', register);
     app.post('/api/assignment/logout', logout);
     app.get('/api/assignment/loggedin', loggedIn);
@@ -33,7 +32,7 @@ module.exports = function (app, model) {
     app.delete('/api/assignment/admin/user/:id', auth, deleteUserById);
 
 
-    passport.use(new LocalStrategy(localStrategy));
+    passport.use('assignment', new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
