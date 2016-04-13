@@ -11,11 +11,11 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li ng-if="!(currentUser)" ng-class="{'active':$location.url()== '/register'}"><a href="#/register">Register</a></li>
-            <li ng-if="!(currentUser)" ng-class="{'active':$location.url()== '/login'}"><a href="#/login">Login</a></li>
-            <li ng-if="currentUser" ng-class="{'active':$location.url()== '/profile/{{user.username}}'}"><a href="#/profile/{{currentUser.username}}">{{currentUser.username}}</a></li>
-            <li ng-if="currentUser && currentUser.roles.indexOf('admin')>=0" class="visible-xs" ng-class="{'active':$location.url()== '/admin'}"><a href="#/admin">Admin</a></li>
-            <li ng-if="currentUser" class="visible-xs" ng-class="{'active':$location.url().indexOf('forms') >= 0}"><a href="#/forms">Forms</a></li>
+            <li ng-if="!(currentUser)" ng-class="{'active':$location.url()== '/register'}"><a href="#/register" ng-click="closeHeader()">Register</a></li>
+            <li ng-if="!(currentUser)" ng-class="{'active':$location.url()== '/login'}"><a href="#/login" ng-click="closeHeader()">Login</a></li>
+            <li ng-if="currentUser" ng-class="{'active':$location.url()== '/profile/{{user.username}}'}"><a href="#/profile/{{currentUser.username}}" ng-click="closeHeader()">@{{currentUser.username}}</a></li>
+            <li ng-if="currentUser && currentUser.roles.indexOf('admin')>=0" class="visible-xs" ng-class="{'active':$location.url()== '/admin'}"><a href="#/admin" ng-click="closeHeader()">Admin</a></li>
+            <li ng-if="currentUser" class="visible-xs" ng-class="{'active':$location.url().indexOf('forms') >= 0}"><a href="#/forms" ng-click="closeHeader()">Forms</a></li>
             <li ng-if="currentUser"><a href="#" ng-click="logout()">Logout</a></li>
         </ul>
     </div>
