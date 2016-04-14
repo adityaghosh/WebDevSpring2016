@@ -26,9 +26,9 @@
                     <td><button class="fa fa-play-circle btn btn-success"></button></td>
                 </tr>-->
                 <tr ng-repeat="playlist in playlists">
-                    <td class="valign">{{playlist.playlistName}}</td>
-                    <td class="valign">{{playlist.createdBy}}</td>
-                    <td><button class="fa fa-2x fa-play-circle btn btn-success"></button></td>
+                    <td class="valign">{{playlist.title}}</td>
+                    <td class="valign">{{playlist.user.username}}</td>
+                    <td><button class="fa fa-2x fa-play-circle btn btn-success" ng-click="play(playlist)"></button></td>
                 </tr>
             </tbody>
         </table>
