@@ -111,7 +111,7 @@
 
         function removeUser(user) {
             var i = $scope.users.indexOf(user);
-            UserService.deleteUserById($scope.users[i])
+            UserService.deleteUserById($scope.users[i]._id)
                 .then(
                     function (response) {
                         $scope.user = null;
