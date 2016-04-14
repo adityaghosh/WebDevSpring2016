@@ -60,7 +60,7 @@ require("./public/experiments/chatApp/server/app")(app);
 require("./public/experiments/soundcloud/server/app")(app);
 
 // Passing app to app.js of project.
-require("./public/project/server/app.js")(app);
+require("./public/project/server/app.js")(app, db, mongoose);
 
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
