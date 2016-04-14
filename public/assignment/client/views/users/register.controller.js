@@ -30,7 +30,7 @@
                                         function(response) {
                                             if (response.data != "null") {
                                                 UserService.setCurrentUser(response.data);
-                                                $location.path("profile/"+response.data._id);
+                                                $location.path("profile/"+response.data.username);
                                             }
                                             else {
                                                 $scope.user = null;
