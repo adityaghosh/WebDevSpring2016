@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular-route.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
 
     <!-- Application Scripts -->
@@ -27,7 +28,8 @@
     <script src="view/user/register.controller.js"></script>
     <script src="view/admin/admin.controller.js"></script>
     <script src="view/musicplayer/musicplayer.controller.js"></script>
-
+    <script src="view/chat/chat.controller.js"></script>
+    <script src="view/playlist/playlistdetails.controller.js"></script>
 
     <!-- Client Services -->
     <script src="services/user.service.client.js"></script>
@@ -42,7 +44,6 @@
 
     <!-- Including Font Awesome for glyphicons http://fontawesome.io/ -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../experiments/css/offcanvas.css">
 
 </head>
 <body ng-controller="MainController">
@@ -51,29 +52,26 @@
     </nav>
     <div class="myrow"></div>
     <div class="row-offcanvas row-offcanvas-right">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div ng-view>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div ng-view class="pad-bottom">
             </div>
-            <div class="col-sm-6 text-right visible-xs" style="position: fixed; bottom: 0; right: 0; z-index: 100000;">
-                <button type="button" class="btn btn-primary" data-toggle="offcanvas">Chat</button>
+            <div class="col-sm-6 text-right" style="position: fixed; bottom: 0; right: 0; z-index: 100000;">
+                <button type="button" class="btn btn-primary" data-toggle="offcanvas" ng-if="currentPlaylist && user" ng-click="activeChat()">Chat</button>
             </div>
         </div>
-            <!--<div class="col-xs-6 col-sm-6 col-md-6 sidebar-offcanvas" id="sidebar" style="background-color: #00d6b2;">
-                <!-- style="position: fixed; bottom: 10px; right: 5px; background-color: #00d6b2; min-height: 500px; max-width: 200px"-->
-                <!--<div class="list-group">
-                    <a>Aditya</a>
-                    <a>Flop</a>
-                </div>
-            </div> -->
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 sidebar-offcanvas" id="sidebar">
+            <div ng-include="'view/chat/chat.view.html'">
+
+            </div>
+        </div>
     </div>
+
     <footer ng-include="'view/musicplayer/musicplayer.view.html'">
     </footer>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://bootswatch.com/assets/js/custom.js"></script>
-    <script src="../../experiments/js/offcanvas.js"></script>
 </body>
 </html>

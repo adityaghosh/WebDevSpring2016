@@ -29,13 +29,13 @@ var db = mongoose.connect(connectionString);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
-
+app.use(cookieParser());
 app.use(session({
     secret: secret,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+
 }));
-app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -53,7 +53,7 @@ app.get('/project', function(req, res) {
 });
 
 // Passing app to app.js of assignment.
-require("./public/assignment/server/app.js")(app, db,mongoose);
+require("./public/assignment/server/app.js")(app, db, mongoose);
 
 require("./public/experiments/chatApp/server/app")(app);
 
