@@ -15,8 +15,7 @@
                             function (response) {
                                 if (response.data != "null") {
                                     UserService.setCurrentUser(response.data);
-                                    console.log(response.data);
-                                    $location.path("profile/" + user.username);
+                                    $location.path("profile/" + response.data._id);
                                 }
                                 else {
                                     $scope.wrongpassword = true;

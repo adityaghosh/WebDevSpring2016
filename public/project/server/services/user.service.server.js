@@ -2,7 +2,9 @@
 
 var passport      = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+var SoundCloudStrategy = require('passport-soundcloud').Strategy;
+var SOUNDCLOUD_CLIENT_ID = '14325a4a3ec62d73a1b51445bab1e644';
+var SOUNDCLOUD_CLIENT_SECRET = '298d053f85f90fce4d5f5ba4f66c0316';
 module.exports = function (app, model) {
 
     var auth = function(req, res, next)
@@ -19,11 +21,12 @@ module.exports = function (app, model) {
 
     app.put('/api/project/user/:id', updateUser);
     app.get('/api/project/user', findUserByUserName);
+    app.get('/api/project/user/:id', auth, findUserById);
     // Added for Security
-    app.post('/api/project/login', passport.authenticate('assignment'), login);
+    app.post('/api/project/login', passport.authenticate('project'), login);
     app.post('/api/project/register', register);
     app.post('/api/project/logout', logout);
-    app.get('/api/project/loggedin', loggedIn);
+    app.get('/api/project/loggedIn', loggedIn);
     // Admin Endpoints
     app.post('/api/project/admin/user', auth, createUser);
     app.get('/api/project/admin/user', auth, findAllUsers);
@@ -31,10 +34,85 @@ module.exports = function (app, model) {
     app.get('/api/project/admin/user/:id', auth, findUserById);
     app.delete('/api/project/admin/user/:id', auth, deleteUserById);
 
+    app.get   ('/auth/soundcloud', passport.authenticate('soundcloud'));
+    app.get   ('/auth/soundcloud/callback',
+        passport.authenticate('soundcloud', {
+            //successRedirect: '/project/client/index.html#/profile',
+            failureRedirect: '/project/client/index.html#/login'
+        })
+        ,
+        function (req, res) {
+            res.redirect('/project/client/index.html#/profile/'+req.user._id)
+        }
+    );
+
+
+    var soundCloudConfig= {
+        clientID: SOUNDCLOUD_CLIENT_ID,
+        clientSecret: SOUNDCLOUD_CLIENT_SECRET,
+        callbackURL: "http://127.0.0.1:3000/auth/soundcloud/callback",
+        passReqToCallback : true
+
+    };
+
+    passport.use(new SoundCloudStrategy(soundCloudConfig, soundCloudStrategy));
 
     passport.use('project', new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
+    passport.serializeUser(serializeProjectUser);
+    passport.deserializeUser(deserializeProjectUser);
+
+    function soundCloudStrategy(req, accessToken, refreshToken, profile, done) {
+        if (!req.user) {
+            model
+                .findUserBySoundCloudId(profile.id)
+                .then(
+                    function(user) {
+                        if(user) {
+                            return done(null, user);
+                        } else {
+                            var names = profile.displayName.split(" ");
+                            var newSoundCloudUser = {
+                                lastName:  names[1],
+                                firstName: names[0],
+                                soundCloud: {
+                                    id:    profile.id,
+                                    token: accessToken
+                                }
+                            };
+                            return model.createUser(newSoundCloudUser);
+                        }
+                    },
+                    function(err) {
+                        if (err) { return done(err); }
+                    }
+                )
+                .then(
+                    function(user){
+                        return done(null, user);
+                    },
+                    function(err){
+                        if (err) { return done(err); }
+                    }
+                );
+        }
+        else {
+            var user = req.user;
+            user.soundCloud = {
+                id:    profile.id,
+                token: accessToken
+            };
+            model.updateUser(req.user._id, user)
+                .then(
+                    function (user) {
+                        return done(null,user);
+                    },
+                    function (err) {
+                        return done(err);
+                    }
+                );
+        }
+
+    }
 
     function localStrategy(username, password, done)
     {
@@ -54,12 +132,12 @@ module.exports = function (app, model) {
             );
     }
 
-    function serializeUser(user, done)
+    function serializeProjectUser(user, done)
     {
         done(null, user);
     }
 
-    function deserializeUser(user, done)
+    function deserializeProjectUser(user, done)
     {
         model
             .findUserById(user._id)
@@ -93,7 +171,7 @@ module.exports = function (app, model) {
     function register(req, res)
     {
         var newUser = req.body;
-        newUser.roles = ['student'];
+        newUser.roles = ['user'];
 
         model
             .findUserByUserName(newUser.username)
@@ -130,20 +208,15 @@ module.exports = function (app, model) {
 
     function findUserById(req, res) {
         var id = req.params.id;
-        if (isAdmin(req.user)) {
-            model.findUserById(id)
-                .then(
-                    function (doc) {
-                        res.json(doc);
-                    },
-                    function (err) {
-                        res.status(400).send(err);
-                    }
-                );
-        }
-        else {
-            res.send(401);
-        }
+        model.findUserById(id)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function findUserByUserName(req, res) {
