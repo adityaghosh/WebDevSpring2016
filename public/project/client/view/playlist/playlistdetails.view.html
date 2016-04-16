@@ -1,0 +1,42 @@
+<div class="container" ng-controller="PlaylistDetailController">
+    <!-- Nav tabs -->
+    <fieldset>
+        <legend>
+            All Tracks in {{playlist.playlistName}}
+        </legend>
+    <div class="tab-pane">
+        <button class="fa fa-2x fa-play-circle btn btn-success pull-right" ng-click="playPlaylist(playlist)"></button>
+        <div class="col-md-12">
+            <div class="myrow"></div>
+            <div id="details" ng-if="playlist">
+                <ul class="pager">
+                    <li class="previous" ng-class="{disabled:currentPage == 0}"><a ng-click="prevPage()">&larr; Prev</a></li>
+                    <li class="next" ng-class="{disabled:currentPage >= numberOfPages-1}"><a ng-click="nextPage()">Next &rarr;</a></li>
+                </ul>
+                <table class="table table-responsive table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            Song Name
+                        </th>
+                        <th>
+                            Uploaded to SoundCloud By
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="song in songs | startFrom:currentPage*pageSize | limitTo: pageSize">
+                        <td class="col-md-4 valign">
+                            {{song.title}}
+                        </td>
+                        <td class="col-md-6 valign">
+                            {{song.user.username}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </fieldset>
+</div>

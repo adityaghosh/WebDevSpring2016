@@ -1,10 +1,12 @@
 <div class="container">
+    <fieldset>
+        <legend>Search Results</legend>
     <search-control></search-control>
     <div class="col-md-12" ng-controller="SearchController">
-    <ul class="pager">
-        <li class="previous disabled"><a href="#">&larr; Prev</a></li>
-        <li class="next"><a href="#">Next &rarr;</a></li>
-    </ul>
+        <ul class="pager">
+            <li class="previous" ng-class="{disabled:currentPage == 0}"><a ng-click="prevPage()">&larr; Prev</a></li>
+            <li class="next" ng-class="{disabled:currentPage >= numberOfPages-1}"><a ng-click="nextPage()">Next &rarr;</a></li>
+        </ul>
         <table class="table table-responsive table-striped">
             <thead>
                 <tr>
@@ -20,17 +22,17 @@
                 </tr>
             </thead>
             <tbody>
-                <!--<tr ng-repeat="playlist in playlists.items">
-                    <td>{{playlist.name}}</td>
-                    <td><a href="{{playlist.owner.external_urls.spotify}}" target="_blank"> {{playlist.owner.id}}</a></td>
-                    <td><button class="fa fa-play-circle btn btn-success"></button></td>
-                </tr>-->
-                <tr ng-repeat="playlist in playlists">
+                <tr ng-repeat="playlist in playlists | startFrom:currentPage | limitTo: pageSize">
                     <td class="valign">{{playlist.title}}</td>
                     <td class="valign">{{playlist.user.username}}</td>
-                    <td><button class="fa fa-2x fa-play-circle btn btn-success" ng-click="play(playlist)"></button></td>
+                    <td class="nowrap">
+                        <button class="fa fa-2x fa-play-circle btn btn-success" ng-click="play(playlist)"></button>
+                        &nbsp;
+                        <button class="fa fa-2x fa-thumbs-up btn btn-success" ng-click="addToMyPlaylists(playlist)" ng-if="user"></button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    </fieldset>
 </div>

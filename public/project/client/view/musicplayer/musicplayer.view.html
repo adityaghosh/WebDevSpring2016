@@ -1,13 +1,7 @@
 <div class="footer" ng-controller="MusicPlayerController">
-    <div ng-if = "showPlayer">
-        <div class="col-xs-6">
+    <div ng-if = "showPlayer" class="pull-left">
             <!--<h6>Player for Playlist {{currentPlaylist.playlistName}} goes here.</h6>-->
             <!--<iframe ng-src='{{player}}' frameborder="0" allowtransparency="true"></iframe>-->
             <div ng-bind-html="player"></div>
-
-        </div>
-        <!--<div class="col-xs-6 text-right">
-            <a href="#" class="btn btn-primary">Chat</a>
-        </div>-->
     </div>
 </div>

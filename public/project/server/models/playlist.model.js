@@ -1,8 +1,22 @@
-//"use strict";
+"use strict";
 
 var playlists = require("./playlist.mock.json");
+var q = require('q');
 var uuid = require('node-uuid');
-module.exports = function () {
+module.exports = function (db, mongoose) {
+
+
+    var PlaylistSchema = require("./playlist.schema.server.js")(mongoose);
+
+    var PlaylistModel = mongoose.model('Playlist', PlaylistSchema);
+
+    var SC = require('node-soundcloud');
+    var clientID = '14325a4a3ec62d73a1b51445bab1e644';
+    var secret = '298d053f85f90fce4d5f5ba4f66c0316';
+    SC.init({
+        id: clientID,
+        sercret: secret
+    });
 
     var api = {
         findPlaylistByName: findPlaylistByName,
@@ -14,7 +28,11 @@ module.exports = function () {
         removeSongFromPlaylist: removeSongFromPlaylist,
         createPlaylist: createPlaylist,
         deletePlaylist: deletePlaylist,
-        updatePlaylist: updatePlaylist
+        updatePlaylist: updatePlaylist,
+        findPlaylistBySoundCloudId: findPlaylistBySoundCloudId,
+        updateUserLikesPlaylist: updateUserLikesPlaylist,
+        unlikeUser: unlikeUser
+
     };
 
     return api;
@@ -34,24 +52,123 @@ module.exports = function () {
         //.success(callback);
     }
 
+
+    function findPlaylistBySoundCloudId (soundcloudid){
+
+        var deferred = q.defer();
+        PlaylistModel.findOne(
+            {soundCloudId: soundcloudid},
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+    }
+
     function findPlaylistByPlaylistID(id){
-        var result = false;
+
+        var deferred = q.defer();
+
+        PlaylistModel.findById(
+            id,
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+
+        return deferred.promise;
+
+        /*var result = false;
         for(var i = 0; i<playlists.length ; i++) {
             if(playlists[i]._id == id) {
                 result = playlists[i];
             }
         }
-        return result;
+        return result;*/
     }
 
     function findPlaylistByUserID(userid) {
-        var results = [];
+
+        var deferred = q.defer();
+
+        PlaylistModel.find(
+            {$or :[{createdBy:userid},{likedByUserIds: userid}]},
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+
+        return deferred.promise;
+        /*var results = [];
         for (var i = 0; i<playlists.length; i++){
             if(playlists[i].createdBy == userid){
                 results.push(playlists[i]);
             }
         }
-        return results;
+        return results;*/
+    }
+
+    function updateUserLikesPlaylist(playlistid, userid) {
+
+        var deferred = q.defer();
+
+        PlaylistModel.findOne(
+            {_id:playlistid},
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    doc.likedByUserIds.push(userid);
+                    doc.save(
+                        function (err, doc) {
+                            if (err) {
+                                deferred.reject(err);
+                            }
+                            else {
+                                deferred.resolve(doc);
+                            }
+                        }
+                    );
+                }
+            }
+        );
+
+        return deferred.promise;
+    }
+
+    function unlikeUser(playlistid, userid) {
+        var deferred = q.defer();
+
+        PlaylistModel.update(
+            {_id:playlistid},
+            {$pull:{likedByUserIds:userid}},
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+
+        return deferred.promise;
     }
 
     function findSongsInPlaylist(playlistid, song_name){
@@ -68,23 +185,77 @@ module.exports = function () {
         return results;
     }
 
-    function createPlaylist(userid, playlist) {
-        var newPlaylist = {
-            "_id":uuid.v1(),
+    function createPlaylist(playlist) {
+
+        var newPlaylist = null;
+        if (playlist.id) {
+            newPlaylist = new PlaylistModel(
+                {
+                    playlistName: playlist.title,
+                    soundCloudId : playlist.id,
+                    uri: playlist.uri
+                }
+            );
+        }
+        /*else {
+            newPlaylist = new PlaylistModel({
+                playlistName: playlist.playlistName,
+                createdBy: userid
+            });
+        }*/
+        var deferred = q.defer();
+        newPlaylist.save(function (err) {
+            if (err) {
+                deferred.reject(err);
+            }
+            else {
+                deferred.resolve(newPlaylist);
+            }
+        });
+
+        return deferred.promise;
+        /*var newPlaylist = {
             "playlistName": playlist.playlistName,
             "createdBy": userid,
             "songs":[]
         };
         playlists.push(newPlaylist);
-        return newPlaylist;
+        return newPlaylist;*/
     }
 
     function findAllPlaylists() {
-        return playlists;
+        var deferred= q.defer();
+        PlaylistModel.find(
+            function (doc) {
+                deferred.resolve(newPlaylist);
+            },
+            function (err) {
+                deferred.reject(err);
+            }
+        );
+        return deferred.promise;
+        //return playlists;
     }
 
     function deletePlaylist(playlistid, userid) {
-        var found = false;
+
+        var deferred = q.defer();
+        PlaylistModel.remove(
+            {
+                _id: playlistid
+            },
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+
+        /*var found = false;
         for(var i = 0; i<playlists.length; i++) {
             if (playlists[i]._id == playlistid && playlists[i].createdBy == userid){
                 playlists.splice(i,1);
@@ -92,11 +263,37 @@ module.exports = function () {
                 break;
             }
         }
-        return found;
+        return found;*/
     }
 
     function updatePlaylist(playlistid, userid, playlist) {
-        for(var i=0; i<playlists.length; i++){
+
+        var updatedPlaylist = new PlaylistModel(playlist);
+
+        var deferred = q.defer();
+        PlaylistModel.findById(playlistid,
+            function (err, doc) {
+                if(err) {
+                    deferred.reject(err);
+                }
+                else {
+                    doc.playlistName = updatedPlaylist.playlistName;
+                    doc.songs = updatedPlaylist.songs;
+                    doc.likedByUserIds = updatedPlaylist.likedByUserIds;
+                    doc.save(function (err) {
+                        if (err) {
+                            deferred.reject(err);
+                        }
+                        else {
+                            deferred.resolve(doc);
+                        }
+                    });
+                }
+            }
+        );
+        return deferred.promise;
+
+        /*for(var i=0; i<playlists.length; i++){
             if (playlists[i]._id == playlistid){
                 if (playlists[i].createdBy == userid) {
                     playlists[i].playlistName = playlist.playlistName;
@@ -104,7 +301,7 @@ module.exports = function () {
                 }
             }
         }
-        return false;
+        return false;*/
     }
 
     function addSongToPlaylist(playlistid, song) {

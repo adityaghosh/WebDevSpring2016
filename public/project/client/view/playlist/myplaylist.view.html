@@ -1,8 +1,15 @@
 <div class="container" ng-controller="PlaylistController">
+    <!--<div class="col-md-12" ng-if="!(user.soundCloud.id)">
+        <h3>Connect to SoundCloud to access this feature</h3>
+    </div> ng-if="user.soundCloud.id"-->
+    <fieldset>
+        <legend>My Playlists</legend>
+        <h6>Search to Add Playlists</h6>
+        <search-control></search-control>
     <div class="col-md-12">
         <ul class="pager">
-            <li class="previous disabled"><a href="#">&larr; Prev</a></li>
-            <li class="next"><a href="#">Next &rarr;</a></li>
+            <li class="previous" ng-class="{disabled:currentPage == 0}"><a ng-click="prevPage()">&larr; Prev</a></li>
+            <li class="next" ng-class="{disabled:currentPage >= numberOfPages-1}"><a ng-click="nextPage()">Next &rarr;</a></li>
         </ul>
         <table class="table table-responsive table-striped">
             <thead>
@@ -14,30 +21,31 @@
                     Action
                 </th>
             </tr>
-            <tr>
+            <!--<tr>
                 <td class="valign">
-                    <input type="text" class="form-control" ng-model="playlistName" placeholder="Playlist Name">
+                    <input type="text" class="form-control" ng-model="selectedPlaylist.playlistName" placeholder="Playlist Name">
                 </td>
                 <td class="nowrap">
-                    <button class="fa fa-2x fa-plus-square btn btn-success" ng-click="addPlaylist(playlistName)"></button>
+                    <button class="fa fa-2x fa-plus-square btn btn-success" ng-click="addPlaylist(selectedPlaylist.playlistName)"></button>
                     &nbsp;
-                    <button class="fa fa-2x fa-check-square btn btn-success" ng-click="updatePlaylist()"></button>
+                    <button class="fa fa-2x fa-check-square btn btn-success" ng-click="updatePlaylist(selectedPlaylist.playlistName)"></button>
                 </td>
-            </tr>
+            </tr>-->
             </thead>
             <tbody>
-                <tr ng-repeat="playlist in playlists">
+                <tr ng-repeat="playlist in playlists | startFrom:currentPage | limitTo: pageSize">
                     <td class="valign">
-                        <a ng-click="editPlaylist(playlist)">{{playlist.playlistName}}</a>
+                        <a ng-click="viewPlaylistDetails(playlist)" class="hand">{{playlist.playlistName}}</a>
                         <!--href="#/editplaylist/{{playlist.playlistName}}"-->
                     </td>
                     <td class="nowrap">
-                        <button class="fa fa-2x fa-trash-o btn btn-success" ng-click="deletePlaylist($index)"></button>
+                        <button class="fa fa-2x fa-play-circle btn btn-success" ng-click="playPlaylist(playlist)"></button>
                         &nbsp;
-                        <button class="fa fa-2x fa-pencil-square-o btn btn-success" ng-click="selectPlaylist($index)"></button>
+                        <button class="fa fa-2x fa-thumbs-down btn btn-success" ng-click="deletePlaylist(playlist)"></button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    </fieldset>
 </div>

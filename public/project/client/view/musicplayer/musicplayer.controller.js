@@ -3,7 +3,7 @@
         .module("MusicSocial")
         .controller("MusicPlayerController", MusicPlayerController);
 
-    function MusicPlayerController ($scope, $rootScope, PlaylistService, $sce, SoundCloudService) {
+    function MusicPlayerController ($scope, $rootScope, $sce, SoundCloudService) {
         $scope = $rootScope;
         $scope.showPlayer = false;
 

@@ -14,10 +14,12 @@
             addSongToPlaylist: addSongToPlaylist,
             removeSongFromPlaylist: removeSongFromPlaylist,
             createPlaylist: createPlaylist,
-            deletePlaylist: deletePlaylist,
+            unlikePlaylist: unlikePlaylist,
             updatePlaylist: updatePlaylist,
             setCurrentlyPlaying: setCurrentlyPlaying,
-            createPlayerWidget: createPlayerWidget
+            findPlaylistBySoundCloudID: findPlaylistBySoundCloudID,
+            createPlayerWidget: createPlayerWidget,
+            addUserToPlaylist: addUserToPlaylist
         };
 
         return api;
@@ -38,16 +40,23 @@
             return $http.get("/api/project/playlist/"+playlistid+"/song?song="+songname);
         }
 
-        function createPlaylist(userid, playlist) {
+        /*function createPlaylist(userid, playlist) {
             return $http.post("/api/project/user/"+userid+"/playlist", playlist);
+        }*/
+
+        function createPlaylist(playlist) {
+            return $http.post("/api/project/playlist", playlist);
         }
 
         function findAllPlaylists() {
             return $http.get("/api/project/playlist");
         }
 
-        function deletePlaylist(playlistid) {
+        /*function deletePlaylist(playlistid) {
             return $http.delete("/api/project/user/"+$rootScope.user._id+"/playlist/"+playlistid);
+        }*/
+        function unlikePlaylist(playlistid, userid) {
+            return $http.delete("/api/project/playlist/"+playlistid+"/user/"+userid);
         }
 
         function updatePlaylist(playlistid, userid, playlist) {
@@ -68,6 +77,14 @@
 
         function createPlayerWidget(playlist) {
             return $http.post("/api/project/playlist/getPlayer", playlist);
+        }
+
+        function findPlaylistBySoundCloudID(playlistsoundcloudid) {
+            return $http.get("/api/project/playlist/soundcloudid/"+playlistsoundcloudid);
+        }
+
+        function addUserToPlaylist(playlistid, userid) {
+            return $http.put("/api/project/playlist/"+playlistid+"/user/"+ userid);
         }
     }
 })();
