@@ -10,13 +10,13 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
         <ul class="nav navbar-nav">
-            <li ng-if="!(loggedIn)" ng-class="{'active':$location.url()== '/'}"><a href="#">Home</a></li>
-            <li ng-if="!(loggedIn)" ng-class="{'active':$location.url()== '/login'}"><a href="#/login">Login</a></li>
-            <li ng-if="!(loggedIn)" ng-class="{'active':$location.url()== '/register'}"><a href="#/register">Register</a></li>
-            <li ng-if="loggedIn && user.roles.indexOf('admin')>=0" ng-class="{'active':$location.url().indexOf('/admin') >= 0}"><a href="#/admin">Users</a></li>
-            <li ng-if="loggedIn" ng-class="{'active':$location.url().indexOf('/profile') >= 0}"><a href="#/profile/{{user.username}}">Profile</a></li>
-            <li ng-if="loggedIn" ng-class="{'active':$location.url().indexOf('/playlist') >= 0 || $location.url().indexOf('/editplaylist') >= 0}"><a href="#/playlist/{{user.username}}">My Playlists</a></li>
-            <li ng-if="loggedIn"><a ng-click="logout()">Logout</a></li>
+            <li ng-if="!(user)" ng-class="{'active':$location.url()== '/'}"><a href="#" ng-click="closeHeader()">Home</a></li>
+            <li ng-if="!(user)" ng-class="{'active':$location.url()== '/login'}"><a href="#/login" ng-click="closeHeader()">Login</a></li>
+            <li ng-if="!(user)" ng-class="{'active':$location.url()== '/register'}"><a href="#/register" ng-click="closeHeader()">Register</a></li>
+            <li ng-if="user && user.roles.indexOf('admin')>=0" ng-class="{'active':$location.url().indexOf('/admin') >= 0}"><a href="#/admin" ng-click="closeHeader()">Users</a></li>
+            <li ng-if="user" ng-class="{'active':$location.url().indexOf('/profile') >= 0}"><a href="#/profile/{{user._id}}" ng-click="closeHeader()">Profile</a></li>
+            <li ng-if="user" ng-class="{'active':$location.url().indexOf('/playlist') >= 0 || $location.url().indexOf('/editplaylist') >= 0}"><a href="#/playlist/{{user._id}}" ng-click="closeHeader()">My Playlists</a></li>
+            <li ng-if="user"><a ng-click="logout()">Logout</a></li>
         </ul>
     </div>
 </div>
