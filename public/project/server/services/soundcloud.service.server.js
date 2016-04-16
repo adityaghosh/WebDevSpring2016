@@ -10,11 +10,13 @@ module.exports = function (app) {
         sercret: secret
     });
 
-    app.get("/api/soundcloud/tracks", getTracks);
-    app.get("/api/soundcloud/clientid", getClientId);
-    app.get("/api/soundcloud/playlists", getPlaylists);
+    app.get("/api/project/soundcloud/tracks", getTracks);
+    app.get("/api/project/soundcloud/clientid", getClientId);
+    app.get("/api/project/soundcloud/playlist/:sid", getPlaylist);
+    app.get("/api/project/soundcloud/playlists", getPlaylists);
 
-    var page_size = 10;
+
+    var page_size = 50;
 
     function getTracks(req, res) {
         var query = req.query.trackname;
@@ -24,7 +26,6 @@ module.exports = function (app) {
                     res.status(400).send();
                 }
                 else {
-                    //console.log(tracks);
                     res.json(tracks);
                 }
             }
@@ -39,7 +40,17 @@ module.exports = function (app) {
                     res.status(400).send();
                 }
                 else {
-                    //console.log(tracks);
+                    //Removing all playlists that have 0 tracks.
+                    for (var i in playlists) {
+                        if (!(playlists[i].tracks.length > 1)) {
+                            playlists.splice(i,1);
+                        }
+                    }
+                    for (var i in playlists) {
+                        if (!(playlists[i].tracks.length > 1)) {
+                            playlists.splice(i,1);
+                        }
+                    }
                     res.json(playlists);
                 }
             }
@@ -50,5 +61,18 @@ module.exports = function (app) {
         res.json(clientID);
     }
 
+    function getPlaylist(req, res) {
+        var soundcloudid = req.params.sid;
+        SC.get('/playlists/'+soundcloudid,
+            function (err, playlist) {
+                if (err) {
+                    res.status(400).send();
+                }
+                else {
+                    res.json(playlist);
+                }
+            }
+        );
+    }
 
 };
