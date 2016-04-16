@@ -1,5 +1,4 @@
 "use strict";
-"use strict";
 var q = require('q');
 module.exports = function (db, mongoose){
 
@@ -14,11 +13,30 @@ module.exports = function (db, mongoose){
         findUserById: findUserById,
         createUser: createUser,
         deleteUserById: deleteUserById,
-        updateUser: updateUser
+        updateUser: updateUser,
+        findUserBySoundCloudId: findUserBySoundCloudId
     };
 
     return api;
 
+    function findUserBySoundCloudId (soundCloudId) {
+
+        var deferred = q.defer();
+        UserModel.findOne(
+            {
+                'soundCloud.id': soundCloudId
+            },
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                }
+                else {
+                    deferred.resolve(doc);
+                }
+            }
+        );
+        return deferred.promise;
+    }
 
     function findUserByCredentials(credentials) {
 
@@ -170,6 +188,7 @@ module.exports = function (db, mongoose){
                         doc.firstName = user.firstName;
                         doc.lastName = user.lastName;
                         doc.roles = user.roles;
+                        doc.soundCloud = user.soundCloud;
                         doc
                             .save(
                                 function (er) {

@@ -17,7 +17,8 @@
             setCurrentUser: setCurrentUser,
             login: login,
             register: register,
-            logout: logout
+            logout: logout,
+            findUserByUserIdAdmin: findUserByUserIdAdmin
         };
 
         return api;
@@ -27,7 +28,7 @@
         }
 
         function logout () {
-            return $http.post('/api/project/logout')
+            return $http.post('/api/project/logout');
         }
 
         function register (user) {
@@ -42,20 +43,24 @@
             return $http.get('/api/project/user?username='+username);
         }
 
-        function findUserByUserId(userId) {
+        function findUserByUserIdAdmin(userId) {
             return $http.get('/api/project/admin/user/'+userId);
         }
 
+        function findUserByUserId(userId) {
+            return $http.get('/api/project/user/'+userId);
+        }
+
         function findAllUsers() {
-            return $http.get('/api/project/user');
+            return $http.get('/api/project/admin/user');
         }
 
         function createUser(user) {
-            return $http.post('/api/project/user', user);
+            return $http.post('/api/project/admin/user', user);
         }
 
         function deleteUserById(userId) {
-            return $http.delete('/api/project/user/'+userId);
+            return $http.delete('/api/project/admin/user/'+userId);
         }
 
         function updateUser(userId, user) {

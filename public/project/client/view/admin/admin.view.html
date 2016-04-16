@@ -3,48 +3,83 @@
         <legend>
             Users
         </legend>
-        <table class="table table-responsive table-striped">
-            <thead>
-            <tr>
-                <th>
-                    Username
-                </th>
-                <th>
-                    Password
-                </th>
-                <th>
-                    Admin
-                </th>
-                <th>
-                    Action
-                </th>
-            </tr>
-            <tr>
-                <td class="valign">
-                    <input type="text" placeholder="Username" class="form-control table-input" ng-model="u.username"/>
-                </td>
-                <td class="valign"><input type="password" placeholder="Password" class="form-control table-input" ng-model="u.password"/></td>
-                <td class="valign"><label><input type="checkbox" ng-model="u.isAdmin"></label></td>
-                <td class="nowrap">
-                    <a class="fa fa-2x fa-plus-square btn btn-success" ng-click="addUser(u)"></a>
-                    &nbsp;
-                    <a class="fa fa-2x fa-check-square btn btn-success" ng-click="updateUser(u)"></a>
-                </td>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr ng-repeat="u in users">
-                <td class="valign">{{u.username}}</td>
-                <td class="valign"><label class="sr-only">{{u.password}}</label> </td>
-                <td class="valign"><input type="checkbox" ng-checked="u.roles.indexOf('admin')>=0" disabled></td>
-                <td class="nowrap">
-                    <a class="fa fa-2x fa-trash-o  btn btn-success" ng-click="removeUser($index)"></a>
-                    &nbsp;
-                    <a class="fa fa-2x fa-pencil-square-o btn btn-success" ng-click="selectUser($index)"></a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <div class="form-group">
+                <input type="search" class="form-control" placeholder="Type a username to filter records" ng-model="usernameFilter">
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th class="nowrap">
+                        <span class="glyphicon glyphicon-triangle-top sort-glyphicon" ng-if="selectedClsAscending('username')"></span>
+                    <span class="glyphicon glyphicon-triangle-bottom sort-glyphicon" ng-if="selectedClsDescending('username')">
+                    </span>&nbsp;<a ng-click="changeSorting('username')" class="hand">Username</a>
+                    </th>
+                    <th class="nowrap">
+                        &nbsp;Password
+                    </th>
+                    <th class="nowrap">
+                        <span class="glyphicon glyphicon-triangle-top sort-glyphicon" ng-if="selectedClsAscending('firstName')"></span>
+                    <span class="glyphicon glyphicon-triangle-bottom sort-glyphicon" ng-if="selectedClsDescending('firstName')">
+                    </span>&nbsp;<a ng-click="changeSorting('firstName')" class="hand">First Name</a>
+                    </th>
+                    <th class="nowrap">
+                        <span class="glyphicon glyphicon-triangle-top sort-glyphicon" ng-if="selectedClsAscending('lastName')"></span>
+                    <span class="glyphicon glyphicon-triangle-bottom sort-glyphicon" ng-if="selectedClsDescending('lastName')">
+                    </span>&nbsp;<a ng-click="changeSorting('lastName')" class="hand">Last Name</a>
+                    </th>
+                    <th>
+                        Admin
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+                <tr>
+                    <td class="valign"><label class="sr-only" for="usernameTable">username</label>
+                        <input type="text"
+                               id="usernameTable"
+                               placeholder="Username"
+                               class="form-control table-input"
+                               ng-model="t_user.username"
+                        />
+                    </td>
+                    <td class="valign"><input type="password" placeholder="Password" class="form-control table-input" ng-model="t_user.password"/></td>
+                    <td class="valign"><input type="text" placeholder="First Name" class="form-control table-input" ng-model="t_user.firstName"/></td>
+                    <td class="valign"><input type="text" placeholder="Last Name" class="form-control table-input" ng-model="t_user.lastName"/></td>
+                    <td>
+                        <!--<input type="text" placeholder="Role1,Role2" class="form-control table-input" ng-model="t_user.roles"/>-->
+                        <input type="checkbox" ng-model="t_user.isAdmin" class="form-control table-input">
+                    </td>
+                    <td class="table-content-nowrap nowrap">
+                        <a ng-click="addUser(t_user)" class="fa fa-2x fa-plus-square btn btn-success">
+                        </a>
+                        &nbsp;
+                        <a ng-click="updateUser(t_user)" class="fa fa-2x fa-check-square btn btn-success">
+                        </a>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="u in users | orderBy: sort.descending+sort.column | filter: usernameFilter">
+                    <td class="valign">{{u.username}}</td>
+                    <td class="valign"><span class="sr-only">{{u.password}}</span></td>
+                    <td class="valign">{{u.firstName}}</td>
+                    <td class="valign">{{u.lastName}}</td>
+                    <td class="valign">
+                        <input type="checkbox" ng-checked="u.roles.indexOf('admin')>=0" class="form-control table-input" disabled>
+                        <!--<span ng-repeat="r in u.roles">{{r}}&nbsp;</span>-->
+                    </td>
+                    <td class="nowrap">
+                        <a ng-click="removeUser(u)" class="fa fa-2x fa-trash-o  btn btn-success">
+                        </a>
+                        &nbsp;
+                        <a ng-click="selectUser(u)" class="fa fa-2x fa-pencil-square-o btn btn-success">
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </fieldset>
 </div>
