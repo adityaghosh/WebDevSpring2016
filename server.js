@@ -66,9 +66,9 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 
-io.sockets.on('connection', function(socket){
+io.on('connection', function(socket){
     socket.on('chat message', function(id, msg){
-        io.in(id).emit('chat message'+id, msg);
+        io.in(id).emit('chat message', msg);
     });
     socket.on('create', function(room) {
         socket.join(room);

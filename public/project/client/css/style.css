@@ -17,6 +17,47 @@
 
     .row-offcanvas-right
     .sidebar-offcanvas {
+        right: -75%; /* 6 columns */
+    }
+
+    .row-offcanvas-left
+    .sidebar-offcanvas {
+        left: -75%; /* 6 columns */
+    }
+
+    .row-offcanvas-right.active {
+        right: 75%; /* 6 columns */
+    }
+
+    .row-offcanvas-left.active {
+        left: 75%; /* 6 columns */
+    }
+
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 75%; /* 6 columns */
+    }
+}
+
+@media screen and (min-width: 767px) and (max-width: 1024px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all .25s ease-out;
+        -o-transition: all .25s ease-out;
+        transition: all .25s ease-out;
+    }
+
+    .row-offcanvas-right {
+        right: 0;
+    }
+
+    .row-offcanvas-left {
+        left: 0;
+    }
+
+    .row-offcanvas-right
+    .sidebar-offcanvas {
         right: -50%; /* 6 columns */
     }
 
@@ -40,7 +81,7 @@
     }
 }
 
-@media screen and (min-width: 767px) and (max-width: 4096px){
+@media screen and (min-width: 1024px) and (max-width: 4096px){
     .row-offcanvas {
         position: relative;
         -webkit-transition: all .25s ease-out;
@@ -104,12 +145,14 @@ body {
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 100px; !important;
+    z-index: 100;
 }
 .chatblock {
-    min-height: 50vh;
-    max-height: 50vh;
+    min-height: 45vh;
+    max-height: 45vh;
     overflow-y: auto;
     background-color: #333333;
+    z-index: 0;
 }
 .valign {
     vertical-align: middle !important;
