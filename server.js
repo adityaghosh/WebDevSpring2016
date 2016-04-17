@@ -52,15 +52,20 @@ app.get('/project', function(req, res) {
    res.redirect("./client/");
 });
 
+
+var userModelAssignment = require('./public/assignment/server/models/user.model.server.js')(db, mongoose);
+var userModelProject = require('./public/project/server/models/user.model.js')(db, mongoose);
+
+require('./public/security/security.service.server')(app, userModelAssignment, userModelProject);
 // Passing app to app.js of assignment.
-require("./public/assignment/server/app.js")(app, db, mongoose);
+require("./public/assignment/server/app.js")(app, db, mongoose, userModelAssignment);
 
 require("./public/experiments/chatApp/server/app")(app);
 
 require("./public/experiments/soundcloud/server/app")(app);
 
 // Passing app to app.js of project.
-require("./public/project/server/app.js")(app, db, mongoose);
+require("./public/project/server/app.js")(app, db, mongoose, userModelProject);
 
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);

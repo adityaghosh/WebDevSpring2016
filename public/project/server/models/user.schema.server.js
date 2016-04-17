@@ -14,7 +14,8 @@ module.exports = function (mongoose) {
             token:String
         },
         likedPlaylistIds: [String],
-        roles: {type:[String], default: ["user"]}
+        roles: {type:[String], default: ["user"]},
+        type: {type:String, default:"project"}
     }, {collection: "musicsocial.user"});
 
 

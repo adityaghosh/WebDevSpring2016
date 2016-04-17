@@ -10,7 +10,8 @@ module.exports = function (mongoose) {
         lastName: String,
         emails: [String],
         roles: {type:[String], default: ["student"]},
-        phones: [String]
+        phones: [String],
+        type: {type:String, default:"assignment"}
     }, {collection: "formmaker.user"});
 
 

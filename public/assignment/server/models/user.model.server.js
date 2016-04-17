@@ -31,17 +31,22 @@ module.exports = function (db, mongoose){
                     deferred.reject(err);
                 }
                 else {
-                    doc
-                        .comparePassword(
-                            credentials.password,
-                            function (e, isMatch) {
-                               if(isMatch){
-                                   deferred.resolve(doc);
-                               }
-                                else {
-                                   deferred.reject(e);
-                               }
-                         });
+                    if (doc) {
+                        doc
+                            .comparePassword(
+                                credentials.password,
+                                function (e, isMatch) {
+                                    if(isMatch){
+                                        deferred.resolve(doc);
+                                    }
+                                    else {
+                                        deferred.reject(e);
+                                    }
+                                });
+                    }
+                    else {
+                        deferred.reject();
+                    }
                 }
             }
         );

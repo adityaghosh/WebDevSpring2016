@@ -52,17 +52,23 @@ module.exports = function (db, mongoose){
                     deferred.reject(err);
                 }
                 else {
-                    doc
-                        .comparePassword(
-                            credentials.password,
-                            function (e, isMatch) {
-                                if(isMatch){
-                                    deferred.resolve(doc);
-                                }
-                                else {
-                                    deferred.reject(e);
-                                }
-                            });
+
+                    if (doc) {
+                        doc
+                            .comparePassword(
+                                credentials.password,
+                                function (e, isMatch) {
+                                    if(isMatch){
+                                        deferred.resolve(doc);
+                                    }
+                                    else {
+                                        deferred.reject(e);
+                                    }
+                                });
+                    }
+                    else {
+                        deferred.reject();
+                    }
                 }
             }
         );
@@ -235,20 +241,24 @@ module.exports = function (db, mongoose){
                         deferred.reject(err)
                     }
                     else {
-                        doc.username = user.username;
                         doc.password = user.password;
                         doc.email = user.email;
                         doc.firstName = user.firstName;
                         doc.lastName = user.lastName;
-                        doc.roles = user.roles;
-                        doc.soundCloud = user.soundCloud;
+                        if (user.soundCloud) {
+                            doc.soundCloud = user.soundCloud;
+                        }
+                        if (user.roles) {
+                            doc.roles = user.roles;
+                        }
                         doc
                             .save(
-                                function (er) {
-                                    if(er) {
-                                        deferred.reject(er);
+                                function (err) {
+                                    if(err) {
+                                        deferred.reject(err);
                                     }
                                     else {
+                                        console.log(doc);
                                         deferred.resolve(doc);
                                     }
                                 }
@@ -259,5 +269,8 @@ module.exports = function (db, mongoose){
 
         return deferred.promise;
     }
+
+
+
 
 };

@@ -1,7 +1,7 @@
 "use strict";
 
-module.exports = function (app, db, mongoose) {
-    var UserModel = require("./models/user.model.js")(db, mongoose);
+module.exports = function (app, db, mongoose, UserModel) {
+
     var UserService = require("./services/user.service.server")(app, UserModel);
 
     var PlaylistModel = require("./models/playlist.model.js")(db, mongoose);
