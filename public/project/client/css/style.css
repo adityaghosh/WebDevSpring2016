@@ -130,3 +130,9 @@ body {
 .breakword {
     word-wrap: break-word;
 }
+.main {
+    min-height: 40vh;
+}
+.logo{
+    padding: 5px;
+}
