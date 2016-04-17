@@ -55,10 +55,10 @@
                     templateUrl:"view/search/search.view.html",
                     controller: "SearchController"
                 })
-            .when("/editplaylist/:playlistName",
+            .when("/myplaylists",
                 {
-                    templateUrl:"view/playlist/editplaylist.view.html",
-                    controller: "PlaylistDetailController",
+                    templateUrl:"view/playlist/soundcloudplaylists.view.html",
+                    controller: "SoundCloudPlaylistController",
                     resolve : {
                         loggedin: checkLoggedin
                     }

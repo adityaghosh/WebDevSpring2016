@@ -6,5 +6,5 @@ module.exports = function (app, db, mongoose) {
 
     var PlaylistModel = require("./models/playlist.model.js")(db, mongoose);
     var PlaylistService = require("./services/playlist.service.server")(app, PlaylistModel, UserModel);
-    var SoundCloudService = require("./services/soundcloud.service.server")(app);
+    var SoundCloudService = require("./services/soundcloud.service.server")(app, UserModel);
 };
