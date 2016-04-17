@@ -51,11 +51,21 @@
                     function (response) {
                         if (response.data != "null") {
                             //Add user to likes
-                            PlaylistService.addUserToPlaylist(response.data._id, $rootScope.user._id)
-                                .then(
-                                    function (response) {
-                                    }
-                                );
+                            var toAdd = true;
+                            for (var i in $rootScope.user.likedPlaylistIds) {
+                                if (response.data._id == $rootScope.user.likedPlaylistIds[i]) {
+                                    toAdd = false;
+                                    break;
+                                }
+                            }
+                            if (toAdd){
+                                PlaylistService.addUserToPlaylist(response.data._id, $rootScope.user._id)
+                                    .then(
+                                        function (response) {
+                                            $rootScope.user = response.data;
+                                        }
+                                    );
+                            }
                         }
                         else {
                             PlaylistService.createPlaylist(playlist)
@@ -65,6 +75,7 @@
                                             PlaylistService.addUserToPlaylist(response.data._id, $rootScope.user._id)
                                                 .then(
                                                     function (response) {
+                                                        $rootScope.user = response.data;
                                                     }
                                                 );
                                         }
@@ -95,43 +106,8 @@
                         }
                     }
                 );
-            //$rootScope.currentPlaylist = playlist;
-            /*SoundCloudService.getClientID()
-                .then(
-                    function (response) {
-                        if (response.data != "null") {
-                            SC.initialize({
-                                client_id: response.data
-                            });
-                            SC.oEmbed(playlist.uri,
-                                {
-                                    auto_play: true,
-                                    show_comments: false,
-                                    maxwidth: 500,
-                                    maxheight: 100
-                                })
-                                .then(function(oEmbed) {
-                                    $scope.player = $sce.trustAsHtml(oEmbed.html);
-                                    $scope.$apply();
-                                });
-                        }
-                        else {
-                            $scope.player = '<h2>Unable to load Player</h2>'
-                        }
-                    }
-                );*/
+
 
         }
-
-        /*if($routeParams.playlistName) {
-            PlaylistService.findPlaylistByName($routeParams.playlistName)
-                .then(
-                    function (response) {
-                        if (response.data != "null") {
-                            $scope.playlists = response.data;
-                        }
-                    }
-                );
-        }*/
     }
 })();

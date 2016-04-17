@@ -4,8 +4,6 @@
         .controller("PlaylistController", PlaylistController);
 
     function PlaylistController($scope, $rootScope, $location, PlaylistService) {
-        $scope.addPlaylist = addPlaylist;
-        $scope.updatePlaylist = updatePlaylist;
         $scope.deletePlaylist = deletePlaylist;
         $scope.viewPlaylistDetails = viewPlaylistDetails;
         $scope.selectedPlaylist = null;
@@ -14,6 +12,7 @@
         $scope.playPlaylist = playPlaylist;
         $scope.nextPage = nextPage;
         $scope.prevPage = prevPage;
+        $scope.playlists = []
 
         updatePlaylistList();
 
@@ -36,53 +35,26 @@
                 .then(
                     function (response) {
                         if (response.data != "null") {
-                            $scope.selectedPlaylist = null;
                             $scope.playlists = response.data;
-                            $scope.numberOfPages= $scope.playlists.length/$scope.pageSize;
+                            $scope.numberOfPages= Math.ceil($scope.playlists.length/$scope.pageSize);
                         }
                     }
                 );
         }
 
-        function addPlaylist(playlistName){
-            var newPlaylist = {"playlistName": playlistName};
-            PlaylistService.createPlaylist($rootScope.user._id, newPlaylist)
+        function deletePlaylist(playlist) {
+            PlaylistService
+                .unlikePlaylist(playlist._id, $rootScope.user._id)
                 .then(
                     function (response) {
-                        if (response.data != "null") {
+                        if (response.data) {
                             updatePlaylistList();
                         }
                     }
                 );
         }
 
-        function updatePlaylist(playlistname) {
-            if(selectedPlaylist) {
-                selectedPlaylist.playlistName = playlistname;
-                console.log(playlistname);
-                console.log(selectedPlaylist);
-                PlaylistService.updatePlaylist(selectedPlaylist._id, $rootScope.user._id, selectedPlaylist)
-                    .then(
-                        function (response) {
-                            if(response.data != "null") {
-                                updatePlaylistList();
-                            }
-                        }
-                    );
-            }
-        }
-
-        function deletePlaylist(playlist) {
-            PlaylistService.unlikePlaylist(playlist._id, $rootScope.user._id)
-                .then(
-                    function (response) {
-                        updatePlaylistList();
-                    }
-                );
-        }
-
         function viewPlaylistDetails(playlist) {
-            //PlaylistService.setCurrentlyPlaying(playlist);
             $location.url("/viewplaylist/"+playlist._id);
         }
         function playPlaylist(playlist) {

@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function (app, model) {
+module.exports = function (app, model, UserModel) {
 
 
     app.get('/api/project/playlist/:playlistid', findPlaylistById);
@@ -11,15 +11,15 @@ module.exports = function (app, model) {
     app.get('/api/project/playlist/soundcloudid/:soundcloudid', findPlaylistBySoundCloudId);
 
     app.post('/api/project/playlist/:playlistid/song', addSongToPlaylist);
-    app.post('/api/project/playlist/getPlayer', getPlayer);
+    //app.post('/api/project/playlist/getPlayer', getPlayer);
     //app.post('/api/project/user/:userid/playlist', createPlaylist);
     app.post('/api/project/playlist', createPlaylist);
     app.put('/api/project/user/:userid/playlist/:playlistid', updatePlaylist);
     app.put("/api/project/playlist/:playlistid/user/:userid", updateUserLikesPlaylist);
-    app.delete("/api/project/playlist/:playlistid/user/:userid", unlikeUser);
+    //app.delete("/api/project/playlist/:playlistid/user/:userid", unlikeUser);
 
     app.delete('/api/project/user/:userid/playlist/:playlistid', deletePlaylist);
-    app.delete('/api/project/playlist/:playlistid/song/:songid', removeSongFromPlaylist);
+    app.delete('/api/project/playlist/:playlistid/user/:userid', removeUserFromPlaylist);
 
 
 
@@ -95,14 +95,22 @@ module.exports = function (app, model) {
             );
     }
 
-    function unlikeUser(req, res) {
+    function removeUserFromPlaylist(req, res) {
         var playlistid = req.params.playlistid;
         var userid = req.params.userid;
         model
             .unlikeUser(playlistid,userid)
             .then(
                 function (doc) {
-                    res.status(200).send();
+                    return UserModel.unlikePlaylist(userid, playlistid);
+                },
+                function (err) {
+                    res.status(400).send();
+                }
+            )
+            .then(
+                function (doc) {
+                    res.json(doc);
                 },
                 function (err) {
                     res.status(400).send();
@@ -157,13 +165,6 @@ module.exports = function (app, model) {
                     res.status(400).send();
                 }
             );
-        /*var newPlaylist = model.updatePlaylist(playlistid, userid, playlist);
-        if (newPlaylist) {
-            res.json(newPlaylist);
-        }
-        else {
-            res.json({"message":"No access to update."});
-        }*/
     }
 
     function updateUserLikesPlaylist(req, res) {
@@ -174,13 +175,20 @@ module.exports = function (app, model) {
             .updateUserLikesPlaylist(playlistid, userid)
             .then(
                 function (doc) {
-                    res.json(doc);
+                    return UserModel.updateUserLikesPlaylist(userid, playlistid);
                 },
                 function (err) {
                     res.status(400).send();
                 }
+            )
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.statusCode(400).send();
+                }
             );
-
     }
 
     function deletePlaylist (req, res) {
@@ -199,24 +207,10 @@ module.exports = function (app, model) {
                     res.status(400).send();
                 }
             );
-
-        /*var found = model.deletePlaylist(playlistid, userid);
-        if (found) {
-            res.send(200);
-        }
-        else {
-            res.json({"message":"Playlist Not found. Or you do not have access to delete."})
-        }*/
     }
 
-    function removeSongFromPlaylist (req, res) {
-        var playlistid = req.params.playlistid;
-        var songid = req.params.songid;
-        var newPlaylist = model.removeSongFromPlaylist(playlistid, songid);
-        res.json(newPlaylist);
-    }
 
-    function getPlayer(req, res) {
+    /*function getPlayer(req, res) {
         var playlist = req.body;
         var songs = playlist.songs;
         var spotify_ids = [];
@@ -226,7 +220,7 @@ module.exports = function (app, model) {
         spotify_ids = spotify_ids.join(",");
         var src = "https://embed.spotify.com/?uri=spotify:trackset:"+playlist.playlistName.replace(" ","")+":"+spotify_ids;
         res.json(src);
-    }
+    }*/
 
 
 };

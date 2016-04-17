@@ -19,8 +19,8 @@ module.exports = function (app, model) {
         }
     };
 
+    app.get('/api/project/user', findUserByUserName);
     app.put('/api/project/user/:id', auth, updateUser);
-    app.get('/api/project/user', auth, findUserByUserName);
     app.get('/api/project/user/:id', auth, findUserById);
     // Added for Security
     app.post('/api/project/login', passport.authenticate('project'), login);

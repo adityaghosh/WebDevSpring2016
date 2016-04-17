@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="playlist in playlists | startFrom:currentPage | limitTo: pageSize">
+                <tr ng-repeat="playlist in playlists | startFrom:currentPage * pageSize | limitTo: pageSize">
                     <td class="valign">{{playlist.title}}</td>
                     <td class="valign">{{playlist.user.username}}</td>
                     <td class="nowrap">
