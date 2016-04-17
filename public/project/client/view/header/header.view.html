@@ -10,7 +10,7 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
         <ul class="nav navbar-nav navbar-right">
-            <li ng-if="!(user)" ng-class="{'active':$location.url()== '/'}"><a href="#" ng-click="closeHeader()">Home</a></li>
+            <li ng-class="{'active':$location.url()== '/'}"><a href="#" ng-click="closeHeader()">Home</a></li>
             <li ng-if="!(user)" ng-class="{'active':$location.url()== '/login'}"><a href="#/login" ng-click="closeHeader()">Login</a></li>
             <li ng-if="!(user)" ng-class="{'active':$location.url()== '/register'}"><a href="#/register" ng-click="closeHeader()">Register</a></li>
             <li ng-if="user && user.roles.indexOf('admin')>=0" ng-class="{'active':$location.url().indexOf('/admin') >= 0}"><a href="#/admin" ng-click="closeHeader()">Users</a></li>

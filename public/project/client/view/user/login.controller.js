@@ -15,7 +15,7 @@
                             function (response) {
                                 if (response.data != "null") {
                                     UserService.setCurrentUser(response.data);
-                                    $location.path("profile/" + response.data._id);
+                                    $location.path("#/");
                                 }
                                 else {
                                     $scope.wrongpassword = true;
@@ -26,18 +26,6 @@
                             }
                         );
                 }
-                /*UserService.findUserByCredentials(user.username, user.password)
-                    .then(
-                        function(response) {
-                            if (response.data != "null") {
-                                UserService.setCurrentUser(response.data);
-                                $location.path("profile/"+user.username);
-                            }
-                            else {
-                                $scope.wrongpassword = true;
-                            }
-                        }
-                    );*/
             }
         }
     }

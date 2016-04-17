@@ -79,7 +79,7 @@
                         loggedin: checkLoggedin
                     }
                 })
-            .when("/profile/:username",
+            .when("/profile/:userid",
                 {
                     templateUrl:"view/user/profile.view.html",
                     controller:"ProfileController",

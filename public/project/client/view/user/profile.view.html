@@ -6,45 +6,45 @@
                 <div class="container">
                 <label class="col-lg-2 col-md-2 col-sm-4 control-label nowrap">Sound Cloud Status:</label>
                 <div class="col-lg-4 col-md-4 col-sm-4">
-                    <button class="form-control btn btn-primary"  ng-if="user.soundCloud.id" disabled>Connected</button>
-                    <a class="form-control btn btn-primary" ng-if="!(user.soundCloud.id)" href="/auth/soundcloud">Connect</a>
+                    <button class="form-control btn btn-primary"  ng-if="user.soundCloud.id" disabled><span class="fa fa-soundcloud" aria-hidden="true">&nbsp;</span>Connected</button>
+                    <a class="form-control btn btn-primary" ng-if="!(user.soundCloud.id)" href="/auth/soundcloud"><span class="fa fa-soundcloud" aria-hidden="true">&nbsp;</span>Connect</Connect></a>
                 </div>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputUsername" class="col-lg-2 col-md-2 col-sm-2 control-label">Username</label>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <input type="text" class="form-control" id="inputUsername" placeholder="Username" ng-model="user.username" readonly>
+                    <input type="text" class="form-control" id="inputUsername" placeholder="Username" ng-model="u.username" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPassword" class="col-lg-2 col-md-2 col-sm-2 control-label">Password</label>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="user.password" ng-disabled="!(user.username)">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="u.password" ng-disabled="!(user.username)">
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputEmail" class="col-lg-2 col-md-2 col-sm-2 control-label">Email</label>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model="user.email">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model="u.email">
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputFirstName" class="col-lg-2 col-md-2 col-sm-2 control-label">First Name</label>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-model="user.firstName">
+                    <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" ng-model="u.firstName">
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputLastName" class="col-lg-2 col-md-2 col-sm-2 control-label">Last Name</label>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" ng-model="user.lastName">
+                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name" ng-model="u.lastName">
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-4 col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-md-4 col-sm-6">
-                    <button type="submit" class="btn btn-success btn-block" ng-click="updateProfile(user)">Update</button>
+                    <button type="submit" class="btn btn-success btn-block" ng-click="updateProfile(u)">Update</button>
                 </div>
             </div>
         </fieldset>
