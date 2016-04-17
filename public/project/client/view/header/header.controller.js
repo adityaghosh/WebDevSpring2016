@@ -15,7 +15,7 @@
                 .logout()
                 .then(
                     function (response) {
-                        $("#navbar").collapse("hide");
+                        $("#bs-example-navbar-collapse-2").collapse("hide");
                         $rootScope.user = null;
                         $rootScope.currentPlaylist = null;
                         $location.url('/');
@@ -23,7 +23,7 @@
                 );
         }
         function closeHeader() {
-            $("#navbar").collapse("hide");
+            $("#bs-example-navbar-collapse-2").collapse("hide");
         }
     }
 

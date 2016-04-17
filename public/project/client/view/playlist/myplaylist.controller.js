@@ -12,7 +12,8 @@
         $scope.playPlaylist = playPlaylist;
         $scope.nextPage = nextPage;
         $scope.prevPage = prevPage;
-        $scope.playlists = []
+        $scope.playlists = [];
+        $scope.noplaylists = false;
 
         updatePlaylistList();
 
@@ -37,6 +38,9 @@
                         if (response.data != "null") {
                             $scope.playlists = response.data;
                             $scope.numberOfPages= Math.ceil($scope.playlists.length/$scope.pageSize);
+                            if ($scope.playlists.length == 0) {
+                                $scope.noplaylists = true;
+                            }
                         }
                     }
                 );

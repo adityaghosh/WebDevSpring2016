@@ -6,16 +6,17 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">MusicSocial</a>
+        <a class="logo" href="#"><img src="img/whitelogo.png" height="55" width="90" class="logo"/></a>
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-right">
             <li ng-if="!(user)" ng-class="{'active':$location.url()== '/'}"><a href="#" ng-click="closeHeader()">Home</a></li>
             <li ng-if="!(user)" ng-class="{'active':$location.url()== '/login'}"><a href="#/login" ng-click="closeHeader()">Login</a></li>
             <li ng-if="!(user)" ng-class="{'active':$location.url()== '/register'}"><a href="#/register" ng-click="closeHeader()">Register</a></li>
             <li ng-if="user && user.roles.indexOf('admin')>=0" ng-class="{'active':$location.url().indexOf('/admin') >= 0}"><a href="#/admin" ng-click="closeHeader()">Users</a></li>
             <li ng-if="user" ng-class="{'active':$location.url().indexOf('/profile') >= 0}"><a href="#/profile/{{user._id}}" ng-click="closeHeader()">Profile</a></li>
-            <li ng-if="user" ng-class="{'active':$location.url().indexOf('/playlist') >= 0 || $location.url().indexOf('/editplaylist') >= 0}"><a href="#/playlist/{{user._id}}" ng-click="closeHeader()">My Playlists</a></li>
+            <li ng-if="user" ng-class="{'active':$location.url().indexOf('/playlist') >= 0 || $location.url().indexOf('/viewplaylist') >= 0}"><a href="#/playlist/{{user._id}}" ng-click="closeHeader()">Liked Playlists</a></li>
+            <li ng-if="user && user.soundCloud.id" ng-class="{'active':$location.url().indexOf('/myplaylists') >= 0}"><a href="#/myplaylists" ng-click="closeHeader()">SoundCloud Playlists</a></li>
             <li ng-if="user"><a ng-click="logout()">Logout</a></li>
         </ul>
     </div>
