@@ -54,9 +54,16 @@
         }
 
         function setCurrentlyPlaying (playlist) {
-            if ($rootScope.currentPlaylist._id != playlist._id) {
+
+            if ($rootScope.currentPlaylist) {
+                if ($rootScope.currentPlaylist._id != playlist._id) {
+                    $rootScope.currentPlaylist = playlist;
+                }
+            }
+            else {
                 $rootScope.currentPlaylist = playlist;
             }
+
         }
 
         function findPlaylistBySoundCloudID(playlistsoundcloudid) {
