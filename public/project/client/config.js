@@ -120,7 +120,7 @@
             // User is Authenticated
             if (user !== '0')
             {
-                if (user.soundCloud._id){
+                if (user.soundCloud.id){
                     $rootScope.user = user;
                     deferred.resolve();
                 }
