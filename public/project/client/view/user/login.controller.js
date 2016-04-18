@@ -13,13 +13,19 @@
                         .login(user)
                         .then(
                             function (response) {
-                                if (response.data != "null") {
-                                    UserService.setCurrentUser(response.data);
-                                    $location.path("#/");
-                                }
-                                else {
+                                if (response == null) {
                                     $scope.wrongpassword = true;
                                 }
+                                else {
+                                    if (response.data != "null") {
+                                        UserService.setCurrentUser(response.data);
+                                        $location.path("#/");
+                                    }
+                                    else {
+                                        $scope.wrongpassword = true;
+                                    }
+                                }
+
                             },
                             function (err) {
                                 $scope.wrongpassword = true;

@@ -3,7 +3,7 @@
         .module("MusicSocial")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($rootScope, $scope, $location, UserService) {
+    function RegisterController($scope, $location, UserService) {
         $scope.passwordsdonotmatch = false;
         $scope.usernameexists = false;
         $scope.register = register;
@@ -22,24 +22,29 @@
                     .findUserByUserName(newUser.username)
                     .then(
                         function (response) {
-                            if (response.data != "null") {
+                            if (response == null){
                                 $scope.usernameexists = true;
                             }
-                            else {
-                                UserService
-                                    .register(newUser)
-                                    .then(
-                                        function(response) {
-                                            if (response.data != "null") {
-                                                UserService.setCurrentUser(response.data);
-                                                $location.path("profile/"+response.data._id);
+                            else{
+                                if (response.data != "null") {
+                                    $scope.usernameexists = true;
+                                }
+                                else {
+                                    UserService
+                                        .register(newUser)
+                                        .then(
+                                            function(response) {
+                                                if (response.data != "null") {
+                                                    UserService.setCurrentUser(response.data);
+                                                    $location.path("profile/"+response.data._id);
+                                                }
+                                                else {
+                                                    $scope.user = null;
+                                                    alert("Something went wrong! Please try again.");
+                                                }
                                             }
-                                            else {
-                                                $scope.user = null;
-                                                alert("Something went wrong! Please try again.");
-                                            }
-                                        }
-                                    );
+                                        );
+                                }
                             }
                         }
                     );

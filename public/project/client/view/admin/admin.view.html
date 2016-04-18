@@ -7,6 +7,10 @@
             <div class="form-group">
                 <input type="search" class="form-control" placeholder="Type a username to filter records" ng-model="usernameFilter">
             </div>
+            <ul class="pager">
+                <li class="previous" ng-class="{disabled:currentPage == 0}"><a ng-click="prevPage()">&larr; Prev</a></li>
+                <li class="next" ng-class="{disabled:currentPage >= numberOfPages-1}"><a ng-click="nextPage()">Next &rarr;</a></li>
+            </ul>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -61,14 +65,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="u in users | orderBy: sort.descending+sort.column | filter: usernameFilter">
+                <tr ng-repeat="u in users | orderBy: sort.descending+sort.column | filter: usernameFilter| startFrom:currentPage * pageSize | limitTo: pageSize">
                     <td class="valign">{{u.username}}</td>
                     <td class="valign"><span class="sr-only">{{u.password}}</span></td>
                     <td class="valign">{{u.firstName}}</td>
                     <td class="valign">{{u.lastName}}</td>
                     <td class="valign">
                         <input type="checkbox" ng-checked="u.roles.indexOf('admin')>=0" class="form-control table-input" disabled>
-                        <!--<span ng-repeat="r in u.roles">{{r}}&nbsp;</span>-->
                     </td>
                     <td class="nowrap">
                         <a ng-click="removeUser(u)" class="fa fa-2x fa-trash-o  btn btn-success">

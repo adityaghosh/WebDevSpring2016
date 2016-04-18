@@ -12,6 +12,7 @@
             <label for="inputPassword" class="col-lg-2 control-label">Password</label>
             <div class="col-lg-10">
                 <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="user.password">
+                <span class="label label-danger" ng-show="wrongpassword"><strong>Invalid Credentials!</strong> Please try again.</span>
             </div>
         </div>
         <div class="form-group">

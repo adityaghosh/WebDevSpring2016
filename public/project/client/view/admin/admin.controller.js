@@ -9,6 +9,10 @@
         $scope.updateUser = updateUser;
         $scope.selectUser = selectUser;
         $scope.removeUser = removeUser;
+        $scope.currentPage = 0;
+        $scope.pageSize = 5;
+        $scope.nextPage = nextPage;
+        $scope.prevPage = prevPage;
 
         $scope.selectedClsDescending = function (column) {
             return column == $scope.sort.column && $scope.sort.descending == "-";
@@ -35,6 +39,18 @@
 
         var selectedUser = null;
 
+        function nextPage() {
+            if($scope.currentPage < $scope.numberOfPages - 1) {
+                $scope.currentPage = $scope.currentPage + 1;
+            }
+        }
+
+        function prevPage() {
+            if($scope.currentPage > 0) {
+                $scope.currentPage = $scope.currentPage - 1;
+            }
+        }
+
         function fillUserList() {
             UserService
                 .findAllUsers()
@@ -42,6 +58,7 @@
                     function (response) {
                         if (response.data != "null") {
                             $scope.users = response.data;
+                            $scope.numberOfPages= $scope.users.length/$scope.pageSize;
                         }
                     },
                     function (err) {
