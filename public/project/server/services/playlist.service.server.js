@@ -6,18 +6,12 @@ module.exports = function (app, model, UserModel) {
     app.get('/api/project/playlist/:playlistid', findPlaylistById);
     app.get('/api/project/playlist', findPlaylists);
     app.get('/api/project/user/:userid/playlist', findPlaylistByUserID);
-    app.get('/api/project/playlist/:playlistid/song', findSongsInPlaylist);
-
     app.get('/api/project/playlist/soundcloudid/:soundcloudid', findPlaylistBySoundCloudId);
 
-    app.post('/api/project/playlist/:playlistid/song', addSongToPlaylist);
-    //app.post('/api/project/playlist/getPlayer', getPlayer);
-    //app.post('/api/project/user/:userid/playlist', createPlaylist);
     app.post('/api/project/playlist', createPlaylist);
+
     app.put('/api/project/user/:userid/playlist/:playlistid', updatePlaylist);
     app.put("/api/project/playlist/:playlistid/user/:userid", updateUserLikesPlaylist);
-    //app.delete("/api/project/playlist/:playlistid/user/:userid", unlikeUser);
-
     app.delete('/api/project/user/:userid/playlist/:playlistid', deletePlaylist);
     app.delete('/api/project/playlist/:playlistid/user/:userid', removeUserFromPlaylist);
 
@@ -69,18 +63,6 @@ module.exports = function (app, model, UserModel) {
 
     }
 
-    function findSongsInPlaylist (req, res) {
-        var playlistid = req.params.playlistid;
-        var songname = req.query.song;
-        if (songname) {
-            var songs = model.findSongsInPlaylist(playlistid, songname);
-            res.json(songs);
-        }
-        else {
-            res.json({"message":"No songname given."});
-        }
-    }
-
     function findPlaylistBySoundCloudId(req, res) {
         var soundCloudId = req.params.soundcloudid;
 
@@ -116,19 +98,6 @@ module.exports = function (app, model, UserModel) {
                     res.status(400).send();
                 }
             );
-    }
-
-    function addSongToPlaylist (req, res) {
-        var playlistid = req.params.playlistid;
-        var song = req.body;
-        var newPlaylist = model.addSongToPlaylist(playlistid, song);
-        if (newPlaylist) {
-            res.json(newPlaylist);
-            res.send(200);
-        }
-        else {
-            res.json({"message":"Invalid playlistID."});
-        }
     }
 
     function createPlaylist (req, res) {
@@ -208,19 +177,5 @@ module.exports = function (app, model, UserModel) {
                 }
             );
     }
-
-
-    /*function getPlayer(req, res) {
-        var playlist = req.body;
-        var songs = playlist.songs;
-        var spotify_ids = [];
-        for (var i in songs) {
-            spotify_ids.push(songs[i].spotify_id);
-        }
-        spotify_ids = spotify_ids.join(",");
-        var src = "https://embed.spotify.com/?uri=spotify:trackset:"+playlist.playlistName.replace(" ","")+":"+spotify_ids;
-        res.json(src);
-    }*/
-
 
 };
