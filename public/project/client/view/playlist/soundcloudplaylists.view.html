@@ -11,7 +11,8 @@
                 <li class="previous" ng-class="{disabled:currentPage == 0}"><a ng-click="prevPage()">&larr; Prev</a></li>
                 <li class="next" ng-class="{disabled:currentPage >= numberOfPages-1}"><a ng-click="nextPage()">Next &rarr;</a></li>
             </ul>
-            <table class="table table-responsive table-striped">
+            <div class="table-responsive">
+            <table class="table table-condensed table-striped">
                 <thead>
                 <tr>
                     <th>
@@ -24,15 +25,16 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="playlist in playlists | startFrom: currentPage * pageSize  | limitTo: pageSize">
-                    <td class="valign">
+                    <td class="valign col-xs-8 wrapcontent">
                         <a ng-click="viewPlaylistDetails(playlist)" class="hand">{{playlist.title}}</a>
                     </td>
-                    <td class="nowrap">
+                    <td class="nowrap col-xs-4 valign">
                         <button class="fa fa-2x fa-play-circle btn btn-success" ng-click="play(playlist)"></button>
                     </td>
                 </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </fieldset>
 </div>

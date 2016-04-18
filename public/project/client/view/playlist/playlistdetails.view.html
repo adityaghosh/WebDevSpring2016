@@ -13,7 +13,8 @@
                     <li class="previous" ng-class="{disabled:currentPage == 0}"><a ng-click="prevPage()">&larr; Prev</a></li>
                     <li class="next" ng-class="{disabled:currentPage >= numberOfPages-1}"><a ng-click="nextPage()">Next &rarr;</a></li>
                 </ul>
-                <table class="table table-responsive table-striped">
+                <div class="table-responsive">
+                <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>
@@ -26,15 +27,16 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="song in songs | startFrom:currentPage*pageSize | limitTo: pageSize">
-                        <td class="col-md-4 valign">
+                        <td class="col-xs-6 valign wrapcontent">
                             {{song.title}}
                         </td>
-                        <td class="col-md-6 valign">
+                        <td class="col-xs-6 valign wrapcontent">
                             {{song.user.username}}
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

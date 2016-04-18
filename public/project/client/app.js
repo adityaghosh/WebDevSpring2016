@@ -5,7 +5,12 @@
         .filter('startFrom', function() {
             return function (input, start) {
                 start = parseInt(start, 10);
-                return input.slice(start);
+                var array = [];
+                if (input != null)
+                {
+                    return input.slice(start);
+                }
+                return array;
             }
         });
 

@@ -173,6 +173,9 @@ body {
 .breakword {
     word-wrap: break-word;
 }
+.wrapcontent{
+    white-space: normal !important;
+}
 .main {
     min-height: 40vh;
 }
