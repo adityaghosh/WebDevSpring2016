@@ -22,12 +22,10 @@
                     function (response) {
                         if(response.data) {
                             $scope.playlist = response.data;
-                            console.log(response.data);
                             SoundCloudService.getPlaylistByPlaylistId($scope.playlist.soundCloudId)
                                 .then(
                                     function (response) {
                                         if (response.data != "null") {
-                                            console.log(response.data);
                                             $scope.songs = response.data.tracks;
                                             $scope.numberOfPages= $scope.songs.length/$scope.pageSize;
                                         }

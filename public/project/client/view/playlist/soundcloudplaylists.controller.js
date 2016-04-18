@@ -19,7 +19,6 @@
                 SoundCloudService.getSoundCloudPlaylists($rootScope.user._id)
                     .then(
                         function (response) {
-                            console.log(response);
                             if (response.data != "null") {
                                 $scope.playlists = response.data;
                                 $scope.numberOfPages= $scope.playlists.length/$scope.pageSize;
