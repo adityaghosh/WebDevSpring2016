@@ -6,7 +6,6 @@ module.exports = function (mongoose) {
         playlistName: String,
         createdBy: String,
         soundCloudId: String,
-        //songs: {type:[String], default:[]},
         uri: String,
         likedByUserIds: {type:[String], default:[]}
     }, {collection: "musicsocial.playlist"});

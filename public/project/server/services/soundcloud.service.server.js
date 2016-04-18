@@ -5,7 +5,7 @@ var SOUNDCLOUD_REDIRECT_URL = process.env.SOUNDCLOUD_REDIRECT_URL;
 module.exports = function (app, UserModel) {
 
     var clientID = SOUNDCLOUD_CLIENT_ID;
-    var secret = SOUNDCLOUD_CLIENT_SECRET;
+    var clientSecret = SOUNDCLOUD_CLIENT_SECRET;
     var redirectUri = SOUNDCLOUD_REDIRECT_URL;
 
     app.get("/api/project/soundcloud/tracks", getTracks);
@@ -22,7 +22,7 @@ module.exports = function (app, UserModel) {
         if (token){
             SC.init({
                 id: clientID,
-                sercret: secret,
+                clientSercret: clientSecret,
                 uri:redirectUri,
                 accessToken: token
             });
@@ -30,7 +30,7 @@ module.exports = function (app, UserModel) {
         else {
             SC.init({
                 id: clientID,
-                sercret: secret,
+                clientSercret: clientSecret,
                 uri: redirectUri
             });
         }
@@ -119,7 +119,7 @@ module.exports = function (app, UserModel) {
                     });
                 },
                 function (err) {
-
+                    res.status(400).send();
                 }
             );
     }

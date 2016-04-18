@@ -8,7 +8,8 @@
             getTracks: getTracks,
             getClientID: getClientID,
             getPlaylists: getPlaylists,
-            getPlaylistByPlaylistId: getPlaylistByPlaylistId
+            getPlaylistByPlaylistId: getPlaylistByPlaylistId,
+            getSoundCloudPlaylists: getSoundCloudPlaylists
         };
 
         return api;
@@ -29,6 +30,9 @@
             return $http.get("/api/project/soundcloud/playlist/"+soundcloudid);
         }
 
+        function getSoundCloudPlaylists(userid) {
+            return $http.get("/api/project/soundcloud/user/"+userid+"/playlists");
+        }
     }
 
 })();
