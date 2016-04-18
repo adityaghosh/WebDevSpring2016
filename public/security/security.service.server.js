@@ -53,7 +53,9 @@ module.exports = function(app, userModelAssignment, userModelProject) {
                 .then(
                     function(user) {
                         if(user) {
-                            return done(null, user);
+                            // Refresh access token on next login.
+                            user.soundCloud.token = accessToken;
+                            return userModelProject.updateUser(user._id, user);
                         } else {
                             var names = profile.displayName.split(" ");
                             var newSoundCloudUser = {
@@ -64,7 +66,6 @@ module.exports = function(app, userModelAssignment, userModelProject) {
                                     token: accessToken
                                 }
                             };
-                            console.log(newSoundCloudUser);
                             return userModelProject.createUser(newSoundCloudUser);
                         }
                     },

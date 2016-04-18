@@ -2,12 +2,14 @@
     <div class="row col-sm-12">
         <div class="form-group">
             <label class="control-label sr-only">Search</label>
+            <form ng-submit="searchClick(playlistName)">
             <div class="input-group">
                 <input type="search" class="form-control" placeholder="Search for a Playlist.." ng-model="playlistName"/>
                     <span class="input-group-btn">
-                      <button class="btn btn-default" type="button" id="search-button" ng-click="searchClick(playlistName)">Search</button>
+                      <button class="btn btn-default" type="submit" id="search-button">Search</button>
                     </span>
             </div>
+            </form>
         </div>
     </div>
 </div>
