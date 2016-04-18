@@ -22,12 +22,12 @@
             .when("/login",
                 {
                     templateUrl:"view/user/login.view.html",
-                    controller: "LoginController",
+                    controller: "LoginController"
                 })
             .when("/register",
                 {
                     templateUrl:"view/user/register.view.html",
-                    controller: "RegisterController",
+                    controller: "RegisterController"
                 })
             .when("/admin",
                 {
@@ -60,7 +60,7 @@
                     templateUrl:"view/playlist/soundcloudplaylists.view.html",
                     controller: "SoundCloudPlaylistController",
                     resolve : {
-                        loggedin: checkLoggedin
+                        loggedin: checkSoundCloudUser
                     }
                 })
             .when("/viewplaylist/:playlistid",
@@ -111,6 +111,34 @@
         return deferred.promise;
     };
 
+    var checkSoundCloudUser =  function($q, $timeout, $http, $location, $rootScope)
+    {
+        var deferred = $q.defer();
+        $http.get('/api/project/loggedIn').success(function(user)
+        {
+            $rootScope.errorMessage = null;
+            // User is Authenticated
+            if (user !== '0')
+            {
+                if (user.soundCloud._id){
+                    $rootScope.user = user;
+                    deferred.resolve();
+                }
+                else {
+                    deferred.reject();
+                    $location.url('/home');
+                }
+            }
+            // User is Not Authenticated
+            else
+            {
+                $rootScope.errorMessage = 'You need to log in.';
+                deferred.reject();
+                $location.url('/login');
+            }
+        });
+        return deferred.promise;
+    };
 
     var checkLoggedin = function($q, $timeout, $http, $location, $rootScope)
     {
