@@ -3,7 +3,7 @@
         <legend>Register</legend>
         <form class="form-horizontal">
             <div class="form-group">
-                <label for="inputusername3" class="col-lg-2 control-label">Username
+                <label for="inputusername3" class="col-lg-2 control-label">Username<span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-10">
                     <input type="text" ng-model="user.username" class="form-control" id="inputusername3" placeholder="Username" required>
@@ -12,7 +12,7 @@
             </div>
 
             <div class="form-group">
-                <label for="inputPassword3" class="col-lg-2 control-label">Password
+                <label for="inputPassword3" class="col-lg-2 control-label">Password<span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-10">
                     <input type="password" ng-model="user.password" class="form-control" id="inputPassword3" placeholder="Password" required>
@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label for="inputVPassword3" class="col-lg-2 control-label">Verify
-                    Password</label>
+                    Password<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
                     <input type="password" ng-model="user.vpassword" class="form-control" id="inputVPassword3" placeholder="Password" required>
                     <span class="label label-danger" ng-show="passwordsdonotmatch">Passwords do not match.</span>
