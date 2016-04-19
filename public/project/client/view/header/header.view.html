@@ -17,7 +17,7 @@
             <li ng-if="user" ng-class="{'active':$location.url().indexOf('/profile') >= 0}"><a href="#/profile/{{user._id}}" ng-click="closeHeader()">Profile</a></li>
             <li ng-if="user" ng-class="{'active':$location.url().indexOf('/playlist') >= 0 || $location.url().indexOf('/viewplaylist') >= 0}"><a href="#/playlist/{{user._id}}" ng-click="closeHeader()">Liked Playlists</a></li>
             <li ng-if="user && user.soundCloud.id" ng-class="{'active':$location.url().indexOf('/myplaylists') >= 0}"><a href="#/myplaylists" ng-click="closeHeader()">SoundCloud Playlists</a></li>
-            <li ng-if="user"><a ng-click="logout()">Logout</a></li>
+            <li ng-if="user"><a ng-click="logout()" class="hand">Logout</a></li>
         </ul>
     </div>
 </div>
