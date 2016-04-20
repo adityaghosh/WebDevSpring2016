@@ -3,11 +3,12 @@
         .module("MusicSocial")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($scope, $location, UserService) {
-        $scope.passwordsdonotmatch = false;
-        $scope.usernameexists = false;
-        $scope.register = register;
-        $scope.username = "";
+    function RegisterController($location, UserService) {
+        var vm = this;
+        vm.passwordsdonotmatch = false;
+        vm.usernameexists = false;
+        vm.register = register;
+        vm.username = "";
 
         function register(user) {
             if (user.password == user.vpassword) {
@@ -23,11 +24,11 @@
                     .then(
                         function (response) {
                             if (response == null){
-                                $scope.usernameexists = true;
+                                vm.usernameexists = true;
                             }
                             else{
                                 if (response.data != "null") {
-                                    $scope.usernameexists = true;
+                                    vm.usernameexists = true;
                                 }
                                 else {
                                     UserService
@@ -39,7 +40,7 @@
                                                     $location.path("profile/"+response.data._id);
                                                 }
                                                 else {
-                                                    $scope.user = null;
+                                                    vm.user = null;
                                                     alert("Something went wrong! Please try again.");
                                                 }
                                             }
@@ -50,7 +51,7 @@
                     );
             }
             else {
-                $scope.passwordsdonotmatch = true;
+                vm.passwordsdonotmatch = true;
             }
         }
 

@@ -3,15 +3,16 @@
         .module("MusicSocial")
         .controller("SoundCloudPlaylistController", SoundCloudPlaylistController);
 
-    function SoundCloudPlaylistController($scope, $rootScope, $location, SoundCloudService, PlaylistService){
-        $scope.playlists = [];
-        $scope.play = play;
-        $scope.currentPage = 0;
-        $scope.pageSize = 5;
-        $scope.nextPage = nextPage;
-        $scope.prevPage = prevPage;
-        $scope.viewPlaylistDetails = viewPlaylistDetails;
-        $scope.nosongs = false;
+    function SoundCloudPlaylistController($rootScope, $location, SoundCloudService, PlaylistService){
+        var vm = this;
+        vm.playlists = [];
+        vm.play = play;
+        vm.currentPage = 0;
+        vm.pageSize = 5;
+        vm.nextPage = nextPage;
+        vm.prevPage = prevPage;
+        vm.viewPlaylistDetails = viewPlaylistDetails;
+        vm.nosongs = false;
 
 
         function init() {
@@ -20,14 +21,14 @@
                     .then(
                         function (response) {
                             if (response.data != "null") {
-                                $scope.playlists = response.data;
-                                $scope.numberOfPages= $scope.playlists.length/$scope.pageSize;
-                                if ($scope.playlists.length == 0) {
-                                    $scope.nosongs = true;
+                                vm.playlists = response.data;
+                                vm.numberOfPages= vm.playlists.length/vm.pageSize;
+                                if (vm.playlists.length == 0) {
+                                    vm.nosongs = true;
                                 }
                             }
                             else {
-                                $scope.playlists = [];
+                                vm.playlists = [];
                             }
                         }
                     );
@@ -37,14 +38,14 @@
         init();
 
         function nextPage() {
-            if($scope.currentPage < $scope.numberOfPages - 1) {
-                $scope.currentPage = $scope.currentPage + 1;
+            if(vm.currentPage < vm.numberOfPages - 1) {
+                vm.currentPage = vm.currentPage + 1;
             }
         }
 
         function prevPage() {
-            if($scope.currentPage > 0) {
-                $scope.currentPage = $scope.currentPage - 1;
+            if(vm.currentPage > 0) {
+                vm.currentPage = vm.currentPage - 1;
             }
         }
 

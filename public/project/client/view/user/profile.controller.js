@@ -3,36 +3,34 @@
         .module("MusicSocial")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController ($scope, $routeParams, UserService) {
-        if($routeParams.userid) {
-            $scope.updateProfile = updateProfile;
+    function ProfileController ($routeParams, UserService) {
+        var vm = this;
+        vm.updateProfile = updateProfile;
 
-            function init() {
-                UserService.findUserByUserId($routeParams.userid)
-                    .then(
-                        function (response) {
-                            if (response.data != null){
-                                UserService.setCurrentUser(response.data);
-                                $scope.u = response.data;
-                            }
+        function init() {
+            UserService.findUserByUserId($routeParams.userid)
+                .then(
+                    function (response) {
+                        if (response.data != null) {
+                            UserService.setCurrentUser(response.data);
+                            vm.u = response.data;
                         }
-                    );
-            }
+                    }
+                );
+        }
+        init();
 
-            init();
-
-            function updateProfile(user) {
-                UserService
-                    .updateUser($scope.u._id,  user)
-                    .then(
-                        function (response) {
-                            if (response.data != "null"){
-                                UserService.setCurrentUser(response.data);
-                                $scope.u = response.data;
-                            }
+        function updateProfile(user) {
+            UserService
+                .updateUser(vm.u._id,  user)
+                .then(
+                    function (response) {
+                        if (response.data != "null"){
+                            UserService.setCurrentUser(response.data);
+                            vm.u = response.data;
                         }
-                    );
-            }
+                    }
+                );
         }
     }
 })();

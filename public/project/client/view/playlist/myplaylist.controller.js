@@ -3,43 +3,44 @@
         .module("MusicSocial")
         .controller("PlaylistController", PlaylistController);
 
-    function PlaylistController($scope, $rootScope, $location, PlaylistService) {
-        $scope.deletePlaylist = deletePlaylist;
-        $scope.viewPlaylistDetails = viewPlaylistDetails;
-        $scope.selectedPlaylist = null;
-        $scope.currentPage = 0;
-        $scope.pageSize = 5;
-        $scope.playPlaylist = playPlaylist;
-        $scope.nextPage = nextPage;
-        $scope.prevPage = prevPage;
-        $scope.playlists = [];
-        $scope.noplaylists = false;
+    function PlaylistController($rootScope, $location, PlaylistService) {
+        var vm = this;
+        vm.deletePlaylist = deletePlaylist;
+        vm.viewPlaylistDetails = viewPlaylistDetails;
+        vm.selectedPlaylist = null;
+        vm.currentPage = 0;
+        vm.pageSize = 5;
+        vm.playPlaylist = playPlaylist;
+        vm.nextPage = nextPage;
+        vm.prevPage = prevPage;
+        vm.playlists = [];
+        vm.noplaylists = false;
 
-        updatePlaylistList();
+        init();
 
         var selectedPlaylist = null;
 
         function nextPage() {
-            if($scope.currentPage < $scope.numberOfPages - 1) {
-                $scope.currentPage = $scope.currentPage + 1;
+            if(vm.currentPage < vm.numberOfPages - 1) {
+                vm.currentPage = vm.currentPage + 1;
             }
         }
 
         function prevPage() {
-            if($scope.currentPage > 0) {
-                $scope.currentPage = $scope.currentPage - 1;
+            if(vm.currentPage > 0) {
+                vm.currentPage = vm.currentPage - 1;
             }
         }
 
-        function updatePlaylistList() {
+        function init() {
             PlaylistService.findPlaylistByUserID($rootScope.user._id)
                 .then(
                     function (response) {
                         if (response.data != "null") {
-                            $scope.playlists = response.data;
-                            $scope.numberOfPages= Math.ceil($scope.playlists.length/$scope.pageSize);
-                            if ($scope.playlists.length == 0) {
-                                $scope.noplaylists = true;
+                            vm.playlists = response.data;
+                            vm.numberOfPages= Math.ceil(vm.playlists.length/vm.pageSize);
+                            if (vm.playlists.length == 0) {
+                                vm.noplaylists = true;
                             }
                         }
                     }
@@ -52,7 +53,7 @@
                 .then(
                     function (response) {
                         if (response.data) {
-                            updatePlaylistList();
+                            init();
                         }
                     }
                 );

@@ -4,8 +4,8 @@
     <search-control></search-control>
     <div class="col-xs-12" ng-controller="SearchController">
         <ul class="pager">
-            <li class="previous" ng-class="{disabled:currentPage == 0}"><a ng-click="prevPage()">&larr; Prev</a></li>
-            <li class="next" ng-class="{disabled:currentPage >= numberOfPages-1}"><a ng-click="nextPage()">Next &rarr;</a></li>
+            <li class="previous" ng-class="{disabled:model.currentPage == 0}"><a ng-click="model.prevPage()">&larr; Prev</a></li>
+            <li class="next" ng-class="{disabled:model.currentPage >= model.numberOfPages-1}"><a ng-click="model.nextPage()">Next &rarr;</a></li>
         </ul>
         <div class="table-responsive">
         <table class="table table-condensed table-striped">
@@ -23,13 +23,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="playlist in playlists | startFrom:currentPage * pageSize | limitTo: pageSize">
+                <tr ng-repeat="playlist in model.playlists | startFrom:model.currentPage * model.pageSize | limitTo: model.pageSize">
                     <td class="valign col-xs-4 wrapcontent">{{playlist.title}}</td>
                     <td class="valign col-xs-4 wrapcontent">{{playlist.user.username}}</td>
                     <td class="nowrap col-xs-4 valign">
-                        <button class="fa fa-2x fa-play-circle btn btn-success" ng-click="play(playlist)"></button>
+                        <button class="fa fa-2x fa-play-circle btn btn-success" ng-click="model.play(playlist)"></button>
                         &nbsp;
-                        <button class="fa fa-2x fa-thumbs-up btn btn-success" ng-click="addToMyPlaylists(playlist)" ng-if="user"></button>
+                        <button class="fa fa-2x fa-thumbs-up btn btn-success" ng-click="model.addToMyPlaylists(playlist)" ng-if="user"></button>
                     </td>
                 </tr>
             </tbody>

@@ -6,8 +6,8 @@
                 <label for="inputusername3" class="col-lg-2 control-label">Username<span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-10">
-                    <input type="text" ng-model="user.username" class="form-control" id="inputusername3" placeholder="Username" required>
-                    <span class="label label-danger" ng-show="usernameexists">Username already exists.</span>
+                    <input type="text" ng-model="model.user.username" class="form-control" id="inputusername3" placeholder="Username" required>
+                    <span class="label label-danger" ng-show="model.usernameexists">Username already exists.</span>
                 </div>
             </div>
 
@@ -15,27 +15,27 @@
                 <label for="inputPassword3" class="col-lg-2 control-label">Password<span class="text-danger">*</span>
                 </label>
                 <div class="col-lg-10">
-                    <input type="password" ng-model="user.password" class="form-control" id="inputPassword3" placeholder="Password" required>
+                    <input type="password" ng-model="model.user.password" class="form-control" id="inputPassword3" placeholder="Password" required>
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputVPassword3" class="col-lg-2 control-label">Verify
                     Password<span class="text-danger">*</span></label>
                 <div class="col-lg-10">
-                    <input type="password" ng-model="user.vpassword" class="form-control" id="inputVPassword3" placeholder="Password" required>
-                    <span class="label label-danger" ng-show="passwordsdonotmatch">Passwords do not match.</span>
+                    <input type="password" ng-model="model.user.vpassword" class="form-control" id="inputVPassword3" placeholder="Password" required>
+                    <span class="label label-danger" ng-show="model.passwordsdonotmatch">Passwords do not match.</span>
                 </div>
             </div>
             <div class="form-group">
                 <label for="firstname3" class="col-lg-2 control-label">First Name</label>
                 <div class="col-lg-10">
-                    <input type="text" ng-model="user.firstName" class="form-control" id="firstname3" placeholder="First Name">
+                    <input type="text" ng-model="model.user.firstName" class="form-control" id="firstname3" placeholder="First Name">
                 </div>
             </div>
             <div class="form-group">
                 <label for="lastname3" class="col-lg-2 control-label">Last Name</label>
                 <div class="col-lg-10">
-                    <input type="text" ng-model="user.lastName" class="form-control" id="lastname3" placeholder="Last Name">
+                    <input type="text" ng-model="model.user.lastName" class="form-control" id="lastname3" placeholder="Last Name">
                 </div>
                 <div class="col-sm-3">
                 </div>
@@ -43,12 +43,12 @@
             <div class="form-group">
                 <label for="inputEmail3" class="col-lg-2 control-label">Email</label>
                 <div class="col-lg-10">
-                    <input type="email" ng-model="user.email" class="form-control" id="inputEmail3" placeholder="Email">
+                    <input type="email" ng-model="model.user.email" class="form-control" id="inputEmail3" placeholder="Email">
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-2">
-                    <button ng-click="register(user)" class="btn btn-success btn-block">Register</button>
+                    <button ng-click="model.register(model.user)" class="btn btn-success btn-block">Register</button>
                 </div>
             </div>
         </form>

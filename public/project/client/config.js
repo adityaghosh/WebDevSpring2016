@@ -22,17 +22,20 @@
             .when("/login",
                 {
                     templateUrl:"view/user/login.view.html",
-                    controller: "LoginController"
+                    controller: "LoginController",
+                    controllerAs: "model"
                 })
             .when("/register",
                 {
                     templateUrl:"view/user/register.view.html",
-                    controller: "RegisterController"
+                    controller: "RegisterController",
+                    controllerAs: "model"
                 })
             .when("/admin",
                 {
                     templateUrl:"view/admin/admin.view.html",
                     controller:"AdminController",
+                    controllerAs: "model",
                     resolve : {
                         loggedin: checkAdmin
                     }
@@ -41,6 +44,7 @@
                 {
                     templateUrl:"view/playlist/myplaylist.view.html",
                     controller: "PlaylistController",
+                    controllerAs: "model",
                     resolve : {
                         loggedin: checkLoggedin
                     }
@@ -48,17 +52,20 @@
             .when("/search",
                 {
                     templateUrl:"view/search/search.view.html",
-                    controller: "SearchController"
+                    controller: "SearchController",
+                    controllerAs: "model"
                 })
             .when("/search/:playlistName",
                 {
                     templateUrl:"view/search/search.view.html",
-                    controller: "SearchController"
+                    controller: "SearchController",
+                    controllerAs: "model"
                 })
             .when("/myplaylists",
                 {
                     templateUrl:"view/playlist/soundcloudplaylists.view.html",
                     controller: "SoundCloudPlaylistController",
+                    controllerAs: "model",
                     resolve : {
                         loggedin: checkSoundCloudUser
                     }
@@ -67,6 +74,7 @@
                 {
                     templateUrl:"view/playlist/playlistdetails.view.html",
                     controller: "PlaylistDetailController",
+                    controllerAs: "model",
                     resolve : {
                         loggedin: checkLoggedin
                     }
@@ -75,6 +83,7 @@
                 {
                     templateUrl:"view/user/profile.view.html",
                     controller:"ProfileController",
+                    controllerAs: "model",
                     resolve : {
                         loggedin: checkLoggedin
                     }
@@ -83,6 +92,7 @@
                 {
                     templateUrl:"view/user/profile.view.html",
                     controller:"ProfileController",
+                    controllerAs: "model",
                     resolve : {
                         loggedin: checkLoggedin
                     }

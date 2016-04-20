@@ -3,14 +3,15 @@
         .module("MusicSocial")
         .controller("SearchController", SearchController);
 
-    function SearchController($scope, $routeParams, $rootScope, PlaylistService, SoundCloudService) {
-        $scope.playlists = [];
-        $scope.play = play;
-        $scope.addToMyPlaylists = addToMyPlaylists;
-        $scope.currentPage = 0;
-        $scope.pageSize = 5;
-        $scope.nextPage = nextPage;
-        $scope.prevPage = prevPage;
+    function SearchController( $routeParams, $rootScope, PlaylistService, SoundCloudService) {
+        var vm = this;
+        vm.playlists = [];
+        vm.play = play;
+        vm.addToMyPlaylists = addToMyPlaylists;
+        vm.currentPage = 0;
+        vm.pageSize = 5;
+        vm.nextPage = nextPage;
+        vm.prevPage = prevPage;
 
 
         function init() {
@@ -19,11 +20,11 @@
                     .then(
                         function (response) {
                             if (response.data != "null") {
-                                $scope.playlists = response.data;
-                                $scope.numberOfPages= $scope.playlists.length/$scope.pageSize;
+                                vm.playlists = response.data;
+                                vm.numberOfPages= vm.playlists.length/vm.pageSize;
                             }
                             else {
-                                $scope.playlists = [];
+                                vm.playlists = [];
                             }
                         }
                     );
@@ -33,14 +34,14 @@
         init();
 
         function nextPage() {
-            if($scope.currentPage < $scope.numberOfPages - 1) {
-                $scope.currentPage = $scope.currentPage + 1;
+            if(vm.currentPage < vm.numberOfPages - 1) {
+                vm.currentPage = vm.currentPage + 1;
             }
         }
 
         function prevPage() {
-            if($scope.currentPage > 0) {
-                $scope.currentPage = $scope.currentPage - 1;
+            if(vm.currentPage > 0) {
+                vm.currentPage = vm.currentPage - 1;
             }
         }
 

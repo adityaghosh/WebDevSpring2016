@@ -3,9 +3,10 @@
         .module("MusicSocial")
         .controller("LoginController", LoginController);
 
-    function LoginController ($scope, $location, UserService) {
-        $scope.wrongpassword = false;
-        $scope.login = login;
+    function LoginController ($location, UserService) {
+        var vm = this;
+        vm.wrongpassword = false;
+        vm.login = login;
         function login(user) {
             if(user) {
                 if(user.username && user.password) {
@@ -14,7 +15,7 @@
                         .then(
                             function (response) {
                                 if (response == null) {
-                                    $scope.wrongpassword = true;
+                                    vm.wrongpassword = true;
                                 }
                                 else {
                                     if (response.data != "null") {
@@ -22,13 +23,13 @@
                                         $location.path("#/");
                                     }
                                     else {
-                                        $scope.wrongpassword = true;
+                                        vm.wrongpassword = true;
                                     }
                                 }
 
                             },
                             function (err) {
-                                $scope.wrongpassword = true;
+                                vm.wrongpassword = true;
                             }
                         );
                 }

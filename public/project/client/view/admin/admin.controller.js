@@ -3,27 +3,28 @@
         .module("MusicSocial")
         .controller("AdminController", AdminController);
 
-    function AdminController($scope, $rootScope, UserService) {
-        $scope.users = null;
-        $scope.addUser = addUser;
-        $scope.updateUser = updateUser;
-        $scope.selectUser = selectUser;
-        $scope.removeUser = removeUser;
-        $scope.currentPage = 0;
-        $scope.pageSize = 5;
-        $scope.nextPage = nextPage;
-        $scope.prevPage = prevPage;
+    function AdminController($rootScope, UserService) {
+        var vm =this;
+        vm.users = null;
+        vm.addUser = addUser;
+        vm.updateUser = updateUser;
+        vm.selectUser = selectUser;
+        vm.removeUser = removeUser;
+        vm.currentPage = 0;
+        vm.pageSize = 5;
+        vm.nextPage = nextPage;
+        vm.prevPage = prevPage;
 
-        $scope.selectedClsDescending = function (column) {
-            return column == $scope.sort.column && $scope.sort.descending == "-";
+        vm.selectedClsDescending = function (column) {
+            return column == vm.sort.column && vm.sort.descending == "-";
         };
 
-        $scope.selectedClsAscending = function (column) {
-            return column == $scope.sort.column && $scope.sort.descending == "";
+        vm.selectedClsAscending = function (column) {
+            return column == vm.sort.column && vm.sort.descending == "";
         };
 
-        $scope.changeSorting = function (column) {
-            var sort = $scope.sort;
+        vm.changeSorting = function (column) {
+            var sort = vm.sort;
             if (sort.column == column) {
                 if (sort.descending == "") {
                     sort.descending = "-";
@@ -40,25 +41,25 @@
         var selectedUser = null;
 
         function nextPage() {
-            if($scope.currentPage < $scope.numberOfPages - 1) {
-                $scope.currentPage = $scope.currentPage + 1;
+            if(vm.currentPage < vm.numberOfPages - 1) {
+                vm.currentPage = vm.currentPage + 1;
             }
         }
 
         function prevPage() {
-            if($scope.currentPage > 0) {
-                $scope.currentPage = $scope.currentPage - 1;
+            if(vm.currentPage > 0) {
+                vm.currentPage = vm.currentPage - 1;
             }
         }
 
-        function fillUserList() {
+        function init() {
             UserService
                 .findAllUsers()
                 .then(
                     function (response) {
                         if (response.data != "null") {
-                            $scope.users = response.data;
-                            $scope.numberOfPages= $scope.users.length/$scope.pageSize;
+                            vm.users = response.data;
+                            vm.numberOfPages= vm.users.length/vm.pageSize;
                         }
                     },
                     function (err) {
@@ -66,13 +67,13 @@
                     }
                 );
 
-            $scope.sort = {
+            vm.sort = {
                 column: "username",
                 descending: ""
             };
         }
 
-        fillUserList();
+        init();
 
 
         function addUser(user) {
@@ -91,8 +92,8 @@
                     .then(
                         function (response) {
                             if (response.data != "null") {
-                                $scope.t_user = null;
-                                fillUserList();
+                                vm.t_user = null;
+                                init();
                             }
                             else {
                                 alert("Username already exists!");
@@ -125,8 +126,8 @@
                         .then(
                             function (response) {
                                 if (response.data != "null") {
-                                    $scope.t_user = null;
-                                    fillUserList();
+                                    vm.t_user = null;
+                                    init();
                                 }
                             },
                             function (err) {
@@ -145,26 +146,26 @@
 
 
         function removeUser(user) {
-            var i = $scope.users.indexOf(user);
-            UserService.deleteUserById($scope.users[i]._id)
+            var i = vm.users.indexOf(user);
+            UserService.deleteUserById(vm.users[i]._id)
                 .then(
                     function (response) {
-                        $scope.user = null;
-                        fillUserList();
+                        vm.user = null;
+                        init();
                     }
                 );
         }
 
         function selectUser(user) {
-            var i = $scope.users.indexOf(user);
-            $scope.t_user = angular.copy($scope.users[i]);
-            if ($scope.users[i].roles.indexOf('admin') >=0 ) {
-                $scope.t_user.isAdmin = true;
+            var i = vm.users.indexOf(user);
+            vm.t_user = angular.copy(vm.users[i]);
+            if (vm.users[i].roles.indexOf('admin') >=0 ) {
+                vm.t_user.isAdmin = true;
             }
             else {
-                $scope.t_user.isAdmin = false;
+                vm.t_user.isAdmin = false;
             }
-            selectedUser = $scope.users[i];
+            selectedUser = vm.users[i];
         }
 
     }
