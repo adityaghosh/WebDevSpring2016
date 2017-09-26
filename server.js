@@ -12,14 +12,14 @@ var session       = require('express-session');
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev2016';
 
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+//var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
-var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var port = process.env.PORT || 3000;
 
 // use remote connection string
 // if running in remote server
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-    connectionString = process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME;
+if(process.env.MONGODB_URI) {
+    connectionString = process.env.MONGODB_URI;
 }
 
 var secret = process.env.SESSION_SECRET;
@@ -82,5 +82,10 @@ io.on('connection', function(socket){
 });
 
 //Replacing app.listen with http.listen for chat application.
-http.listen(port,ipaddress);
-//app.listen(port, ipaddress);
+http.listen(port,function() {
+    console.log('Node app is running on port', app.get('port'));
+  });
+
+/*app.listen(port, function() {
+    console.log('Node app is running on port', app.get('port'));
+});*/
